@@ -1,11 +1,74 @@
-<ion-header>
+<ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>
-      Home
-    </ion-title>
+  <ion-buttons slot="start">
+  <ion-button>
+  <ion-icon name="apps"></ion-icon>
+  </ion-button>
+  </ion-buttons>
+  
+  <ion-buttons slot="end">
+  <ion-button class="bordered" fill="solid" color="light">
+  <ion-icon color="custom" name="notifications"></ion-icon>
+  </ion-button>
+  </ion-buttons>
   </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
-</ion-content>
+  
+  <ion-item lines="none">
+  
+  <ion-avatar slot="start">
+  <img src="https://lumiere-a.akamaihd.net/v1/images/up_thingsyoumissed_3_c06b4cd1.png?region=0%2C0%2C1000%2C563">
+      </ion-avatar>
+  <ion-label>
+  <p>Hello,</p>
+  <h3>Fabian Quiroz</h3>
+  </ion-label>
+  
+  </ion-item>
+  
+  </ion-header>
+  
+  <ion-content [fullscreen]="true">
+    <div class="ion-padding">
+  
+      <ion-row class="ion-align-items-center ion-padding-horizontal">
+        <ion-col size="6">
+          <h5>8 Results</h5>
+        </ion-col>
+        <ion-col size="6" class="ion-text-right">
+          <ion-button fill="clear" color="dark">
+            <ion-icon slot="icon-only" name="ellipsis-horizontal"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+  
+      <ion-card>
+        <ion-card-header>
+          <ion-row class="ion-align-items-center">
+            <ion-col size="6">
+              <ion-badge color="warning" mode="ios">
+                <ion-icon name="star"></ion-icon>
+                4.5
+              </ion-badge>
+            </ion-col>
+  
+          </ion-row>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-img src="https://acroadtrip.blob.core.windows.net/catalogo-imagenes/s/RT_V_2712f0a8c23e4b7da783ba5fd03eaab2.jpg"></ion-img>
+  
+          <ion-row>
+            <ion-col size="8">
+              <ion-card-title>Roberto roman</ion-card-title>
+              <ion-card-subtitle>PT-CL-23</ion-card-subtitle>
+            </ion-col>
+            <ion-col size="4" class="ion-text-right">
+              <ion-button fill="clear" color="dark" size="large" routerLink="/details">
+                <ion-icon slot="icon-only" name="chevron-forward-circle-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+  
+    </div>
+  </ion-content>
