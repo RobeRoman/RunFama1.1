@@ -22,7 +22,11 @@ const routes: Routes = [
   {
     path: 'recuperar',
     loadChildren: () => import('./pages/recuperar/recuperar.module').then( m => m.RecuperarPageModule)
+  },  {
+    path: 'error404',
+    loadChildren: () => import('./pages/error404/error404.module').then( m => m.Error404PageModule)
   },
+
 ];
 
 @NgModule({
