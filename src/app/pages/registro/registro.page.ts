@@ -55,7 +55,7 @@ export class RegistroPage implements OnInit {
     ]),
     nombre: new FormControl('', [
       Validators.required, 
-      Validators.pattern("[a-zA-Z]{3,5}")
+      Validators.pattern("[a-zA-Z]{3,15}")
     ]),
     fecha_nacimiento: new FormControl('', [Validators.required]),
     genero: new FormControl('', [Validators.required]),

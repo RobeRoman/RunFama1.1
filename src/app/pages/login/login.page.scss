@@ -32,9 +32,18 @@ ion-card{
 ion-button{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     padding: 3%;
-    
 }
 
 .registro{
     text-align: center;
+}
+
+.colorlogin{
+    font-size: 45px;
+    color: rgb(0, 89, 255);
+    text-shadow: 
+    1px 1px 0 black,
+    -1px 1px 0 black,
+    1px -1px 0 black,
+    -1px -1px 0 black;;
 }

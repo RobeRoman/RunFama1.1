@@ -1,18 +1,7 @@
 
-body {
-    background-image: url(../../../assets/icon/Logoappmovil.jpg); 
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    filter: none; 
-    height: 100vh; 
-    margin: 0;
-}
-
-
 ion-card {
     background-color: rgba(245, 246, 247, 0.9);
-    width: 90%;
+    width: 65%;
     max-width: 500px;
     padding: 20px;
     border: 2px solid rgba(0, 0, 0, 0.1);
@@ -28,7 +17,6 @@ ion-card {
     color: #000; 
 }
 
-
 ion-card-title {
     text-align: center;
     font-weight: bold;
@@ -36,11 +24,9 @@ ion-card-title {
     color: #000; 
 }
 
-
 ion-input, ion-label {
     color: #000; 
 }
-
 
 ion-button {
     width: 100%;
