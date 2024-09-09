@@ -8,6 +8,7 @@
 </ion-header>
 
 <ion-content>
+  
   <ion-card>
     <form [formGroup]="persona" (ngSubmit)="registrar()">
       <br>
@@ -63,7 +64,7 @@
 
       <ion-input *ngIf="persona.controls.tiene_auto.value === 'si'" formControlName="marca_auto" type="text" label="Marca Auto" labelPlacement="stacked" fill="outline"></ion-input>
       <ion-text *ngIf="persona.controls.marca_auto.errors?.['marcaNoExiste']">
-        <p>La marca ingresada no existe en la lista.</p>
+        <p>La marca ingresada no existe en el sistema :C.</p>
       </ion-text>
       <br>
 

@@ -13,7 +13,7 @@ export class RegistroPage implements OnInit {
   email: string = ''; 
   password: string = '';
 
-  // Configuración de los botones de alerta
+
   alertButtons = [
     {
       text: 'Cancel',
@@ -81,10 +81,10 @@ export class RegistroPage implements OnInit {
     return null;
   }
 
-  // Función de validación personalizada para la marca de auto
+  // Función de validación para la marca de auto
   validarMarcaAuto(control: AbstractControl) {
     if (this.persona.controls.tiene_auto.value === 'si') {
-      const marcaIngresada = control.value?.trim().toLowerCase(); // Convierte a minúsculas y elimina espacios
+      const marcaIngresada = control.value?.trim().toLowerCase(); // minúsculas y elimina espacios
       if (marcaIngresada && !this.marcasAuto.includes(marcaIngresada)) {
         return { marcaNoExiste: true }; // Error si la marca no está en la lista
       }
