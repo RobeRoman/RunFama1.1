@@ -40,7 +40,7 @@ export class RegistroPage implements OnInit {
     'nissan', 'pagani', 'peugeot', 'porsche', 'ram', 'renault', 'rolls royce', 
     'saab', 'seat', 'skoda', 'smart', 'subaru', 'suzuki', 'tesla', 'toyota', 
     'volkswagen', 'volvo', 'byd', 'jac', 'changan', 'great wall', 'geely', 
-    'haval', 'mg', 'brilliance', 'foton', 'lynk y co', 'dongfeng', 'xpeng', 
+    'haval', 'mg', 'brilliance', 'foton', 'lynk & co', 'dongfeng', 'xpeng', 
     'nio', 'ora', 'rivian', 'polestar', 'karma', 'landwind', 'zotye', 
     'wuling', 'baojun', 'gac', 'hummer'
   ];
@@ -63,7 +63,7 @@ export class RegistroPage implements OnInit {
     tiene_auto: new FormControl('no', [Validators.required]),
     marca_auto: new FormControl('', []),
     patente: new FormControl('', []),
-    asientos_disp: new FormControl('', []),
+    asientos_disp: new FormControl('', [this.validarAsientos.bind(this)]),
   });
 
   constructor(private router: Router) { }
@@ -72,7 +72,16 @@ export class RegistroPage implements OnInit {
     this.persona.get('marca_auto')?.setValidators(this.validarMarcaAuto.bind(this));
   }
 
-  // Función de validación personalizada
+  // Función de validación personalizada para la cantidad de asientos
+  validarAsientos(control: AbstractControl) {
+    const valor = control.value;
+    if (valor < 1 || valor > 10) {
+      return { asientosInvalidos: true };
+    }
+    return null;
+  }
+
+  // Función de validación personalizada para la marca de auto
   validarMarcaAuto(control: AbstractControl) {
     if (this.persona.controls.tiene_auto.value === 'si') {
       const marcaIngresada = control.value?.trim().toLowerCase(); // Convierte a minúsculas y elimina espacios
