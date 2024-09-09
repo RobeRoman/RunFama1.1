@@ -1,15 +1,14 @@
+
 body {
-    background-image: url(/../../../assets/icon/Logoappmovil.jpg); /* Verifica esta ruta */
+    background-image: url(../../../assets/icon/Logoappmovil.jpg); 
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    filter: opacity(0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    filter: none; 
+    height: 100vh; 
     margin: 0;
 }
+
 
 ion-card {
     background-color: rgba(245, 246, 247, 0.9);
@@ -26,24 +25,27 @@ ion-card {
     margin: auto;
     position: relative;
     top: 50px;
-    color: #000; /* Cambiando el color del texto a un negro fuerte */
+    color: #000; 
 }
+
 
 ion-card-title {
     text-align: center;
     font-weight: bold;
     font-size: 30px;
-    color: #000; /* Color de título en negro fuerte */
+    color: #000; 
 }
 
+
 ion-input, ion-label {
-    color: #000; /* Color de las entradas y etiquetas en negro fuerte */
+    color: #000; 
 }
+
 
 ion-button {
     width: 100%;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     padding: 12px;
     margin-top: 20px;
-    color: #000; /* Color del texto en el botón */
+    color: #000; 
 }
