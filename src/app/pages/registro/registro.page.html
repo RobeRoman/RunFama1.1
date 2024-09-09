@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>registro</ion-title>
-    <ion-buttons solt="start">
+    <ion-title>Registro</ion-title>
+    <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
@@ -9,7 +9,7 @@
 
 <ion-content>
   <ion-card>
-        <form [formGroup]="persona" (ngSubmit)="registrar()">
+    <form [formGroup]="persona" (ngSubmit)="registrar()">
       <br>
       <ion-input formControlName="rut" type="text" labelPlacement="stacked" label="RUT" fill="outline"></ion-input>
       <br>
@@ -17,40 +17,38 @@
       <br>
       <ion-input formControlName="fecha_nacimiento" type="date" labelPlacement="stacked" label="Fecha Nacimiento" fill="outline"></ion-input>
       <br>
-      <ion-input [(ngModel)]="email" type="email" label="Correo" labelPlacement="stacked" fill="outline" ></ion-input>
+      <ion-input [(ngModel)]="email" type="email" label="Correo" labelPlacement="stacked" fill="outline"></ion-input>
       <br>
       <ion-input [(ngModel)]="password" type="password" label="Password" labelPlacement="stacked" fill="outline"></ion-input>
       <br>
 
       <ion-select formControlName="genero" label="Genero" labelPlacement="stacked" fill="outline">
-        <ion-select-option>Masculino</ion-select-option>
-        <ion-select-option>Femenino</ion-select-option>
-        <ion-select-option>Otro</ion-select-option>
+        <ion-select-option value="masculino">Masculino</ion-select-option>
+        <ion-select-option value="femenino">Femenino</ion-select-option>
+        <ion-select-option value="otro">Otro</ion-select-option>
       </ion-select>
       <br>
 
-      <!-- CORRECCIÓN: Mover las opciones dentro de <ion-select> -->
       <ion-select formControlName="sede" label="Sede Duoc" labelPlacement="stacked" fill="outline">
-        <ion-select-option>Alameda</ion-select-option>
-        <ion-select-option>Antonio Varas</ion-select-option>
-        <ion-select-option>Maipu</ion-select-option>
-        <ion-select-option>Melipilla</ion-select-option>
-        <ion-select-option>Padre Alonso de Ovalle</ion-select-option>
-        <ion-select-option>Plaza Oeste</ion-select-option>
-        <ion-select-option>Plaza Vespucio</ion-select-option>
-        <ion-select-option>Plaza Norte</ion-select-option>
-        <ion-select-option>Puente Alto</ion-select-option>
-        <ion-select-option>San Bernardo</ion-select-option>
-        <ion-select-option>San Carlos de Apoquindo</ion-select-option>
-        <ion-select-option>San Joaquin</ion-select-option>
-        <ion-select-option>Valparaiso</ion-select-option>
-        <ion-select-option>Viña del mar</ion-select-option>
-        <ion-select-option>Concepcion</ion-select-option>
-        <ion-select-option>Arauco</ion-select-option>
-        <ion-select-option>Villarica</ion-select-option>
-        <ion-select-option>Puerto Montt</ion-select-option>
+        <ion-select-option value="alameda">Alameda</ion-select-option>
+        <ion-select-option value="antonio_varas">Antonio Varas</ion-select-option>
+        <ion-select-option value="maipu">Maipu</ion-select-option>
+        <ion-select-option value="melipilla">Melipilla</ion-select-option>
+        <ion-select-option value="padre_alonso">Padre Alonso de Ovalle</ion-select-option>
+        <ion-select-option value="plaza_oeste">Plaza Oeste</ion-select-option>
+        <ion-select-option value="plaza_vespucio">Plaza Vespucio</ion-select-option>
+        <ion-select-option value="plaza_norte">Plaza Norte</ion-select-option>
+        <ion-select-option value="puente_alto">Puente Alto</ion-select-option>
+        <ion-select-option value="san_bernardo">San Bernardo</ion-select-option>
+        <ion-select-option value="san_carlos">San Carlos de Apoquindo</ion-select-option>
+        <ion-select-option value="san_joaquin">San Joaquin</ion-select-option>
+        <ion-select-option value="valparaiso">Valparaiso</ion-select-option>
+        <ion-select-option value="vina_del_mar">Viña del mar</ion-select-option>
+        <ion-select-option value="concepcion">Concepcion</ion-select-option>
+        <ion-select-option value="arauco">Arauco</ion-select-option>
+        <ion-select-option value="villarica">Villarica</ion-select-option>
+        <ion-select-option value="puerto_montt">Puerto Montt</ion-select-option>
       </ion-select>
-
       <br>
 
       <ion-label>¿Tiene Auto?</ion-label>
@@ -59,12 +57,17 @@
         <ion-radio value="no">No</ion-radio>
       </ion-radio-group>
       <br>
-      <ion-input *ngIf="persona.controls.tiene_auto.value=='si'" formControlName="marca_auto" type="text" label="Marca Auto" labelPlacement="stacked" fill="outline"></ion-input>
+
+      <ion-input *ngIf="persona.controls.tiene_auto.value === 'si'" formControlName="marca_auto" type="text" label="Marca Auto" labelPlacement="stacked" fill="outline"></ion-input>
+      <ion-text *ngIf="persona.controls.marca_auto.errors?.['marcaNoExiste']">
+        <p>La marca ingresada no existe en la lista.</p>
+      </ion-text>
       <br>
-      <ion-input *ngIf="persona.controls.tiene_auto.value=='si'" formControlName="patente" type="text" label="Patente" labelPlacement="stacked" fill="outline"></ion-input>
+
+      <ion-input *ngIf="persona.controls.tiene_auto.value === 'si'" formControlName="patente" type="text" label="Patente" labelPlacement="stacked" fill="outline"></ion-input>
       <br>
-      <ion-input *ngIf="persona.controls.tiene_auto.value=='si'" formControlName="asientos_disp" type="number" label="Asientos Disp." labelPlacement="stacked" fill="outline"></ion-input>
-      
+      <ion-input *ngIf="persona.controls.tiene_auto.value === 'si'" formControlName="asientos_disp" type="number" label="Asientos Disp." labelPlacement="stacked" fill="outline"></ion-input>
+
       <ion-button id="present-alert" [disabled]="persona.invalid" type="submit" size="block" color="warning">REGISTRAR</ion-button>
       <ion-alert trigger="present-alert" header="alert!" [buttons]="alertButtons" (didDismiss)="setResult($event)"></ion-alert>
     </form>

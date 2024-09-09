@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,55 +9,88 @@ import { Router } from '@angular/router';
 })
 export class RegistroPage implements OnInit {
 
-  persona = new FormGroup({
-    rut:new FormControl('',[Validators.minLength(9),Validators.maxLength(10),Validators.required, Validators.pattern("[0-9]{7,8}-[0-9kK]{1}")]), 
-    nombre:new FormControl('',[Validators.required,Validators.pattern("[a-z-A-Z]{3,5}")]), 
-    fecha_nacimiento:new FormControl('',[Validators.required,]), 
-    genero:new FormControl('',[Validators.required]), //el required es para que sea obligatorio el dato 
-    sede:new FormControl('',[Validators.required]),
-    //validar la fecha de nacimiento creando un metodo,
-    tiene_auto: new FormControl('no',[Validators.required]),
-    marca_auto: new FormControl('',[]),
-    patente: new FormControl('',[]),
-    asientos_disp: new FormControl('',[]),
-  });
-  
-  public alertButtons = [
+  // Declara las propiedades email y password
+  email: string = ''; 
+  password: string = '';
+
+  // Configuración de los botones de alerta
+  alertButtons = [
     {
       text: 'Cancel',
       role: 'cancel',
       handler: () => {
-        console.log('Alert canceled');
-      },
+        console.log('Cancel clicked');
+      }
     },
     {
       text: 'OK',
       role: 'confirm',
       handler: () => {
-        console.log('Alert confirmed');
-      },
-    },
+        console.log('OK clicked');
+      }
+    }
   ];
 
-  email: string ="";
-  password: string = "";
+  // Lista de marcas de autos
+  marcasAuto: string[] = [
+    'abarth', 'acura', 'alfa romeo', 'audi', 'bmw', 'bentley', 'buick', 'cadillac', 
+    'chevrolet', 'citroën', 'dodge', 'fiat', 'ford', 'genesis', 'honda', 'hyundai', 
+    'infiniti', 'jaguar', 'jeep', 'kia', 'lamborghini', 'land rover', 'lexus', 
+    'lincoln', 'maserati', 'mazda', 'mclaren', 'mercedes benz', 'mini', 'mitsubishi', 
+    'nissan', 'pagani', 'peugeot', 'porsche', 'ram', 'renault', 'rolls royce', 
+    'saab', 'seat', 'skoda', 'smart', 'subaru', 'suzuki', 'tesla', 'toyota', 
+    'volkswagen', 'volvo', 'byd', 'jac', 'changan', 'great wall', 'geely', 
+    'haval', 'mg', 'brilliance', 'foton', 'lynk y co', 'dongfeng', 'xpeng', 
+    'nio', 'ora', 'rivian', 'polestar', 'karma', 'landwind', 'zotye', 
+    'wuling', 'baojun', 'gac', 'hummer'
+  ];
 
-  constructor(private router: Router) {}
+  // Formulario
+  persona = new FormGroup({
+    rut: new FormControl('', [
+      Validators.minLength(9), 
+      Validators.maxLength(10), 
+      Validators.required, 
+      Validators.pattern("[0-9]{7,8}-[0-9kK]{1}")
+    ]),
+    nombre: new FormControl('', [
+      Validators.required, 
+      Validators.pattern("[a-zA-Z]{3,5}")
+    ]),
+    fecha_nacimiento: new FormControl('', [Validators.required]),
+    genero: new FormControl('', [Validators.required]),
+    sede: new FormControl('', [Validators.required]),
+    tiene_auto: new FormControl('no', [Validators.required]),
+    marca_auto: new FormControl('', []),
+    patente: new FormControl('', []),
+    asientos_disp: new FormControl('', []),
+  });
+
+  constructor(private router: Router) { }
 
   ngOnInit() {
+    this.persona.get('marca_auto')?.setValidators(this.validarMarcaAuto.bind(this));
   }
 
-  //podemos crear metodos:
-  public registrar():void{
-    //validaciones? llamar un DAO? conversion?}
+  // Función de validación personalizada
+  validarMarcaAuto(control: AbstractControl) {
+    if (this.persona.controls.tiene_auto.value === 'si') {
+      const marcaIngresada = control.value?.trim().toLowerCase(); // Convierte a minúsculas y elimina espacios
+      if (marcaIngresada && !this.marcasAuto.includes(marcaIngresada)) {
+        return { marcaNoExiste: true }; // Error si la marca no está en la lista
+      }
+    }
+    return null; // Sin errores si la marca existe
+  }
+
+  registrar() {
     console.log(this.persona.value);
-    alert("registrado!");
+    alert("¡Registrado con éxito!");
     this.router.navigate(['/login']);
-
   }
 
-  setResult(ev:any) {
-    console.log(`Dismissed with role: ${ev.detail.role}`);
+  // Función para manejar el resultado de la alerta
+  setResult(ev: any) {
+    console.log('Alerta cerrada con rol:', ev.detail.role);
   }
-
 }
