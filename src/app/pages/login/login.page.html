@@ -5,8 +5,8 @@
     </ion-card-header>
     <br>
     <ion-card-content>
-      <ion-input  [(ngModel)]="email" type="email" label="Correo" labelPlacement="floating" fill="outline">
-        <ion-icon  slot="start" color="black" size="large" name="mail"></ion-icon>        
+      <ion-input [(ngModel)]="email" type="email" label="Correo" labelPlacement="floating" fill="outline">
+        <ion-icon slot="start" color="black" size="large" name="mail"></ion-icon>
       </ion-input>
       <br>
       <ion-input [(ngModel)]="password" type="password" label="Contraseña" labelPlacement="stacked" fill="outline">
@@ -16,6 +16,10 @@
       <ion-button (click)="login()" size="block" color="warning">Iniciar</ion-button>
       <p class="registro">Si no tienes cuenta, registrate!</p>
       <ion-button size="block" color="primary" routerLink="/registro">Registrate</ion-button>
+      <div class="centered-button">
+        <ion-button size="small" fill="clear" color="tertiary" routerLink="/recuperar">Recuperar contraseña</ion-button>
+      </div>
     </ion-card-content>
   </ion-card>
+
 </body>

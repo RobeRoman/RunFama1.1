@@ -1,0 +1,46 @@
+
+ion-content {
+    --background: rgba(27, 165, 219, 0.8); /* Fondo celeste semi-transparente */
+  }
+  
+  /* Mantén la tarjeta centrada en la página */
+  .content-wrapper {
+    display: flex;
+    flex-direction: column; /* Alinea el contenido verticalmente */
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+    padding: 10px;
+  }
+  
+  ion-card {
+    width: 90%; /* Ajusta el ancho de la tarjeta para que ocupe un mayor porcentaje del contenedor */
+    max-width: 600px; /* Ajusta el tamaño máximo de la tarjeta según tus necesidades */
+    background: rgba(255, 255, 255, 0.9); /* Fondo blanco semi-transparente para la tarjeta */
+    border-radius: 16px; /* Bordes redondeados más pronunciados */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+    padding: 30px; /* Espaciado interno más amplio */
+    margin: 20px auto; /* Espaciado externo más amplio y centrado automático */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
+  }
+  
+  /* Efecto de hover para la tarjeta */
+  ion-card:hover {
+    transform: translateY(-10px); /* Levanta la tarjeta un poco más al pasar el ratón */
+    box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
+  }
+  
+  /* Estilo para el contenido de la tarjeta */
+  ion-card-content {
+    font-size: 18px; /* Aumenta el tamaño del texto */
+    line-height: 1.6; /* Aumenta el interlineado para una mejor legibilidad */
+    color: #333; /* Color del texto */
+  }
+
+  
+  /* Alinea el botón de volver en la parte superior */
+  .back-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }

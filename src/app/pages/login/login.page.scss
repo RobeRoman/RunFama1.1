@@ -47,3 +47,9 @@ ion-button{
     1px -1px 0 black,
     -1px -1px 0 black;;
 }
+
+.centered-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
