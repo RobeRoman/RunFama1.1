@@ -33,6 +33,5 @@ export class RecuperarPage implements OnInit {
       });
       await alert.present();
     }
-  }
-    
+  }    
 }
