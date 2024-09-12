@@ -26,10 +26,8 @@ const routes: Routes = [
   {
     path: '**',
     loadChildren: () => import('./pages/error404/error404.module').then( m => m.Error404PageModule)
-  },  {
-    path: 'administrar',
-    loadChildren: () => import('./administrar/administrar.module').then( m => m.AdministrarPageModule)
   },
+  
 
 
 ];
