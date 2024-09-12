@@ -24,9 +24,15 @@ const routes: Routes = [
     loadChildren: () => import('./pages/recuperar/recuperar.module').then( m => m.RecuperarPageModule)
   },
   {
+    path: 'cambiarclave',
+    loadChildren: () => import('./pages/cambiarclave/cambiarclave.module').then( m => m.CambiarclavePageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./pages/error404/error404.module').then( m => m.Error404PageModule)
   },
+  
+
 
 ];
 

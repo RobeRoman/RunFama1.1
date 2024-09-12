@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Attribute, Component, input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
 @Component({
@@ -8,30 +9,29 @@ import { AlertController } from '@ionic/angular';
 })
 export class RecuperarPage implements OnInit {
 
-  
   email:String ="";
-  password:String ="";
-
-  constructor(private alertController: AlertController) { }
+  constructor(private alertController: AlertController, private router: Router) { }
 
   ngOnInit() {
   }
 
-  async recoverPassword() {
-    if (this.email === "runfama@gmail.com") {
-      const alert = await this.alertController.create({
-        header: 'Contraseña Recuperada',
-        message: 'Tu contraseña es: runfama',
-        buttons: ['OK']
-      });
-      await alert.present();
+  async validarcorreo() {
+    if (this.email.includes('@gmail.com') || this.email.includes('@hotmail.com') || this.email.includes('@outlook.com') || this.email.includes('@yahoo.com') || this.email.includes('@duocuc.cl'))  {
+      await this.presentAlert('Bien', 'El correo es válido');
+      this.router.navigate(['/cambiarclave']);
     } else {
-      const alert = await this.alertController.create({
-        header: 'Error',
-        message: 'no se puedo recuperar la contraseña .',
-        buttons: ['OK']
-      });
-      await alert.present();
+      await this.presentAlert('Mal', 'El correo no es válido');
     }
-  }    
+  }
+
+  async presentAlert(header: string, message: string) {
+    const alert = await this.alertController.create({
+      header: header,
+      message: message,
+      buttons: ['OK'],
+    });
+    await alert.present();
+  }
+  
+  
 }

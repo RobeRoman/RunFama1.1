@@ -1,26 +1,12 @@
-<ion-buttons slot="start">
-  <ion-back-button defaultHref="/"></ion-back-button>
-</ion-buttons>
 
-<ion-content class="color">
-  <div class="content-wrapper">
+<ion-content>
+    
     <ion-card>
-      <ion-card-header>
-        <ion-card-title class="colorlogin">Recuperación de Contraseña</ion-card-title>
-      </ion-card-header>
-
-      <ion-card-content>
-        <p>Introduce tu correo electrónico para recuperar tu contraseña.</p>
-
-        <!-- Input para el correo electrónico -->
-        <ion-input [(ngModel)]="email" type="email" label="Correo Electrónico" labelPlacement="floating" fill="outline">
-          <ion-icon slot="start" color="black" name="mail"></ion-icon>
-        </ion-input>
+        <h1 style="text-align: center; color: black;">Recuperar contrasena</h1>
         <br>
-
-        <!-- Botón para enviar el formulario de recuperación -->
-        <ion-button  (click)="recoverPassword()" size="block" color="warning">Recuperar Contraseña</ion-button>
-      </ion-card-content>
+        <ion-input [(ngModel)]="email"  type="email" label="Correo" labelPlacement="floating" fill="outline">
+            <ion-icon slot="start" color="dark" size="large" name="mail"></ion-icon>
+        </ion-input>
+        <ion-button (click)="validarcorreo()" color="warning">Recuperar clave</ion-button>        
     </ion-card>
-  </div>
 </ion-content>
