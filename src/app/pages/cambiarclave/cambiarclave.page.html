@@ -1,14 +1,27 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Cambiar contraseña</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-card>
+  <ion-card contentId="clave">
     <br>
-    <ion-input label="Codigo Verificaion" type="text" labelPlacement="floating" fill="outline">
-            
+    <ion-input [(ngModel)]="code" label="Codigo Verificaion" type="text" labelPlacement="floating" fill="outline" maxlength="4">
+      <ion-icon name="keypad" slot="start" color="dark"></ion-icon>                  
     </ion-input>
+    <br>
+    <ion-input [(ngModel)]="pass1" label="Primera Contraseña" type="password" labelPlacement="floating" fill="outline">
+      <ion-icon name="key" slot="start" color='dark'></ion-icon>
+    </ion-input>
+    <br>
+    <ion-input [(ngModel)]="pass2" label="Segunda Contraseña" type="password" labelPlacement="floating" fill="outline">
+      <ion-icon name="key" slot="start" color='dark'></ion-icon>
+    </ion-input>
+    
+    <ion-button (click)="cambio()">Confirmar cambio</ion-button>
   </ion-card>
 </ion-content>

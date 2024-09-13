@@ -14,13 +14,15 @@ export class RecuperarPage implements OnInit {
 
   ngOnInit() {
   }
-
+  //ñ TENGO TECLADO EN INGLES xd
   async validarcorreo() {
-    if (this.email.includes('@gmail.com') || this.email.includes('@hotmail.com') || this.email.includes('@outlook.com') || this.email.includes('@yahoo.com') || this.email.includes('@duocuc.cl'))  {
-      await this.presentAlert('Bien', 'El correo es válido');
+    if (this.email === ''){
+      await this.presentAlert('Error', 'Correo vacio');
+    }else if (this.email.includes('@gmail.com') || this.email.includes('@hotmail.com') || this.email.includes('@outlook.com') || this.email.includes('@yahoo.com') || this.email.includes('@duocuc.cl'))  {
+      await this.presentAlert('Bien', 'Ingrese codigo de verificacion y cambie contraseñas');
       this.router.navigate(['/cambiarclave']);
     } else {
-      await this.presentAlert('Mal', 'El correo no es válido');
+      await this.presentAlert('Error', 'El correo no es válido');
     }
   }
 
@@ -32,6 +34,4 @@ export class RecuperarPage implements OnInit {
     });
     await alert.present();
   }
-  
-  
 }

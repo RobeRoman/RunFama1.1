@@ -17,6 +17,7 @@
             <ion-card-title>Información Personal</ion-card-title>
           </ion-card-header>
           <ion-card-content>
+            <br>
             <form [formGroup]="persona" (ngSubmit)="registrar()">
               <ion-input formControlName="rut" type="text" labelPlacement="stacked" label="RUT" fill="outline"></ion-input>
               <ion-input formControlName="nombre" type="text" labelPlacement="stacked" label="Nombre" fill="outline"></ion-input>
