@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AdministradorPageRoutingModule } from './administrador-routing.module';
+import { AdministrarPageRoutingModule } from './administrar-routing.module';
 
-import { AdministradorPage } from './administrador.page';
+import { AdministrarPage } from './administrar.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AdministradorPageRoutingModule
+    AdministrarPageRoutingModule
   ],
-  declarations: [AdministradorPage]
+  declarations: [AdministrarPage]
 })
-export class AdministradorPageModule {}
+export class AdministrarPageModule {}

@@ -8,10 +8,10 @@ ion-content {
 
 ion-card {
   margin-top: 10%;
-  width: 100%;
-  padding: 100%;
-  max-width: 400px;
-  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  
 }
 
 ion-alert {
@@ -20,6 +20,18 @@ ion-alert {
 
 ion-button {
   display: flex;
+  padding: 20px;
   justify-content: center;
-  margin-top: 20px;
+  align-items: center;
+  height: 5vh;
+  position: relative; 
+
+}
+
+
+ion-icon {
+  display: flex;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
 }

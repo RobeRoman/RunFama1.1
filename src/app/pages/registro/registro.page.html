@@ -7,72 +7,85 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>  
-  <ion-card>
-    <form [formGroup]="persona" (ngSubmit)="registrar()">
-      <br>
-      <ion-input formControlName="rut" type="text" labelPlacement="stacked" label="RUT" fill="outline"></ion-input>
-      <br>
-      <ion-input formControlName="nombre" type="text" labelPlacement="stacked" label="Nombre" fill="outline"></ion-input>
-      <br>
-      <ion-input formControlName="fecha_nacimiento" type="date" labelPlacement="stacked" label="Fecha Nacimiento" fill="outline"></ion-input>
-      <br>
-      <ion-input formControlName="correo" type="email" label="Correo" labelPlacement="stacked" fill="outline"></ion-input>
-      <br>
-      <ion-input formControlName="password" type="password" label="Password" labelPlacement="stacked" fill="outline"></ion-input>
-      <br>
-
-      <ion-select formControlName="genero" label="Genero" labelPlacement="stacked" fill="outline">
-        <ion-select-option value="masculino">Masculino</ion-select-option>
-        <ion-select-option value="femenino">Femenino</ion-select-option>
-        <ion-select-option value="otro">Otro</ion-select-option>
-      </ion-select>
-      <br>
-
-      <ion-select formControlName="sede" label="Sede Duoc" labelPlacement="stacked" fill="outline">
-        <ion-select-option value="alameda">Alameda</ion-select-option>
-        <ion-select-option value="antonio_varas">Antonio Varas</ion-select-option>
-        <ion-select-option value="maipu">Maipu</ion-select-option>
-        <ion-select-option value="melipilla">Melipilla</ion-select-option>
-        <ion-select-option value="padre_alonso">Padre Alonso de Ovalle</ion-select-option>
-        <ion-select-option value="plaza_oeste">Plaza Oeste</ion-select-option>
-        <ion-select-option value="plaza_vespucio">Plaza Vespucio</ion-select-option>
-        <ion-select-option value="plaza_norte">Plaza Norte</ion-select-option>
-        <ion-select-option value="puente_alto">Puente Alto</ion-select-option>
-        <ion-select-option value="san_bernardo">San Bernardo</ion-select-option>
-        <ion-select-option value="san_carlos">San Carlos de Apoquindo</ion-select-option>
-        <ion-select-option value="san_joaquin">San Joaquin</ion-select-option>
-        <ion-select-option value="valparaiso">Valparaiso</ion-select-option>
-        <ion-select-option value="vina_del_mar">Viña del mar</ion-select-option>
-        <ion-select-option value="concepcion">Concepcion</ion-select-option>
-        <ion-select-option value="arauco">Arauco</ion-select-option>
-        <ion-select-option value="villarica">Villarica</ion-select-option>
-        <ion-select-option value="puerto_montt">Puerto Montt</ion-select-option>
-      </ion-select>
-      <br>
-
-      <ion-label>¿Tiene Auto?</ion-label>
-      <br>
-      <ion-radio-group formControlName="tiene_auto">
-        <ion-radio value="si">Si</ion-radio>
-        <br>
-        <ion-radio value="no">No</ion-radio>
-
-      </ion-radio-group>
-      <br>
-
-      <ion-input *ngIf="persona.controls.tiene_auto.value === 'si'" formControlName="marca_auto" type="text" label="Marca Auto" labelPlacement="stacked" fill="outline"></ion-input>
-      <ion-text *ngIf="persona.controls.marca_auto.errors?.['marcaNoExiste']">
-        <p>La marca ingresada no existe en el sistema :C.</p>
-      </ion-text>
-      <br>
-
-      <ion-input *ngIf="persona.controls.tiene_auto.value === 'si'" formControlName="patente" type="text" label="Patente" labelPlacement="stacked" fill="outline"></ion-input>
-      <br>
-      <ion-input *ngIf="persona.controls.tiene_auto.value === 'si'" formControlName="asientos_disp" type="number" label="Asientos Disp." labelPlacement="stacked" fill="outline"></ion-input>
-    
-      <ion-button [disabled]="persona.invalid" type="submit" size="block" color="warning">REGISTRAR</ion-button>
-      <ion-alert trigger="present-alert" header="alert!" [buttons]="alertButtons" (didDismiss)="setResult($event)"></ion-alert>
-    </form>
-  </ion-card>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <!-- Columna de izquierda -->
+      <ion-col size="12" size-md="6">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Información Personal</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <form [formGroup]="persona" (ngSubmit)="registrar()">
+              <ion-input formControlName="rut" type="text" labelPlacement="stacked" label="RUT" fill="outline"></ion-input>
+              <ion-input formControlName="nombre" type="text" labelPlacement="stacked" label="Nombre" fill="outline"></ion-input>
+              <ion-input formControlName="fecha_nacimiento" type="date" labelPlacement="stacked" label="Fecha Nacimiento" fill="outline"></ion-input>
+              <ion-input formControlName="correo" type="email" label="Correo" labelPlacement="stacked" fill="outline"></ion-input>
+              <ion-input formControlName="password" type="password" label="Password" labelPlacement="stacked" fill="outline"></ion-input>
+              
+              <ion-select formControlName="genero" label="Genero" labelPlacement="stacked" fill="outline">
+                <ion-select-option value="masculino">Masculino</ion-select-option>
+                <ion-select-option value="femenino">Femenino</ion-select-option>
+                <ion-select-option value="otro">Otro</ion-select-option>
+              </ion-select>
+              
+              <ion-select formControlName="sede" label="Sede Duoc" labelPlacement="stacked" fill="outline">
+                <ion-select-option value="alameda">Alameda</ion-select-option>
+                <ion-select-option value="antonio_varas">Antonio Varas</ion-select-option>
+                <ion-select-option value="maipu">Maipú</ion-select-option>
+                <ion-select-option value="melipilla">Melipilla</ion-select-option>
+                <ion-select-option value="padre_alonso">Padre Alonso de Ovalle</ion-select-option>
+                <ion-select-option value="plaza_oeste">Plaza Oeste</ion-select-option>
+                <ion-select-option value="plaza_vespucio">Plaza Vespucio</ion-select-option>
+                <ion-select-option value="plaza_norte">Plaza Norte</ion-select-option>
+                <ion-select-option value="puente_alto">Puente Alto</ion-select-option>
+                <ion-select-option value="san_bernardo">San Bernardo</ion-select-option>
+                <ion-select-option value="san_carlos">San Carlos de Apoquindo</ion-select-option>
+                <ion-select-option value="san_joaquin">San Joaquín</ion-select-option>
+                <ion-select-option value="valparaiso">Valparaíso</ion-select-option>
+                <ion-select-option value="vina_del_mar">Viña del Mar</ion-select-option>
+                <ion-select-option value="concepcion">Concepción</ion-select-option>
+                <ion-select-option value="arauco">Arauco</ion-select-option>
+                <ion-select-option value="villarica">Villarica</ion-select-option>
+                <ion-select-option value="puerto_montt">Puerto Montt</ion-select-option>
+              </ion-select>
+              
+              <ion-label>¿Tiene Auto?</ion-label>
+              <ion-radio-group formControlName="tiene_auto">
+                <ion-item>
+                  <ion-radio slot="start" value="si"></ion-radio>
+                  <ion-label>Sí</ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-radio slot="start" value="no"></ion-radio>
+                  <ion-label>No</ion-label>
+                </ion-item>
+              </ion-radio-group>
+              
+              <ion-button [disabled]="persona.invalid" type="submit" size="block" color="warning">REGISTRAR</ion-button>
+            </form>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      
+      <!-- Columna de derecha -->
+      <ion-col size="12" size-md="6" *ngIf="persona.controls.tiene_auto.value === 'si'">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Detalles del Auto</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-input formControlName="marca_auto" type="text" label="Marca Auto" labelPlacement="stacked" fill="outline"></ion-input>
+            <ion-text *ngIf="persona.controls.marca_auto.errors?.['marcaNoExiste']">
+              <p>La marca ingresada no existe en el sistema :C.</p>
+            </ion-text>
+            
+            <ion-input formControlName="patente" type="text" label="Patente" labelPlacement="stacked" fill="outline"></ion-input>
+            <ion-input formControlName="asientos_disp" type="number" label="Asientos Disp." labelPlacement="stacked" fill="outline"></ion-input>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
