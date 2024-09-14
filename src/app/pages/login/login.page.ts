@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -11,17 +12,26 @@ export class LoginPage implements OnInit {
   email:String ="";
   password:String ="";
 
-  constructor(private router: Router) { }
+  constructor(private alertController: AlertController,private router: Router) { }
 
   ngOnInit() {
   }
   
 
-  login(){
+  async login(){
     if(this.email=="admin@gmail.com" && this.password=="123"){
       this.router.navigate(['/home'])
     }else{
-      alert("TA MALO")
+      await this.presentAlert('Error', 'El correo no es válido');
     }
+  }
+
+  async presentAlert(header: string, message: string) {
+    const alert = await this.alertController.create({
+      header: header,
+      message: message,
+      buttons: ['OK'],
+    });
+    await alert.present();
   }
 }

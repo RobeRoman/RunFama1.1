@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-registro',
@@ -8,25 +9,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./registro.page.scss'],
 })
 export class RegistroPage implements OnInit {
-
+  
   // Declara las propiedades email y passwor
+  
+  constructor(private alertController: AlertController,private router: Router) { }
 
-  alertButtons = [
-    {
-      text: 'Cancel',
-      role: 'cancel',
-      handler: () => {
-        console.log('Cancel clicked');
-      }
-    },
-    {
-      text: 'OK',
-      role: 'confirm',
-      handler: () => {
-        console.log('OK clicked');
-      }
-    }
-  ];
 
   // Lista de marcas de autos
   marcasAuto: string[] = [
@@ -48,7 +35,7 @@ export class RegistroPage implements OnInit {
     nombre: new FormControl('', [Validators.required, Validators.pattern("[a-zA-Z]{3,15}")]), //Bien
     fecha_nacimiento: new FormControl('', [Validators.required]),                             
     correo: new FormControl('',[Validators.required]),
-    password: new FormControl('',[Validators.required]),
+    password: new FormControl('',[Validators.required, Validators.minLength(4)]),
     genero: new FormControl('', [Validators.required]),                                       //Bien
     sede: new FormControl('', [Validators.required]),                                         //Bien
     tiene_auto: new FormControl('no', [Validators.required]),                                 //Bien
@@ -60,7 +47,6 @@ export class RegistroPage implements OnInit {
     
   });
 
-  constructor(private router: Router) { }
 
   ngOnInit() {
     
@@ -88,14 +74,20 @@ export class RegistroPage implements OnInit {
   }
   */
 
-  registrar() {
+  async registrar() {
     console.log(this.persona.value);
-    alert("¡Registrado con éxito!");
+    //alert("¡Registrado con éxito!");
     this.router.navigate(['/login']);
+    await this.presentAlert('Perfecto!', 'Registrado correctamente');
   }
 
-  // Función para manejar el resultado de la alerta
-  setResult(ev: any) {
-    console.log('Alerta cerrada con rol:', ev.detail.role);
+  async presentAlert(header: string, message: string) {
+    const alert = await this.alertController.create({
+      header: header,
+      message: message,
+      buttons: ['OK'],
+    });
+    await alert.present();
+    
   }
 }
