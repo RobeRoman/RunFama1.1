@@ -10,7 +10,6 @@
 <ion-content>
   <ion-grid>
     <ion-row>
-      <!-- Columna de izquierda -->
       <ion-col size="12" size-md="6">
         <ion-card>
           <ion-card-header>
@@ -53,6 +52,7 @@
               </ion-select>
               
               <ion-label>¿Tiene Auto?</ion-label>
+              
               <ion-radio-group formControlName="tiene_auto">
                 <ion-item>
                   <ion-radio slot="start" value="si"></ion-radio>
@@ -76,15 +76,19 @@
           <ion-card-header>
             <ion-card-title>Detalles del Auto</ion-card-title>
           </ion-card-header>
+          <br>
           <ion-card-content>
-            <ion-input formControlName="marca_auto" type="text" label="Marca Auto" labelPlacement="stacked" fill="outline"></ion-input>
-            <ion-text *ngIf="persona.controls.marca_auto.errors?.['marcaNoExiste']">
-              <p>La marca ingresada no existe en el sistema :C.</p>
-            </ion-text>
-            
-            <ion-input formControlName="patente" type="text" label="Patente" labelPlacement="stacked" fill="outline"></ion-input>
-            <ion-input formControlName="asientos_disp" type="number" label="Asientos Disp." labelPlacement="stacked" fill="outline"></ion-input>
+            <form [formGroup]="persona" (ngSubmit)="registrar()" >
+              <ion-input formControlName="marca_auto" type="text" label="Marca Auto" labelPlacement="stacked" fill="outline"></ion-input>
+              <ion-text *ngIf="persona.controls.marca_auto.errors?.['marcaNoExiste']">
+                <p>La marca ingresada no existe en el sistema :C.</p>
+              </ion-text>
+              
+              <ion-input formControlName="patente" type="text" label="Patente" labelPlacement="stacked" fill="outline"></ion-input>
+              <ion-input formControlName="asientos_disp" type="number" label="Asientos Disp." labelPlacement="stacked" fill="outline"></ion-input>
+            </form>
           </ion-card-content>
+          
         </ion-card>
       </ion-col>
     </ion-row>

@@ -34,7 +34,7 @@ export class RegistroPage implements OnInit {
     rut: new FormControl('', [Validators.required, Validators.pattern("[0-9]{7,8}-[0-9kK]{1}")]),
     nombre: new FormControl('', [Validators.required, Validators.pattern("[a-zA-Z]{3,15}")]), //Bien
     fecha_nacimiento: new FormControl('', [Validators.required]),                             
-    correo: new FormControl('',[Validators.required]),
+    correo: new FormControl('',[Validators.required,  Validators.pattern("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}")]),
     password: new FormControl('',[Validators.required, Validators.minLength(4)]),
     genero: new FormControl('', [Validators.required]),                                       //Bien
     sede: new FormControl('', [Validators.required]),                                         //Bien
@@ -44,13 +44,13 @@ export class RegistroPage implements OnInit {
     marca_auto: new FormControl('', []),
     patente: new FormControl('', []),
     asientos_disp: new FormControl('', []),
-    
   });
 
 
-  ngOnInit() {
-    
+
+  ngOnInit() {    
   }
+
   validarAsientos(control: AbstractControl) {
     const valor = control.value;
     if (valor < 1 || valor > 10) {
@@ -59,26 +59,11 @@ export class RegistroPage implements OnInit {
     return null;
   }
 
-  // Función de validación personalizada para la cantidad de asientos
-
-  /*
-  //PUEDE QUE ESTE MALO: Función de validación para la marca de auto
-  validarMarcaAuto(control: AbstractControl) {
-    if (this.persona.controls.tiene_auto.value === 'si') {
-      const marcaIngresada = control.value?.trim().toLowerCase(); // minúsculas y elimina espacios
-      if (marcaIngresada && !this.marcasAuto.includes(marcaIngresada)) {
-        return { marcaNoExiste: true }; // Error si la marca no está en la lista
-      }
-    }
-    return null; // Sin errores si la marca existe
-  }
-  */
 
   async registrar() {
-    console.log(this.persona.value);
-    //alert("¡Registrado con éxito!");
     this.router.navigate(['/login']);
     await this.presentAlert('Perfecto!', 'Registrado correctamente');
+    console.log(this.persona.value);
   }
 
   async presentAlert(header: string, message: string) {
@@ -87,7 +72,6 @@ export class RegistroPage implements OnInit {
       message: message,
       buttons: ['OK'],
     });
-    await alert.present();
-    
+    await alert.present();    
   }
 }
