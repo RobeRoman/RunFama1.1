@@ -84,6 +84,9 @@
               </ion-text>
               
               <ion-input formControlName="patente" type="text" label="Patente" labelPlacement="stacked" fill="outline"></ion-input>
+              <ion-text color="danger" *ngIf="persona.controls.patente.errors?.['pattern']">
+                <p>La patente debe ser válida (formato: AB1234 o ABCD12).</p>
+              </ion-text>
               <ion-input formControlName="asientos_disp" type="number" label="Asientos Disp." labelPlacement="stacked" fill="outline"></ion-input>
             </form>
           </ion-card-content>

@@ -49,8 +49,8 @@ export class RegistroPage implements OnInit {
     this.persona.get('tiene_auto')?.valueChanges.subscribe(value => {
       if (value === 'si') {
         // Si tiene auto, se añaden los validadores a los campos relacionados con el auto
-        this.persona.get('marca_auto')?.setValidators([Validators.required]);
-        this.persona.get('patente')?.setValidators([Validators.required]);
+        this.persona.get('marca_auto')?.setValidators([Validators.required, this.validarMarcaAuto.bind(this)]);
+        this.persona.get('patente')?.setValidators([Validators.required, Validators.pattern(/^[A-Z]{2}[0-9]{4}$|^[A-Z]{4}[0-9]{2}$/)]); // Patente de Chile
         this.persona.get('asientos_disp')?.setValidators([Validators.required, this.validarAsientos]);
       } else {
         // Si no tiene auto, se eliminan los validadores de los campos relacionados con el auto
@@ -73,6 +73,14 @@ export class RegistroPage implements OnInit {
     return null;
   }
 
+  // Validador personalizado para verificar si la marca de auto está en la lista
+  validarMarcaAuto(control: AbstractControl) {
+    const marca = control.value ? control.value.toLowerCase() : '';
+    if (marca && !this.marcasAuto.includes(marca)) {
+      return { marcaNoExiste: true };
+    }
+    return null;
+  }
   async registrar() {
     if (this.persona.valid) {
       this.router.navigate(['/login']);

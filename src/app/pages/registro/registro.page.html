@@ -78,11 +78,15 @@
           <ion-card-content>
             <form [formGroup]="persona" (ngSubmit)="registrar()">
               <ion-input formControlName="marca_auto" type="text" label="Marca Auto" labelPlacement="stacked" fill="outline"></ion-input>
-              <ion-text *ngIf="persona.controls.marca_auto.errors?.['marcaNoExiste']">
+              <ion-text color="danger" *ngIf="persona.controls.marca_auto.errors?.['marcaNoExiste']">
                 <p>La marca ingresada no existe en el sistema :C.</p>
               </ion-text>
+
               
               <ion-input formControlName="patente" type="text" label="Patente" labelPlacement="stacked" fill="outline"></ion-input>
+              <ion-text color="danger" *ngIf="persona.controls.patente.errors?.['pattern']">
+                <p>La patente debe ser válida (formato: AB1234 o ABCD12).</p>
+              </ion-text>
               <ion-input formControlName="asientos_disp" type="number" label="Asientos Disp." labelPlacement="stacked" fill="outline"></ion-input>
             </form>
           </ion-card-content>
