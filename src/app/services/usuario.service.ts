@@ -6,7 +6,9 @@ import { Injectable } from '@angular/core';
 export class UsuarioService {
 
 
-  usuarios: any[] = [];
+  usuarios: any[] = [
+
+  ];
   
   constructor() { }
 

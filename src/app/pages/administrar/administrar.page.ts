@@ -35,25 +35,30 @@ export class AdministrarPage implements OnInit {
     if (this.usuarioService.createUsuario(this.persona.value)) {
       await this.presentAlert('Perfecto!', 'Registrado correctamente');
       this.persona.reset();
-      this.usuarios = this.usuarioService.getUsuarios(); // Actualiza la lista de usuarios
+      this.usuarios = this.usuarioService.getUsuarios(); 
     } else {
       await this.presentAlert('Error!', 'El usuario no se pudo registrar');
     }
   }
 
   buscar(usuario: any) {
-    this.persona.patchValue(usuario); // Llena el formulario con la información del usuario
+    this.persona.patchValue(usuario); 
   }
 
   eliminar(rut: string) {
     if (this.usuarioService.deleteUsuario(rut)) {
-      this.usuarios = this.usuarioService.getUsuarios(); // Actualiza la lista de usuarios
+      this.usuarios = this.usuarioService.getUsuarios(); 
     }
   }
 
-  modificar(usuario: any) {
-    this.persona.patchValue(usuario); // Llena el formulario con la información del usuario
-    // Agrega lógica para modificar el usuario si es necesario
+  async modificar() {
+    var rut_modificar = this.persona.controls.rut.value || "";
+    if (this.usuarioService.updateUsuario(rut_modificar, this.persona.value)){
+      await this.presentAlert('Perfecto!', 'Modificado correctamente');
+    }else{
+      await this.presentAlert('Error!', 'No se pudo modificar');
+    }
+    
   }
 
   async presentAlert(header: string, message: string) {

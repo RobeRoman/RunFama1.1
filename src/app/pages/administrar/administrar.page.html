@@ -18,11 +18,11 @@
           <ion-card-content>
             <br>
             <form [formGroup]="persona" (ngSubmit)="registrar()">
-              <ion-input formControlName="rut" type="text" labelPlacement="stacked" label="RUT" fill="outline"></ion-input>
+              <ion-input formControlName="rut" placeholder="Sin punto con guion" type="text" labelPlacement="stacked" label="RUT" fill="outline"></ion-input>
               <ion-input formControlName="nombre" type="text" labelPlacement="stacked" label="Nombre" fill="outline"></ion-input>
               <ion-input formControlName="fecha_nacimiento" type="date" labelPlacement="stacked" label="Fecha Nacimiento" fill="outline"></ion-input>
               <ion-input formControlName="correo" type="email" label="Correo" labelPlacement="stacked" fill="outline"></ion-input>
-              <ion-input formControlName="password" type="password" label="Password" labelPlacement="stacked" fill="outline"></ion-input>
+              <ion-input formControlName="password" placeholder="Mayor a 4 digitos" type="password" label="Password" labelPlacement="stacked" fill="outline"></ion-input>
               
               <ion-select formControlName="genero" label="Genero" labelPlacement="stacked" fill="outline">
                 <ion-select-option value="masculino">Masculino</ion-select-option>
@@ -65,6 +65,8 @@
               </ion-radio-group>
               
               <ion-button [disabled]="persona.invalid" type="submit" size="block" color="warning">REGISTRAR</ion-button>
+              
+              <ion-button type="reset" size="block" color="primary">Limpiar</ion-button>
             </form>
           </ion-card-content>
         </ion-card>
@@ -98,7 +100,7 @@
             <ion-list>
               <ion-item-sliding *ngFor="let usuario of usuarios">
                 <ion-item>
-                  {{ usuario.nombre }}
+                  {{ usuario.rut }} - {{ usuario.nombre }} - Tiene auto: {{ usuario.tiene_auto }}
                 </ion-item>
                 <ion-item-options side="end">
                   <ion-item-option (click)="buscar(usuario)">
@@ -110,13 +112,8 @@
                     Eliminar
                   </ion-item-option>
                 </ion-item-options>
-                <ion-item-options side="start">
-                  <ion-item-option (click)="modificar(usuario)">
-                    <ion-icon name="create"></ion-icon>
-                    Modificar
-                  </ion-item-option>
-                </ion-item-options>
               </ion-item-sliding>
+              <ion-button [disabled]="persona.invalid" (click)="modificar()" type="submit" size="block" color="warning">Modificar</ion-button>
             </ion-list>
           </ion-card-content>
         </ion-card>
