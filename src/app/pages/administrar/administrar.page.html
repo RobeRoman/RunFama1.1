@@ -1,4 +1,4 @@
-<<ion-header>
+<ion-header>
   <ion-toolbar>
     <ion-title>Administrar Usuarios</ion-title>
     <ion-buttons slot="start">
@@ -65,6 +65,24 @@
               </ion-radio-group>
               
               <ion-button [disabled]="persona.invalid" type="submit" size="block" color="warning">REGISTRAR</ion-button>
+            </form>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12" size-md="6" *ngIf="persona.controls.tiene_auto.value === 'si'">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Detalles del Auto</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <form [formGroup]="persona" (ngSubmit)="registrar()">
+              <ion-input formControlName="marca_auto" type="text" label="Marca Auto" labelPlacement="stacked" fill="outline"></ion-input>
+              <ion-text *ngIf="persona.controls.marca_auto.errors?.['marcaNoExiste']">
+                <p>La marca ingresada no existe en el sistema :C.</p>
+              </ion-text>
+              
+              <ion-input formControlName="patente" type="text" label="Patente" labelPlacement="stacked" fill="outline"></ion-input>
+              <ion-input formControlName="asientos_disp" type="number" label="Asientos Disp." labelPlacement="stacked" fill="outline"></ion-input>
             </form>
           </ion-card-content>
         </ion-card>
