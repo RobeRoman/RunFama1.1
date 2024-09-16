@@ -1,4 +1,4 @@
-<ion-header>
+<<ion-header>
   <ion-toolbar>
     <ion-title>Administrar Usuarios</ion-title>
     <ion-buttons slot="start">
@@ -16,20 +16,21 @@
             <ion-card-title>Información Personal</ion-card-title>
           </ion-card-header>
           <ion-card-content>
+            <br>
             <form [formGroup]="persona" (ngSubmit)="registrar()">
               <ion-input formControlName="rut" type="text" labelPlacement="stacked" label="RUT" fill="outline"></ion-input>
               <ion-input formControlName="nombre" type="text" labelPlacement="stacked" label="Nombre" fill="outline"></ion-input>
               <ion-input formControlName="fecha_nacimiento" type="date" labelPlacement="stacked" label="Fecha Nacimiento" fill="outline"></ion-input>
               <ion-input formControlName="correo" type="email" label="Correo" labelPlacement="stacked" fill="outline"></ion-input>
               <ion-input formControlName="password" type="password" label="Password" labelPlacement="stacked" fill="outline"></ion-input>
-
-              <ion-select formControlName="genero" label="Género" labelPlacement="stacked" fill="outline">
+              
+              <ion-select formControlName="genero" label="Genero" labelPlacement="stacked" fill="outline">
                 <ion-select-option value="masculino">Masculino</ion-select-option>
                 <ion-select-option value="femenino">Femenino</ion-select-option>
                 <ion-select-option value="otro">Otro</ion-select-option>
               </ion-select>
-
-              <ion-select formControlName="sede" label="Sede" labelPlacement="stacked" fill="outline">
+              
+              <ion-select formControlName="sede" label="Sede Duoc" labelPlacement="stacked" fill="outline">
                 <ion-select-option value="alameda">Alameda</ion-select-option>
                 <ion-select-option value="antonio_varas">Antonio Varas</ion-select-option>
                 <ion-select-option value="maipu">Maipú</ion-select-option>
@@ -49,8 +50,9 @@
                 <ion-select-option value="villarica">Villarica</ion-select-option>
                 <ion-select-option value="puerto_montt">Puerto Montt</ion-select-option>
               </ion-select>
-
+              
               <ion-label>¿Tiene Auto?</ion-label>
+              
               <ion-radio-group formControlName="tiene_auto">
                 <ion-item>
                   <ion-radio slot="start" value="si"></ion-radio>
@@ -61,28 +63,46 @@
                   <ion-label>No</ion-label>
                 </ion-item>
               </ion-radio-group>
-
+              
               <ion-button [disabled]="persona.invalid" type="submit" size="block" color="warning">REGISTRAR</ion-button>
             </form>
           </ion-card-content>
         </ion-card>
       </ion-col>
 
-      <!-- Columna de derecha: Detalles del Auto si tiene auto -->
-      <ion-col size="12" size-md="6" *ngIf="persona.controls.tiene_auto.value === 'si'">
+      <!-- Columna de derecha -->
+      <ion-col size="12">
         <ion-card>
           <ion-card-header>
-            <ion-card-title>Detalles del Auto</ion-card-title>
+            <ion-card-title>Lista de Usuarios</ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            <form [formGroup]="persona" (ngSubmit)="registrar()">
-              <ion-input formControlName="marca_auto" type="text" label="Marca Auto" labelPlacement="stacked" fill="outline"></ion-input>
-              <ion-input formControlName="patente" type="text" label="Patente" labelPlacement="stacked" fill="outline"></ion-input>
-              <ion-input formControlName="asientos_disp" type="number" label="Asientos Disponibles" labelPlacement="stacked" fill="outline"></ion-input>
-            </form>
+            <ion-list>
+              <ion-item-sliding *ngFor="let usuario of usuarios">
+                <ion-item>
+                  {{ usuario.nombre }}
+                </ion-item>
+                <ion-item-options side="end">
+                  <ion-item-option (click)="buscar(usuario)">
+                    <ion-icon name="search"></ion-icon>
+                    Buscar
+                  </ion-item-option>
+                  <ion-item-option (click)="eliminar(usuario.rut)">
+                    <ion-icon name="trash"></ion-icon>
+                    Eliminar
+                  </ion-item-option>
+                </ion-item-options>
+                <ion-item-options side="start">
+                  <ion-item-option (click)="modificar(usuario)">
+                    <ion-icon name="create"></ion-icon>
+                    Modificar
+                  </ion-item-option>
+                </ion-item-options>
+              </ion-item-sliding>
+            </ion-list>
           </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>
-  </ion-grid>
+  </ion-grid>    
 </ion-content>
