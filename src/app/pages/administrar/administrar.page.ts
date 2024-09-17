@@ -14,11 +14,12 @@ export class AdministrarPage implements OnInit {
     rut: new FormControl('', [Validators.required, Validators.pattern("[0-9]{7,8}-[0-9kK]{1}")]),
     nombre: new FormControl('', [Validators.required, Validators.pattern("[a-zA-Z]{3,15}")]),
     fecha_nacimiento: new FormControl('', [Validators.required]),
-    correo: new FormControl('', [Validators.required, Validators.pattern("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}")]),
+    correo: new FormControl('', [Validators.required, Validators.pattern("[a-zA-Z0-9._%+-]+@duocuc.cl")]),
     password: new FormControl('', [Validators.required, Validators.minLength(4)]),
     genero: new FormControl('', [Validators.required]),
     sede: new FormControl('', [Validators.required]),
     tiene_auto: new FormControl('no', [Validators.required]),
+    tipouser: new FormControl('usuario',[Validators.required]),
     marca_auto: new FormControl('', [this.validarMarcaAuto.bind(this)]),
     patente: new FormControl('', [Validators.pattern(/^[A-Z]{2}[0-9]{4}$|^[A-Z]{4}[0-9]{2}$/)]),
     asientos_disp: new FormControl('', []),
@@ -79,7 +80,6 @@ export class AdministrarPage implements OnInit {
     }else{
       await this.presentAlert('Error!', 'No se pudo modificar');
     }
-    
   }
 
   async presentAlert(header: string, message: string) {

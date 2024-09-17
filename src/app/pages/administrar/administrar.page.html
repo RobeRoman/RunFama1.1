@@ -21,7 +21,7 @@
               <ion-input formControlName="rut" placeholder="Sin punto con guion" type="text" labelPlacement="stacked" label="RUT" fill="outline"></ion-input>
               <ion-input formControlName="nombre" type="text" labelPlacement="stacked" label="Nombre" fill="outline"></ion-input>
               <ion-input formControlName="fecha_nacimiento" type="date" labelPlacement="stacked" label="Fecha Nacimiento" fill="outline"></ion-input>
-              <ion-input formControlName="correo" type="email" label="Correo" labelPlacement="stacked" fill="outline"></ion-input>
+              <ion-input formControlName="correo" placeholder="@duocuc.cl" type="email" label="Correo" labelPlacement="stacked" fill="outline"></ion-input>
               <ion-input formControlName="password" placeholder="Mayor a 4 digitos" type="password" label="Password" labelPlacement="stacked" fill="outline"></ion-input>
               
               <ion-select formControlName="genero" label="Genero" labelPlacement="stacked" fill="outline">
@@ -61,6 +61,18 @@
                 <ion-item>
                   <ion-radio slot="start" value="no"></ion-radio>
                   <ion-label>No</ion-label>
+                </ion-item>
+              </ion-radio-group>
+              <br>
+              <ion-label>Tipo de usuario</ion-label>
+              <ion-radio-group formControlName="tipouser">
+                <ion-item>
+                  <ion-radio slot="start" value="administrador"></ion-radio>
+                  <ion-label>Administrador</ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-radio slot="start" value="usuario"></ion-radio>
+                  <ion-label>Usuario</ion-label>
                 </ion-item>
               </ion-radio-group>
               

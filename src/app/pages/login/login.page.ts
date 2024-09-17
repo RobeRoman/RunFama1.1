@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { UsuarioService } from '../../services/usuario.service'; // Asegúrate de importar el servicio
 
 @Component({
   selector: 'app-login',
@@ -8,21 +9,27 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  email: string = "";
+  password: string = "";
 
-  email:String ="";
-  password:String ="";
+  constructor(
+    private alertController: AlertController,
+    private router: Router,
+    private usuarioService: UsuarioService
+  ) { }
 
-  constructor(private alertController: AlertController,private router: Router) { }
+  ngOnInit() { }
 
-  ngOnInit() {
-  }
-  
+  async login() {
+    console.log('Email:', this.email);
+    console.log('Password:', this.password);
 
-  async login(){
-    if(this.email=="admin@gmail.com" && this.password=="123"){
-      this.router.navigate(['/home'])
-    }else{
-      await this.presentAlert('Error', 'El correo no es válido');
+    if (this.usuarioService.authenticate(this.email, this.password)) {
+      console.log('Autnetificado');
+      await this.router.navigate(['/home']);
+    } else {
+      console.log('Authentication failed');
+      await this.presentAlert('Error', 'El correo o la contraseña no son válidos');
     }
   }
 

@@ -4,8 +4,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UsuarioService {
-
-
   usuarios: any[] = [
 
   ];
@@ -44,5 +42,14 @@ export class UsuarioService {
     }
     this.usuarios.splice(indice,1);
     return true;
+  }
+
+  public authenticate(email: string, password: string): boolean {
+    console.log('Verificando:', email, password); // Depuración
+    return this.usuarios.some(user => user.correo === email && user.password === password);
+  }
+
+  public logUsuarios() {
+    console.log(this.usuarios);
   }
 }

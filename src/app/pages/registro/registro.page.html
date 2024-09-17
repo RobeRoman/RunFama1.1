@@ -17,11 +17,11 @@
           </ion-card-header>
           <ion-card-content>
             <form [formGroup]="persona" (ngSubmit)="registrar()">
-              <ion-input formControlName="rut" type="text" labelPlacement="stacked" label="RUT" fill="outline"></ion-input>
+              <ion-input formControlName="rut" placeholder="Sin punto con guion" type="text" labelPlacement="stacked" label="RUT" fill="outline"></ion-input>
               <ion-input formControlName="nombre" type="text" labelPlacement="stacked" label="Nombre" fill="outline"></ion-input>
               <ion-input formControlName="fecha_nacimiento" type="date" labelPlacement="stacked" label="Fecha Nacimiento" fill="outline"></ion-input>
-              <ion-input formControlName="correo" type="email" label="Correo" labelPlacement="stacked" fill="outline"></ion-input>
-              <ion-input formControlName="password" type="password" label="Password" labelPlacement="stacked" fill="outline"></ion-input>
+              <ion-input formControlName="correo" placeholder="@duocuc.cl" type="email" label="Correo" labelPlacement="stacked" fill="outline"></ion-input>
+              <ion-input formControlName="password" placeholder="Igual mayor a 4 digitos" type="password" label="Password" labelPlacement="stacked" fill="outline"></ion-input>
               
               <ion-select formControlName="genero" label="Genero" labelPlacement="stacked" fill="outline">
                 <ion-select-option value="masculino">Masculino</ion-select-option>

@@ -1,7 +1,6 @@
-
-body{
+body {
     background-image: url(../../../assets/icon/Logoappmovil.jpg);
-    background-repeat: no-repeat ;
+    background-repeat: no-repeat;
     background-size: cover; /* Para asegurarte de que la imagen cubra toda la pantalla */
     background-position: center;
     filter: opacity(0.7); /* Ajusta el valor entre 0 (completamente transparente) y 1 (completamente opaco) */
@@ -12,40 +11,40 @@ body{
     margin: 0;
 }
 
-ion-card-title{
+ion-card-title {
     text-align: center;
     font-weight: bold;
     font-size: 35px;
 }
 
-ion-card{
+ion-card {
     background-color: rgba(255, 255, 255, 0.9);
     width: 80%; /* Ajusta el ancho según tus necesidades */
     max-width: 600px; /* Tamaño máximo en pantallas grandes */
-    height: 60%; /* Se ajusta automáticamente al contenido */
+    height: auto; /* Se ajusta automáticamente al contenido */
     padding: 20px; /* Agrega un relleno interno para darle más espacio al contenido */
     border: 2px solid;
     color: black;
     border-radius: 40px;
 }
 
-ion-button{
+ion-button {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     padding: 3%;
 }
 
-.registro{
+.registro {
     text-align: center;
 }
 
-.colorlogin{
+.colorlogin {
     font-size: 45px;
     color: rgb(0, 89, 255);
     text-shadow: 
-    1px 1px 0 black,
-    -1px 1px 0 black,
-    1px -1px 0 black,
-    -1px -1px 0 black;;
+        1px 1px 0 black,
+        -1px 1px 0 black,
+        1px -1px 0 black,
+        -1px -1px 0 black;
 }
 
 .centered-button {
@@ -54,7 +53,29 @@ ion-button{
     margin-top: 10px;
 }
 
-.olvidar{
+.olvidar {
     text-align: center;
-    
+}
+
+/* Media queries para hacer el diseño responsivo */
+@media (max-width: 768px) {
+    ion-card {
+        width: 90%; /* Ajusta el ancho en pantallas más pequeñas */
+        padding: 15px; /* Ajusta el relleno interno */
+    }
+
+    .colorlogin {
+        font-size: 35px; /* Ajusta el tamaño de fuente en pantallas más pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    ion-card {
+        width: 95%; /* Ajusta el ancho en pantallas muy pequeñas */
+        padding: 10px; /* Ajusta el relleno interno */
+    }
+
+    .colorlogin {
+        font-size: 30px; /* Ajusta el tamaño de fuente en pantallas muy pequeñas */
+    }
 }

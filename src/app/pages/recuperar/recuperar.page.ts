@@ -18,7 +18,7 @@ export class RecuperarPage implements OnInit {
   async validarcorreo() {
     if (this.email === ''){
       await this.presentAlert('Error', 'Correo vacio');
-    }else if (this.email.includes('@gmail.com') || this.email.includes('@hotmail.com') || this.email.includes('@outlook.com') || this.email.includes('@yahoo.com') || this.email.includes('@duocuc.cl'))  {
+    }else if (this.email.includes('@duocuc.cl'))  {
       await this.presentAlert('Bien', 'Ingrese codigo de verificacion y cambie contraseñas');
       this.router.navigate(['/cambiarclave']);
     } else {
