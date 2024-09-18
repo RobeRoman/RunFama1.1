@@ -20,7 +20,10 @@
             <form [formGroup]="persona" (ngSubmit)="registrar()">
               <ion-input formControlName="rut" placeholder="Sin punto con guion" type="text" labelPlacement="stacked" label="RUT" fill="outline"></ion-input>
               <ion-input formControlName="nombre" type="text" labelPlacement="stacked" label="Nombre" fill="outline"></ion-input>
-              <ion-input formControlName="fecha_nacimiento" type="date" labelPlacement="stacked" label="Fecha Nacimiento" fill="outline"></ion-input>
+              <ion-label position="stacked">Fecha de Nacimiento</ion-label><ion-input formControlName="fecha_nacimiento" type="date"  fill="outline"></ion-input>
+                <ion-note slot="end" color="danger" *ngIf="persona.controls.fecha_nacimiento.errors?.['invalidAge']">
+                  La edad debe estar entre 18 y 100 años.
+                </ion-note>
               <ion-input formControlName="correo" placeholder="@duocuc.cl" type="email" label="Correo" labelPlacement="stacked" fill="outline"></ion-input>
               <ion-input formControlName="password" placeholder="Mayor a 4 digitos" type="password" label="Password" labelPlacement="stacked" fill="outline"></ion-input>
               

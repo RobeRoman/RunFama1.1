@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Perfil de Usuario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="perfil-container">
+    <ion-avatar>
+      <img [src]="usuario.foto_perfil" alt="Foto de perfil" class="profile-img" *ngIf="usuario.foto_perfil">
+    </ion-avatar>
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Nombre</ion-label>
+        <ion-input [value]="usuario.nombre" readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Correo Electrónico</ion-label>
+        <ion-input [value]="usuario.correo" readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">RUT</ion-label>
+        <ion-input [value]="usuario.rut" readonly></ion-input>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

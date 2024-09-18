@@ -19,7 +19,10 @@
             <form [formGroup]="persona" (ngSubmit)="registrar()">
               <ion-input formControlName="rut" placeholder="Sin punto con guion" type="text" labelPlacement="stacked" label="RUT" fill="outline"></ion-input>
               <ion-input formControlName="nombre" type="text" labelPlacement="stacked" label="Nombre" fill="outline"></ion-input>
-              <ion-input formControlName="fecha_nacimiento" type="date" labelPlacement="stacked" label="Fecha Nacimiento" fill="outline"></ion-input>
+              <ion-input formControlName="fecha_nacimiento" type="date" label="Fecha de Nacimiento" labelPlacement="stacked" fill="outline"></ion-input>
+                <ion-text color="danger" *ngIf="persona.controls.fecha_nacimiento.errors?.['invalidAge']">
+                  <p>La edad debe ser entre 18 y 100 :C.</p>
+                </ion-text>
               <ion-input formControlName="correo" placeholder="@duocuc.cl" type="email" label="Correo" labelPlacement="stacked" fill="outline"></ion-input>
               <ion-input formControlName="password" placeholder="Igual mayor a 4 digitos" type="password" label="Password" labelPlacement="stacked" fill="outline"></ion-input>
               
@@ -49,6 +52,7 @@
                 <ion-select-option value="villarica">Villarica</ion-select-option>
                 <ion-select-option value="puerto_montt">Puerto Montt</ion-select-option>
               </ion-select>
+            
               
               <ion-label>¿Tiene Auto?</ion-label>
               
@@ -62,6 +66,13 @@
                   <ion-label>No</ion-label>
                 </ion-item>
               </ion-radio-group>
+
+               
+              <ion-item>
+                <ion-label position="stacked">Foto de Perfil</ion-label>
+                <input type="file" (change)="onFileChange($event)">
+              </ion-item>
+              
               
               <ion-button [disabled]="persona.invalid" type="submit" size="block" color="warning">REGISTRAR</ion-button>
             </form>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators, ValidatorFn} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -33,16 +33,16 @@ export class RegistroPage implements OnInit {
   persona = new FormGroup({
     rut: new FormControl('', [Validators.required, Validators.pattern("[0-9]{7,8}-[0-9kK]{1}")]),
     nombre: new FormControl('', [Validators.required, Validators.pattern("[a-zA-Z]{3,15}")]),
-    fecha_nacimiento: new FormControl('', [Validators.required]),                             
-    correo: new FormControl('', [Validators.required, Validators.pattern("[a-zA-Z0-9._%+-]+@[duocuc.cl]+\\.[a-zA-Z]{2,4}")]),
+    fecha_nacimiento: new FormControl('', [Validators.required, this.anosvalidar(18, 100)]),
+    correo: new FormControl('', [Validators.required, Validators.pattern("[a-zA-Z0-9._%+-]+@duocuc.cl")]),
     password: new FormControl('', [Validators.required, Validators.minLength(4)]),
     genero: new FormControl('', [Validators.required]),
     sede: new FormControl('', [Validators.required]),
+    foto_perfil: new FormControl(null), // Campo para la foto de perfil
     tiene_auto: new FormControl('no', [Validators.required]),
-    
     marca_auto: new FormControl(''),
     patente: new FormControl(''),
-    asientos_disp: new FormControl('', []),
+    asientos_disp: new FormControl(''),
   });
 
   ngOnInit() {
@@ -73,7 +73,20 @@ export class RegistroPage implements OnInit {
     }
     return null;
   }
+  anosvalidar(minAge: number, maxAge: number): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const birthDate = new Date(control.value);
+      const today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
 
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+
+      return (age >= minAge && age <= maxAge) ? null : { 'invalidAge': true };
+    };
+  }
   // Validador personalizado para verificar si la marca de auto está en la lista
   validarMarcaAuto(control: AbstractControl) {
     const marca = control.value ? control.value.toLowerCase() : '';
@@ -94,6 +107,20 @@ export class RegistroPage implements OnInit {
       }
     } else {
       await this.presentAlert('Error', 'Por favor, revisa los campos del formulario.');
+    }
+  }
+
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      // Puedes hacer algo con el archivo aquí, como cargar una vista previa o almacenarlo en el formulario
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.persona.patchValue({
+          foto_perfil: e.target.result // Usar URL de datos para la vista previa
+        });
+      };
+      reader.readAsDataURL(file);
     }
   }
   async presentAlert(header: string, message: string) {
