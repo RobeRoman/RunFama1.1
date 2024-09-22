@@ -30,6 +30,7 @@
    code .
    npm install
    ionic serve
+   ```
 ## Uso
  1. Ingresa a la página web.
  2. Entra a la zona de registrar.
