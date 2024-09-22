@@ -30,7 +30,9 @@
    ```bash
    cd RunFama1.1
    ```
+   ```bash
    code .
+   ```
    ```bash
    npm install
    ```
