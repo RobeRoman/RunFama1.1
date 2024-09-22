@@ -42,14 +42,9 @@
  - [Ionic](https://ionicframework.com/)
  - [TypeScript](https://www.typescriptlang.org/)
 
- - Angular
- - Node.js
- - Ionic
- - TypeScript
-
 ## Contacto
  Para cualquier duda, consulta o comentario puedes comunicarte con nosotros en Rofama@gmail.com
- 
+
 ## Licencia
  - Copyright (C) 2024 RoFaMa Solutions
  - GPL (General Public License)
