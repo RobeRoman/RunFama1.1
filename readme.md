@@ -1,10 +1,16 @@
 # RunFaMa
 ## Descripción
- RunFama es un proyecto para la gestion y colaboracion de viajes de alumnos de DuocUc. El objetivo es facilitar 
- el viaje mayormente a los alumnos de la jornadavespertina, ya que, a estas horas la cantidad de vehiculos de
- transporte es baja, los precios muy elevados, el transporte propio es escaso y DuocUC no facilita transporte,
- por lo que este proyecto busca facilitar el transporte a traves de compartir viajes de personas que tienen
- vehiculos con personas que no, lo que permitira generar viajes seguros y una gran ayuda para los estudiantes.
+ RunFama es un proyecto para la gestión y colaboración de viajes de alumnos de DuocUC. El objetivo es facilitar el viaje,
+ mayormente a los alumnos de la jornada vespertina, ya que, a estas horas, la cantidad de vehículos de transporte es baja, 
+ los precios son muy elevados, el transporte propio es escaso y DuocUC no facilita transporte. Por lo tanto, este proyecto
+ busca facilitar el transporte a través de que las personas con vehículo puedan inscribirlos y compartir viajes con
+ personas que lo necesitan, lo que permitirá generar viajes seguros y una gran ayuda para los estudiantes.
+
+### Características
+ - Registro de usuarios.
+ - Búsqueda de viajes disponibles.
+ - Opción de ofrecer un viaje.
+ - Historial de viajes.
 
 ## Instalación
 
@@ -16,21 +22,34 @@
   - Git
 
  ### Pasos de instalación
- - git clone https://github.com/RobeRoman/RunFama1.1.git
- - cd RunFama1.1
- - code .
- - npm install
- - ionic serve
-
+ 1. Ingresa a Git Bash.
+ 2. Copia y pega estos comandos:
+   git clone https://github.com/RobeRoman/RunFama1.1.git
+   cd RunFama1.1
+   code .
+   npm install
+   ionic serve
 ## Uso
- - Ingresa a la pagina web
- - Entra a la zona de registrar.
- - Crea una cuenta rellenando el formulario.
- - Ingresa el usuario y contraseña en la zona de login.
- - Luego de ingresar puedes navegar libremente por la pagina web.
+ 1. Ingresa a la página web.
+ 2. Entra a la zona de registrar.
+ 3. Crea una cuenta rellenando el formulario.
+ 4. Ingresa el usuario y contraseña en la zona de login.
+ 5. Luego de ingresar, puedes navegar libremente por la página web.
 
 ## Tecnologias Ocupadas
+ - [Angular](https://angular.io/)
+ - [Node.js](https://nodejs.org/)
+ - [Ionic](https://ionicframework.com/)
+ - [TypeScript](https://www.typescriptlang.org/)
 
- ## Licencia
-  - Copyright (C) 2024 RoFaMa Solutions
-  - GPL (General Public License)
+ - Angular
+ - Node.js
+ - Ionic
+ - TypeScript
+
+## Contacto
+ Para cualquier duda, consulta o comentario puedes comunicarte con nosotros en Rofama@gmail.com
+ 
+## Licencia
+ - Copyright (C) 2024 RoFaMa Solutions
+ - GPL (General Public License)
