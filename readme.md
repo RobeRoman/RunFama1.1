@@ -24,6 +24,7 @@
  ### Pasos de instalación
  1. Ingresa a Git Bash.
  2. Copia y pega estos comandos:
+   ```bash
    git clone https://github.com/RobeRoman/RunFama1.1.git
    cd RunFama1.1
    code .
