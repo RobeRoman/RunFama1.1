@@ -23,19 +23,24 @@
 
  ### Pasos de instalación
  1. Ingresa a Git Bash.
- 2. Copia y pega estos comandos en orden:
+ 2. Copia, pega y ejecuta estos comandos en orden:
+   - 1
    ```bash
    git clone https://github.com/RobeRoman/RunFama1.1.git
    ```
+   - 2
    ```bash
    cd RunFama1.1
    ```
+   - 3
    ```bash
    code .
    ```
+   - 4
    ```bash
    npm install
    ```
+   - 5
    ```bash
    ionic serve
    ```
