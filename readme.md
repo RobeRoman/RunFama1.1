@@ -44,8 +44,8 @@
  3. Crea una cuenta rellenando el formulario.
  4. Ingresa el usuario y contraseña en la zona de login.
  5. Luego de ingresar, puedes navegar libremente por la página web.
- 
-   - **Podras realizar cosas como:**
+
+   **Podras realizar cosas como:**
    - Buscar viajes: Encuentra viajes disponibles según tu ubicación y horario.
    - Ofrecer un viaje: Registra tu vehículo y comparte tu viaje con otros.
    - Historial de viajes: Revisa tus viajes anteriores y su estado.
