@@ -15,13 +15,13 @@
   - Ionic CLI (v7.2.0 o superior)
   - Git
 
-### Pasos de instalación
+ ### Pasos de instalación
  - git clone https://github.com/RobeRoman/RunFama1.1.git
  - cd RunFama1.1
  - code .
  - npm install
  - ionic serve
- 
+
 ## Uso
  - Ingresa a la pagina web
  - Entra a la zona de registrar.
