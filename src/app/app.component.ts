@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
+import { UsuarioService } from 'src/app/services/usuario.service'; // Asegúrate de importar el servicio
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,7 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(private menu: MenuController, private router: Router) {}
+  constructor(public usuarioService: UsuarioService, private menu: MenuController, private router: Router) {} // Cambiar a public
 
   salir(){
     this.menu.close();
@@ -19,9 +20,9 @@ export class AppComponent {
     this.menu.close();
     this.router.navigate(['/administrar']);
   }
+  
   perfil(){
     this.menu.close();
     this.router.navigate(['/perfil']);
   }
-  
 }

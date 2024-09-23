@@ -47,6 +47,7 @@ export class RegistroPage implements OnInit {
     marca_auto: new FormControl(''),
     patente: new FormControl(''),
     asientos_disp: new FormControl(''),
+    tipouser: new FormControl('usuario', [Validators.required]), // Define el rol como "usuario" por defecto
   });
  ngOnInit() {
   // Validar que las contraseñas coincidan

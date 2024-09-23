@@ -11,6 +11,17 @@ export class UsuarioService {
     // Crear usuarios predefinidos con datos completos
     this.usuarios.push(
       {
+        rut: '98765432-1',
+        correo: 'usuario@duocuc.cl',
+        password: 'usuario123',
+        nombre: 'Usuario',
+        fecha_nacimiento: '2000-05-15',
+        genero: 'femenino',
+        sede: 'Santiago',
+        tiene_auto: 'no',
+        tipouser: 'usuario' // Tipo de usuario normal
+      },
+      {
         rut: '12345678-9',
         correo: 'admin@duocuc.cl',
         password: 'admin123',
@@ -21,8 +32,10 @@ export class UsuarioService {
         tiene_auto: 'si',
         marca_auto: 'Toyota',
         patente: 'ABCD12',
-        asientos_disp: 4
-      },
+        asientos_disp: 4,
+        tipouser: 'admin' 
+        
+      }
     );
   }
 
