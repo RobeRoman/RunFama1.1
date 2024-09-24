@@ -10,6 +10,7 @@
 
 ## Estado del Proyecto
 - **En desarrollo**: Actualmente se están implementando nuevas características y mejoras. ✔✔
+  ![meme](https://statics.memondo.com/p/s1/crs/2021/12/CR_1216327_3c143e0bd5494830875dce078aebc446_memes_dolorosamente_familiares_sobre_programacion_thumb_fb.jpg?cb=723227)
 ## Instalación
 
  ### Requisitos previos
