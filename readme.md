@@ -1,6 +1,6 @@
 # RunFaMa
 ## Descripción
- RunFama es un proyecto para la gestión y colaboración de viajes de alumnos de DuocUC. El objetivo es facilitar el viaje, especialmente a los alumnos de la jornada vespertina, ya que la cantidad de vehículos de transporte es baja en esos horarios. Los precios son muy elevados, el transporte propio es escaso y DuocUC no facilita transporte. Por lo tanto, este proyecto busca facilitar el transporte a través de que las personas con vehículo puedan inscribirlos y compartir viajes con quienes los necesitan, lo que permitirá generar viajes seguros y será una gran ayuda para los estudiantes.
+ 🐱‍🚀RunFama es un proyecto para la gestión y colaboración de viajes de alumnos de DuocUC. El objetivo es facilitar el viaje, especialmente a los alumnos de la jornada vespertina, ya que la cantidad de vehículos de transporte es baja en esos horarios. Los precios son muy elevados, el transporte propio es escaso y DuocUC no facilita transporte. Por lo tanto, este proyecto busca facilitar el transporte a través de que las personas con vehículo puedan inscribirlos y compartir viajes con quienes los necesitan, lo que permitirá generar viajes seguros y será una gran ayuda para los estudiantes.
 
 ### Características
  - Registro de usuarios.
@@ -43,12 +43,13 @@
  2. Entra a la zona de registrar.
  3. Crea una cuenta rellenando el formulario.
  4. Ingresa el usuario y contraseña en la zona de login.
- 5. Luego de ingresar, puedes navegar libremente por la página web.
+ 5. Luego de ingresar, puedes navegar libremente por la página web. 🐱‍🏍
 
    **Podras realizar cosas como:**
    - Buscar viajes: Encuentra viajes disponibles según tu ubicación y horario.
    - Ofrecer un viaje: Registra tu vehículo y comparte tu viaje con otros.
    - Historial de viajes: Revisa tus viajes anteriores y su estado.
+   ![Goku](https://tenor.com/es-419/view/goku-ya-merito-nube-voladora-gif-10933306)
 
 ## Tecnologías Ocupadas
  - [Angular](https://angular.io/)
