@@ -1,6 +1,6 @@
 # RunFaMa
 ## Descripción
- 🐱‍🚀RunFama es un proyecto para la gestión y colaboración de viajes de alumnos de DuocUC. El objetivo es facilitar el viaje, especialmente a los alumnos de la jornada vespertina, ya que la cantidad de vehículos de transporte es baja en esos horarios. Los precios son muy elevados, el transporte propio es escaso y DuocUC no facilita transporte. Por lo tanto, este proyecto busca facilitar el transporte a través de que las personas con vehículo puedan inscribirlos y compartir viajes con quienes los necesitan, lo que permitirá generar viajes seguros y será una gran ayuda para los estudiantes.
+ 🐱‍🚀RunFama es un proyecto para la gestión y colaboración de viajes de alumnos de DuocUC. El objetivo es facilitar el viaje, especialmente a los alumnos de la jornada vespertina, ya que la cantidad de vehículos de transporte es baja en esos horarios. Los precios son muy elevados, el transporte propio es escaso y DuocUC no facilita transporte. Por lo tanto, este proyecto busca facilitar el transporte a través de que las personas con vehículo puedan inscribirlos y compartir viajes con quienes los necesitan, lo que permitirá generar viajes seguros y será una gran ayuda para los estudiantes. 👀⚔
 
 ### Características
  - Registro de usuarios.
@@ -9,7 +9,7 @@
  - Historial de viajes.
 
 ## Estado del Proyecto
-- **En desarrollo**: Actualmente se están implementando nuevas características y mejoras.
+- **En desarrollo**: Actualmente se están implementando nuevas características y mejoras. ✔✔
 ## Instalación
 
  ### Requisitos previos
@@ -44,12 +44,13 @@
  3. Crea una cuenta rellenando el formulario.
  4. Ingresa el usuario y contraseña en la zona de login.
  5. Luego de ingresar, puedes navegar libremente por la página web. 🐱‍🏍
+ ![Goku](https://media1.tenor.com/m/ID6-beDVEN8AAAAC/goku-ya-merito.gif)
 
    **Podras realizar cosas como:**
-   - Buscar viajes: Encuentra viajes disponibles según tu ubicación y horario.
-   - Ofrecer un viaje: Registra tu vehículo y comparte tu viaje con otros.
-   - Historial de viajes: Revisa tus viajes anteriores y su estado.
-   ![Goku](https://media1.tenor.com/m/ID6-beDVEN8AAAAC/goku-ya-merito.gif)
+   - Buscar viajes: Encuentra viajes disponibles según tu ubicación y horario. 🚘
+   - Ofrecer un viaje: Registra tu vehículo y comparte tu viaje con otros. 🚗
+   - Historial de viajes: Revisa tus viajes anteriores y su estado. 📝
+   
 
 ## Tecnologías Ocupadas
  - [Angular](https://angular.io/)
@@ -59,9 +60,9 @@
 
 ## Contacto
  Para cualquier duda, consulta o comentario puedes comunicarte con nosotros en
- - Gmail: Rofama@gmail.com
- - Instagram: RofamaSolutions
- - Whatsapp: 955553367
+ - Gmail: Rofama@gmail.com 💌
+ - Instagram: RofamaSolutions 💢
+ - Whatsapp: 955553367 📲
 
 
 ## Licencia
