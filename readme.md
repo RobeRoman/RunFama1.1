@@ -11,7 +11,7 @@
 ## Estado del Proyecto
 - **En desarrollo**: Actualmente se están implementando nuevas características y mejoras. ✔✔
   <img src="https://statics.memondo.com/p/s1/crs/2021/12/CR_1216327_3c143e0bd5494830875dce078aebc446_memes_dolorosamente_familiares_sobre_programacion_thumb_fb.jpg?cb=723227" alt="meme progra" width="300"/>
-  
+
 ## Instalación
 
  ### Requisitos previos
@@ -46,7 +46,7 @@
  3. Crea una cuenta rellenando el formulario.
  4. Ingresa el usuario y contraseña en la zona de login.
  5. Luego de ingresar, puedes navegar libremente por la página web. 🐱‍🏍
- ![Goku](https://media1.tenor.com/m/ID6-beDVEN8AAAAC/goku-ya-merito.gif)
+ <img src="https://media1.tenor.com/m/ID6-beDVEN8AAAAC/goku-ya-merito.gif" alt="meme goku" width="300"/>
 
    **Podras realizar cosas como:**
    - Buscar viajes: Encuentra viajes disponibles según tu ubicación y horario. 🚘
