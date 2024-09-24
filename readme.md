@@ -49,7 +49,7 @@
    - Buscar viajes: Encuentra viajes disponibles según tu ubicación y horario.
    - Ofrecer un viaje: Registra tu vehículo y comparte tu viaje con otros.
    - Historial de viajes: Revisa tus viajes anteriores y su estado.
-   ![Goku](https://tenor.com/es-419/view/goku-ya-merito-nube-voladora-gif-10933306)
+   ![Goku](https://media1.tenor.com/m/ID6-beDVEN8AAAAC/goku-ya-merito.gif)
 
 ## Tecnologías Ocupadas
  - [Angular](https://angular.io/)
