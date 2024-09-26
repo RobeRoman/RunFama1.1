@@ -14,7 +14,7 @@ export class AdministrarPage implements OnInit {
     nombre: new FormControl('', [Validators.required, Validators.pattern("[a-zA-Z]{3,15}")]),
     fecha_nacimiento: new FormControl('', [Validators.required, this.anosvalidar(18, 100)]),
     correo: new FormControl('', [Validators.required, Validators.pattern("[a-zA-Z0-9._%+-]+@duocuc.cl")]),
-    password: new FormControl('', [Validators.required, Validators.minLength(4)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     genero: new FormControl('', [Validators.required]),
     sede: new FormControl('', [Validators.required]),
     tiene_auto: new FormControl('no', [Validators.required]),
@@ -107,6 +107,7 @@ export class AdministrarPage implements OnInit {
   
     if (this.usuarioService.updateUsuario(rut_modificar, this.persona.value)) {
       this.presentAlert('Perfecto!', 'Modificado correctamente');
+      this.persona.reset();
     } else {
       this.presentAlert('Error!', 'No se pudo modificar');
     }

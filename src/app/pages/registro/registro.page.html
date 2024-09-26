@@ -26,7 +26,7 @@
               <ion-input formControlName="correo" placeholder="@duocuc.cl" type="email" label="Correo" labelPlacement="stacked" fill="outline"></ion-input>
               
               <div class="password-container">
-                <ion-input [type]="isPasswordVisible ? 'text' : 'password'" formControlName="password" placeholder="Igual mayor a 4 dígitos" label="Contraseña" labelPlacement="stacked" fill="outline"></ion-input>
+                <ion-input [type]="isPasswordVisible ? 'text' : 'password'" formControlName="password" placeholder="Igual mayor a 8 dígitos" label="Contraseña" labelPlacement="stacked" fill="outline"></ion-input>
                 <ion-icon name="eye" (click)="togglePasswordVisibility()" *ngIf="!isPasswordVisible"></ion-icon>
                 <ion-icon name="eye-off" (click)="togglePasswordVisibility()" *ngIf="isPasswordVisible"></ion-icon>
               </div>

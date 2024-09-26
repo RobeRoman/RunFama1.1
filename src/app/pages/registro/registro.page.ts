@@ -38,7 +38,7 @@ export class RegistroPage implements OnInit {
     nombre: new FormControl('', [Validators.required, Validators.pattern("[a-zA-Z]{3,15}")]),
     fecha_nacimiento: new FormControl('', [Validators.required, this.anosvalidar(18, 100)]),
     correo: new FormControl('', [Validators.required, Validators.pattern("[a-zA-Z0-9._%+-]+@duocuc.cl")]),
-    password: new FormControl('', [Validators.required, Validators.minLength(4)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     repetir_password: new FormControl('', [Validators.required]), // Campo para repetir la contraseña
     genero: new FormControl('', [Validators.required]),
     sede: new FormControl('', [Validators.required]),
@@ -121,6 +121,7 @@ export class RegistroPage implements OnInit {
       if (registrado) {
         await this.presentAlert('Perfecto!', 'Registrado correctamente');
         this.router.navigate(['/login']);
+        this.persona.reset();
       } else {
         await this.presentAlert('Error', 'El usuario ya está registrado.');
       }
