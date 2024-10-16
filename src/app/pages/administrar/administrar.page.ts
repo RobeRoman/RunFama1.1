@@ -42,8 +42,8 @@ export class AdministrarPage implements OnInit {
     'wuling', 'baojun', 'gac', 'hummer'
   ];
 
-  ngOnInit() {
-    this.usuarios = this.usuarioService.getUsuarios();
+  async ngOnInit() {
+    this.usuarios = await this.usuarioService.getUsuarios();
 
     this.persona.get('tiene_auto')?.valueChanges.subscribe(value => {
       if (value === 'si') {
@@ -65,26 +65,26 @@ export class AdministrarPage implements OnInit {
   }
 
   async registrar() {
-    if (this.usuarioService.createUsuario(this.persona.value)) {
+    if (await this.usuarioService.createUsuario(this.persona.value)) {
       await this.presentAlert('Perfecto!', 'Registrado correctamente');
       this.persona.reset();
-      this.usuarios = this.usuarioService.getUsuarios();
+      this.usuarios = await this.usuarioService.getUsuarios();
     } else {
       await this.presentAlert('Error!', 'El usuario no se pudo registrar');
     }
   }
 
-  buscar(usuario: any) {
+  async buscar(usuario: any) {
     this.persona.patchValue(usuario);
   }
 
-  eliminar(rut: string) {
-    if (this.usuarioService.deleteUsuario(rut)) {
-      this.usuarios = this.usuarioService.getUsuarios();
+  async eliminar(rut: string) {
+    if (await this.usuarioService.deleteUsuario(rut)) {
+      this.usuarios = await this.usuarioService.getUsuarios();
     }
   }
 
-  modificar() {
+  async modificar() {
     const rut_modificar = this.persona.controls.rut.value || "";
     
     // Actualizar los validadores según el campo "tiene_auto"
@@ -105,7 +105,7 @@ export class AdministrarPage implements OnInit {
     this.persona.get('patente')?.updateValueAndValidity();
     this.persona.get('asientos_disp')?.updateValueAndValidity();
   
-    if (this.usuarioService.updateUsuario(rut_modificar, this.persona.value)) {
+    if (await this.usuarioService.updateUsuario(rut_modificar, this.persona.value)) {
       this.presentAlert('Perfecto!', 'Modificado correctamente');
       this.persona.reset();
     } else {
@@ -137,6 +137,7 @@ export class AdministrarPage implements OnInit {
     }
     return null;
   }
+  
   validarAsientos(control: AbstractControl) {
     const valor = control.value;
     if (valor < 1 || valor > 10) {

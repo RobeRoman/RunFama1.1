@@ -16,7 +16,8 @@ export class RegistroPage implements OnInit {
   
   // Declara las propiedades email y password (si las necesitas en el futuro)
   
-  constructor(private alertController: AlertController, private router: Router, private usuarioService: UsuarioService) { }
+  constructor(private alertController: AlertController, private router: Router, private usuarioService: UsuarioService) 
+  { }
 
   // Lista de marcas de autos
   marcasAuto: string[] = [
@@ -114,11 +115,12 @@ export class RegistroPage implements OnInit {
     }
     return null;
   }
+
   async registrar() {
     if (this.persona.valid) {
       const usuario = this.persona.value;
       const registrado = this.usuarioService.createUsuario(usuario);
-      if (registrado) {
+      if (await registrado) {
         await this.presentAlert('Perfecto!', 'Registrado correctamente');
         this.router.navigate(['/login']);
         this.persona.reset();

@@ -1,83 +1,97 @@
 import { Injectable } from '@angular/core';
 
+import { Storage } from '@ionic/storage-angular';
+
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
-  usuarios: any[] = [];
   private usuarioAutenticado: any = null; // Añadir propiedad para el usuario autenticado
 
-  constructor() {
-    // Crear usuarios predefinidos con datos completos
-    this.usuarios.push(
-      {
-        rut: '98765432-1',
-        correo: 'usuario@duocuc.cl',
-        password: 'usuario123',
-        nombre: 'Usuario',
-        fecha_nacimiento: '2000-05-15',
-        genero: 'femenino',
-        sede: 'Santiago',
-        tiene_auto: 'no',
-        tipouser: 'usuario' // Tipo de usuario normal
-      },
-      {
-        rut: '12345678-9',
-        correo: 'admin@duocuc.cl',
-        password: 'admin123',
-        nombre: 'Admin',
-        fecha_nacimiento: '1990-01-01',
-        genero: 'masculino',
-        sede: 'Puente alto',
-        tiene_auto: 'si',
-        marca_auto: 'Toyota',
-        patente: 'ABCD12',
-        asientos_disp: 4,
-        tipouser: 'admin' 
-        
-      }
-    );
+  constructor(private storage: Storage) {
+    this.init();
   }
 
-  public createUsuario(usuario: any): boolean {
-    if (this.getUsuario(usuario.rut) === undefined) {
-      this.usuarios.push(usuario);
-      return true;
+  async init(){
+    await this.storage.create();
+    let admin = {
+      rut: '12345678-9',
+      correo: 'admin@duocuc.cl',
+      password: 'admin123',
+      nombre: 'Admin',
+      fecha_nacimiento: '1990-01-01',
+      genero: 'masculino',
+      sede: 'Puente alto',
+      tiene_auto: 'si',
+      marca_auto: 'Toyota',
+      patente: 'ABCD12',
+      asientos_disp: 4,
+      tipouser: 'admin'
     }
-    return false;
+    let renepuente = {
+      rut: '21380169-2',
+      correo: 'rene@duocuc.cl',
+      password: 'rene12345678',
+      nombre: 'rene',
+      fecha_nacimiento: '2003-02-09',
+      genero: 'masculino',
+      sede: 'Puente alto',
+      tiene_auto: 'no',
+      tipouser: 'admin'
+    };
+    await this.createUsuario(admin);
+    await this.createUsuario(renepuente);
   }
 
-  public getUsuario(rut: string) {
-    return this.usuarios.find(elemento => elemento.rut === rut);
-  }
-
-  public getUsuarios(): any[] {
-    return this.usuarios;
-  }
-
-  public updateUsuario(rut: string, nuevoUsuario: any) {
-    const indice = this.usuarios.findIndex(elemento => elemento.rut === rut);
-    if (indice === -1) {
+  public async createUsuario(usuario: any): Promise <boolean> {
+    let usuarios: any[] = await this.storage.get("usuarios") || [];
+    if(usuarios.find(usu=>usu.rut==usuario.rut)!=undefined){
       return false;
     }
-    this.usuarios[indice] = nuevoUsuario;
+    usuarios.push(usuario);
+    await this.storage.set("usuarios", usuarios);
     return true;
   }
 
-  public deleteUsuario(rut: string): boolean {
-    const indice = this.usuarios.findIndex(elemento => elemento.rut === rut);
-    if (indice === -1) {
+  public async getUsuario(rut: string): Promise <any> {
+    let usuarios: any[] = await this.storage.get("usuarios") || [];
+    return usuarios.find(usu=>usu.rut==rut)
+  }
+
+  public async getUsuarios():Promise <any[]> {
+    let usuarios: any[] = await this.storage.get("usuarios") ||[];
+    return usuarios;
+  }
+
+  public async updateUsuario(rut: string, nuevoUsuario: any): Promise<boolean>{
+    let usuarios: any[] = await this.storage.get("usuarios") || []
+    let indice: number = usuarios.findIndex(usu=>usu.rut==rut);
+    if (indice==-1){
       return false;
     }
-    this.usuarios.splice(indice, 1);
+    usuarios[indice] = nuevoUsuario;
+    await this.storage.set("usuarios", usuarios);
     return true;
   }
 
-  public authenticate(email: string, password: string): boolean {
-    console.log('Verificando:', email, password); // Depuración
-    const usuario = this.usuarios.find(user => user.correo === email && user.password === password);
-    if (usuario) {
-      this.usuarioAutenticado = usuario; // Establecer usuario autenticado
+  public async deleteUsuario(rut: string): Promise <boolean> {
+    let usuarios: any[] = await this.storage.get("usuarios") || [];
+    let indice: number = usuarios.findIndex(usu=>usu.rut==rut);
+    if(indice==-1){
+      return false;
+    }
+    usuarios.splice(indice,1);
+    await this.storage.set("usuarios", usuarios);
+    return true;
+  }
+
+  //Nose si esta bien
+  public async authenticate(email: string, password: string):Promise <boolean> {
+    let usuarios: any[] = await this.storage.get("usuarios") || [];
+    const usu =  usuarios.find(elemento=> elemento.correo===email && elemento.password===password);
+    if(usu){
+      //localStorage almacena la información SI o SI como String:
+      localStorage.setItem("usuario", JSON.stringify(usu) );
       return true;
     }
     return false;
@@ -87,7 +101,13 @@ export class UsuarioService {
     return this.usuarioAutenticado; // Obtener usuario autenticado
   }
 
-  public logUsuarios() {
-    console.log(this.usuarios);
-  }
 }
+
+
+/*    console.log('Verificando:', email, password); // Depuración
+    const usuario = this.usuarios.find(user => user.correo === email && user.password === password);
+    if (usuario) {
+      this.usuarioAutenticado = usuario; // Establecer usuario autenticado
+      return true;
+    }
+    return false;*/ 

@@ -20,6 +20,7 @@ export class RecuperarPage implements OnInit {
 
   ngOnInit() { }
 
+  /*
   async validarcorreo() {
     if (this.email === '') {
       await this.presentAlert('Error', 'Correo vacío');
@@ -30,7 +31,7 @@ export class RecuperarPage implements OnInit {
       await this.presentAlert('Error', 'El correo no es válido');
     }
   }
-
+  */
   async presentAlert(header: string, message: string) {
     const alert = await this.alertController.create({
       header: header,
