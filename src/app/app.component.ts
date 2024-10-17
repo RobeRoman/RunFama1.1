@@ -12,6 +12,8 @@ export class AppComponent {
   constructor(public usuarioService: UsuarioService, private menu: MenuController, private router: Router) {} // Cambiar a public
 
   salir(){
+    localStorage.removeItem("usuario");
+    this.usuarioService.setUsuarioAutenticado(null);
     this.menu.close();
     this.router.navigate(['/login']);
   }

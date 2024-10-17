@@ -113,6 +113,7 @@ export class AdministrarPage implements OnInit {
     }
   }
  
+  
 
   // Validador personalizado para edad
   anosvalidar(minAge: number, maxAge: number): ValidatorFn {
