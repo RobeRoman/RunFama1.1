@@ -14,14 +14,16 @@
     </ion-card-header>
     <br>
     <ion-card-content>
-      <form>
+      <form [formGroup]="viaje" >
         <p>Conductor: {{usuario.nombre +' Rut:  '  +  usuario.rut}}</p>
-        <br>
-        <ion-input label="Asientos disponibles" labelPlacement="stacked"></ion-input>
-        <ion-input label="Direccion" labelPlacement="stacked"></ion-input>
+        <ion-input labelPlacement="stacked" label="Id" formControlName="id"></ion-input>
+        <ion-input labelPlacement="stacked" label="Asientos disponibles" formControlName="asientos_disponible"></ion-input>
+        <ion-input labelPlacement="stacked" label="Destino" formControlName="destino" ></ion-input>
+        <ion-input labelPlacement="stacked" label="Distancia M" formControlName="distancia_m" ></ion-input>
+        <ion-input labelPlacement="stacked" label="Minutos" formControlName="tiempo_minutos" ></ion-input>
       </form>
     </ion-card-content>
+    <div id="map_html"></div>
     <ion-button>Crear viaje</ion-button>
   </ion-card>
-  
 </ion-content>
