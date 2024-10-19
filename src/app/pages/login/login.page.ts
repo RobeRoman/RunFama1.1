@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { UsuarioService } from '../../services/usuario.service';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -18,10 +19,13 @@ export class LoginPage implements OnInit {
   constructor(
     private alertController: AlertController,
     private router: Router,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private menuCtrl: MenuController
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.menuCtrl.enable(false);
+   }
 
   async login() {
     // Verificar si está bloqueado
@@ -40,6 +44,7 @@ export class LoginPage implements OnInit {
       console.log('Autenticado');
       this.failedAttempts = 0; // Reiniciar intentos fallidos
       await this.router.navigate(['/home']);
+      this.menuCtrl.enable(true);
     } else {
       console.log('Autenticación fallida');
       this.failedAttempts++;

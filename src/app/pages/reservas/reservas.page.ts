@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { ViajeService } from 'src/app/services/viaje.service';
-import { AbstractControl, FormControl, FormGroup, Validators, ValidatorFn} from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 import * as L from 'leaflet';
 import * as G from 'leaflet-control-geocoder';
@@ -25,60 +25,69 @@ export class ReservasPage implements OnInit {
     longitud: new FormControl(),
     distancia_m: new FormControl(),
     tiempo_minutos: new FormControl(),
+    precio: new FormControl(),
     estado: new FormControl('pendiente'),
     pasajeros: new FormControl([])
   });
 
-  constructor(private usuarioService: UsuarioService, private viajeService: ViajeService) { }
+  constructor(private usuarioService: UsuarioService, private viajeService: ViajeService) {}
 
-  ngOnInit() { 
+  ngOnInit() {
     this.usuario = JSON.parse(localStorage.getItem("usuario") || '');
     this.initMap();
   }
 
   initMap(){
-    //ACA CARGAMOS E INICIALIZAMOS EL MAPA:
-    this.map = L.map("map_html").locate({setView:true, maxZoom:16});
-    //this.map = L.map("map_html").setView([-33.608552227594245, -70.58039819211703],16);
-    
-    //ES LA PLANTILLA PARA QUE SEA VEA EL MAPA:
+    // Cargar e inicializar el mapa
+    this.map = L.map("map_html").locate({ setView: true, maxZoom: 16 });
+
+    // Cargar la capa del mapa
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(this.map);
 
-    this.map.on('locationfound', (e)=>{
+    // Agregar el marcador fijo en las coordenadas asignadas (punto A)
+    const fixedMarker = L.marker([-33.59850527332617, -70.5787656165388]).addTo(this.map);
+    fixedMarker.bindPopup("Inicia desde este punto").openPopup(); // Añadir un popup si lo deseas
+
+    // Evento para encontrar la ubicación del usuario
+    this.map.on('locationfound', (e) => {
       console.log(e.latlng.lat);
       console.log(e.latlng.lng);
     });
 
-    //VAMOS A AGREGAR UN BUSCADOR DE DIRECCIONES EN EL MAPA:
+    // Agregar buscador de direcciones en el mapa
     this.geocoder = G.geocoder({
       placeholder: "Ingrese dirección a buscar",
       errorMessage: "Dirección no encontrada"
     }).addTo(this.map);
 
-    //VAMOS A REALIZAR UNA ACCIÓN CON EL BUSCADOR, CUANDO OCURRA ALGO CON EL BUSCADOR:
-    this.geocoder.on('markgeocode', (e)=>{
-      //cargo el formulario:
-      let lat = e.geocode.properties['lat'];
-      let lon = e.geocode.properties['lon'];
+    // Acción al seleccionar una dirección con el geocoder
+    this.geocoder.on('markgeocode', (e) => {
+      const lat = e.geocode.properties['lat'];
+      const lon = e.geocode.properties['lon'];
+
+      // Actualizar el formulario con los datos del destino
       this.viaje.controls.destino.setValue(e.geocode.properties['display_name']);
       this.viaje.controls.latitud.setValue(lat);
       this.viaje.controls.longitud.setValue(lon);
       
-      if(this.map){
+      // Crear una ruta desde el marcador fijo hasta el destino seleccionado
+      if (this.map) {
         L.Routing.control({
-          waypoints: [L.latLng(-33.608552227594245, -70.58039819211703),
-            L.latLng(lat,lon)],
-            fitSelectedRoutes: true,
-          }).on('routesfound', (e)=>{
-            this.viaje.controls.distancia_m.setValue(e.routes[0].summary.totalDistance);
-            this.viaje.controls.tiempo_minutos.setValue(Math.round(e.routes[0].summary.totalTime/60));
+          waypoints: [
+            L.latLng(-33.59850527332617, -70.5787656165388), // Punto A (fijo)
+            L.latLng(lat, lon) // Punto B (destino seleccionado)
+          ],
+          fitSelectedRoutes: true
+        }).on('routesfound', (e) => {
+          // Actualizar el formulario con los detalles de la ruta
+          this.viaje.controls.distancia_m.setValue(e.routes[0].summary.totalDistance);
+          this.viaje.controls.tiempo_minutos.setValue(Math.round(e.routes[0].summary.totalTime / 60));
+          this.viaje.controls.precio.setValue(Math.round(e.routes[0].summary.totalDistance / 1000) * 500);
         }).addTo(this.map);
       }
     });
   }
-
 }
-

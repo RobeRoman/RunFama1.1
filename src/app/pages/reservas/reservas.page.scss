@@ -1,5 +1,54 @@
-#map_html{
-    height: 50vh;
-    width: 100%;
-    //margin: 10% 10% 10% 10%;
-}
+/* Estilos generales del formulario */
+ion-card {
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  ion-card-title {
+    font-size: 1.4em;
+    color: #3880ff;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  ion-card-content form {
+    margin-top: 10px;
+  }
+  
+  .conductor-info {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #333;
+    padding: 10px 0;
+  }
+  
+  ion-input {
+    margin-bottom: 10px;
+    --padding-start: 10px;
+    --padding-end: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  ion-input[disabled] {
+    background-color: #f0f0f5;
+  }
+  
+  #map_html {
+    height: 300px;
+    border-radius: 10px;
+    margin: 20px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Estilos del botón */
+  ion-button {
+    margin: 20px auto;
+    display: block;
+    width: 90%;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 6px rgba(0, 128, 0, 0.3);
+    font-size: 1.1em;
+  }
+  
