@@ -14,9 +14,9 @@
     </ion-card-header>
     <br>
     <ion-card-content>
-      <form [formGroup]="viaje" >
+      <form [formGroup]="viaje">
         <p>Conductor: {{usuario.nombre +' Rut:  '  +  usuario.rut}}</p>
-        <ion-input labelPlacement="stacked" label="Id" formControlName="id"></ion-input>
+        <ion-input labelPlacement="stacked" label="Id" formControlName="id" readonly="true"></ion-input>
         <ion-input labelPlacement="stacked" label="Asientos disponibles" formControlName="asientos_disponible"></ion-input>
         <ion-input labelPlacement="stacked" label="Destino" formControlName="destino" readonly="true" ></ion-input>
         <ion-input labelPlacement="stacked" label="Distancia M" formControlName="distancia_m" readonly="true" ></ion-input>
@@ -25,6 +25,6 @@
       </form>
     </ion-card-content>
     <div id="map_html"></div>
-    <ion-button>Crear viaje</ion-button>
+    <ion-button type="submit">Crear viaje</ion-button>
   </ion-card>
 </ion-content>

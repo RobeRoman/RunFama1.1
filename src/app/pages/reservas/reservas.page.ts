@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { ViajeService } from 'src/app/services/viaje.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import * as L from 'leaflet';
 import * as G from 'leaflet-control-geocoder';
@@ -13,17 +13,18 @@ import 'leaflet-routing-machine';
   styleUrls: ['./reservas.page.scss'],
 })
 export class ReservasPage implements OnInit {
+  id: number = 1;
   usuario: any;
   private map: L.Map | undefined;
   private geocoder: G.Geocoder | undefined;
 
   viaje = new FormGroup({
-    id: new FormControl(),
-    asientos_disponible: new FormControl(),
-    destino: new FormControl(),
-    latitud: new FormControl(),
-    longitud: new FormControl(),
-    distancia_m: new FormControl(),
+    id: new FormControl(this.id),
+    asientos_disponible: new FormControl('',[Validators.required, Validators.min(1), Validators.max(16)]),
+    destino: new FormControl('',[Validators.required]),
+    latitud: new FormControl('',[Validators.required]),
+    longitud: new FormControl('',[Validators.required]),
+    distancia_m: new FormControl('',[Validators.required]),
     tiempo_minutos: new FormControl(),
     precio: new FormControl(),
     estado: new FormControl('pendiente'),
@@ -85,9 +86,12 @@ export class ReservasPage implements OnInit {
           // Actualizar el formulario con los detalles de la ruta
           this.viaje.controls.distancia_m.setValue(e.routes[0].summary.totalDistance);
           this.viaje.controls.tiempo_minutos.setValue(Math.round(e.routes[0].summary.totalTime / 60));
-          this.viaje.controls.precio.setValue(Math.round(e.routes[0].summary.totalDistance / 1000) * 500);
+          this.viaje.controls.precio.setValue(new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(Math.round(e.routes[0].summary.totalDistance / 1000) * 500));
+
         }).addTo(this.map);
       }
     });
   }
+
+  
 }
