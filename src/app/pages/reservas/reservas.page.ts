@@ -26,7 +26,7 @@ export class ReservasPage implements OnInit {
     destino: new FormControl('',[Validators.required]),
     latitud: new FormControl('',[Validators.required]),
     longitud: new FormControl('',[Validators.required]),
-    distancia_m: new FormControl('',[Validators.required]),
+    distancia_m: new FormControl('',[]),
     tiempo_minutos: new FormControl(),
     precio: new FormControl(),
     estado: new FormControl('pendiente'),
@@ -95,20 +95,31 @@ export class ReservasPage implements OnInit {
     });
   }
 
-  async registrarViaje(){
+  
 
-    if (this.viaje.valid){
+  async registrarViaje(){
+    if (this.viaje.valid) {
+      // Obtener el siguiente ID disponible
+      const nextId = await this.viajeService.getNextId();
+      this.viaje.controls.id.setValue(nextId);  // Asignar el nuevo ID
+  
       const viaje = this.viaje.value;
-      const registroV = this.viajeService.createViaje(viaje);
-      if (await registroV){
-        this.presentAlert('Bien', 'Perfecto');
+      const registroV = await this.viajeService.createViaje(viaje);
+  
+      if (registroV) {
+        await this.presentAlert('Bien', 'Viaje registrado con éxito');
         this.router.navigate(['/home']);
-        this.viaje.reset
-        console.log('Bien');
+        this.viaje.reset();
+        console.log('Viaje registrado correctamente');
+      } else {
+        await this.presentAlert('Error', 'No se pudo registrar el viaje');
       }
+    } else {
+      console.log('Formulario inválido');
+      await this.presentAlert('Error', 'Formulario inválido, por favor revisa los campos.');
     }
-    console.log('Mal');
   }
+  
 
   async presentAlert(header: string, message: string) {
     const alert = await this.alertController.create({

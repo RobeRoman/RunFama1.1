@@ -56,4 +56,15 @@ export class ViajeService {
     await this.storage.set("viajes", viajes);
     return true;
   }
+
+  public async getNextId(): Promise<number> {
+    let viajes: any[] = await this.storage.get("viajes") || [];
+    if (viajes.length === 0) {
+      return 1;  // Si no hay viajes, comienza desde 1
+    }
+    // Encuentra el último ID y agrégale 1
+    let maxId = Math.max(...viajes.map(v => v.id));
+    return maxId + 1;
+  }
+  
 }
