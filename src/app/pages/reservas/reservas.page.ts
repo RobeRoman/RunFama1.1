@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { ViajeService } from 'src/app/services/viaje.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 import * as L from 'leaflet';
 import * as G from 'leaflet-control-geocoder';
@@ -31,7 +33,7 @@ export class ReservasPage implements OnInit {
     pasajeros: new FormControl([])
   });
 
-  constructor(private usuarioService: UsuarioService, private viajeService: ViajeService) {}
+  constructor( private router: Router,private alertController: AlertController, private usuarioService: UsuarioService, private viajeService: ViajeService) {}
 
   ngOnInit() {
     this.usuario = JSON.parse(localStorage.getItem("usuario") || '');
@@ -93,5 +95,28 @@ export class ReservasPage implements OnInit {
     });
   }
 
-  
+  async registrarViaje(){
+    if(this.viaje.valid){
+      const viaje = this.viaje.value;
+      const registroV = this.viajeService.createViaje(viaje);
+      if (await registroV) {
+        await this.presentAlert('Perfecto', 'Viaje registrado');
+        this.router.navigate(['/home']);
+        this.viaje.reset();
+      }else{
+        await this.presentAlert('Error', 'Viaje no se pudo registrar');
+      }
+    }else{
+      await this.presentAlert('Error', 'Por favor, ver formulario')
+    }
+  }
+
+  async presentAlert(header: string, message: string) {
+    const alert = await this.alertController.create({
+      header: header,
+      message: message,
+      buttons: ['OK'],
+    });
+    await alert.present();    
+  }
 }

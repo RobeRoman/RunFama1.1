@@ -14,7 +14,7 @@
     </ion-card-header>
     <br>
     <ion-card-content>
-      <form [formGroup]="viaje">
+      <form [formGroup]="viaje" (ngSubmit)="registrarViaje()">
         <p>Conductor: {{usuario.nombre +' Rut:  '  +  usuario.rut}}</p>
         <ion-input labelPlacement="stacked" label="Id" formControlName="id" readonly="true"></ion-input>
         <ion-input labelPlacement="stacked" label="Asientos disponibles" formControlName="asientos_disponible"></ion-input>
@@ -25,6 +25,6 @@
       </form>
     </ion-card-content>
     <div id="map_html"></div>
-    <ion-button type="submit">Crear viaje</ion-button>
+    <ion-button [disabled]="viaje.invalid" type="submit">Crear viaje</ion-button>
   </ion-card>
 </ion-content>

@@ -11,12 +11,11 @@ export class ViajeService {
 
   async init() {
     await this.storage.create();
-    // No se crean viajes de ejemplo
   }
 
   public async createViaje(viaje: any): Promise<boolean> {
     let viajes: any[] = await this.storage.get("viajes") || [];
-    if (viajes.find(v => v.id === viaje.id) != undefined) {
+    if (viajes.find(v=>v.id==viaje.id) != undefined) {
       return false;
     }
     viajes.push(viaje);
