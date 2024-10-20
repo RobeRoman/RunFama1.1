@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage-angular';
   providedIn: 'root'
 })
 export class ViajeService {
+
   constructor(private storage: Storage) {
     this.init();
   }
@@ -12,6 +13,7 @@ export class ViajeService {
   async init() {
     await this.storage.create();
   }
+  
 
   public async createViaje(viaje: any): Promise<boolean> {
     let viajes: any[] = await this.storage.get("viajes") || [];

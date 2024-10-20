@@ -96,19 +96,18 @@ export class ReservasPage implements OnInit {
   }
 
   async registrarViaje(){
-    if(this.viaje.valid){
+
+    if (this.viaje.valid){
       const viaje = this.viaje.value;
       const registroV = this.viajeService.createViaje(viaje);
-      if (await registroV) {
-        await this.presentAlert('Perfecto', 'Viaje registrado');
+      if (await registroV){
+        this.presentAlert('Bien', 'Perfecto');
         this.router.navigate(['/home']);
-        this.viaje.reset();
-      }else{
-        await this.presentAlert('Error', 'Viaje no se pudo registrar');
+        this.viaje.reset
+        console.log('Bien');
       }
-    }else{
-      await this.presentAlert('Error', 'Por favor, ver formulario')
     }
+    console.log('Mal');
   }
 
   async presentAlert(header: string, message: string) {
