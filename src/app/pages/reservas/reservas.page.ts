@@ -22,6 +22,7 @@ export class ReservasPage implements OnInit {
 
   viaje = new FormGroup({
     id: new FormControl(),
+    conductor: new FormControl('',[Validators.required]),
     asientos_disponible: new FormControl('',[Validators.required, Validators.min(1), Validators.max(16)]),
     destino: new FormControl('',[Validators.required]),
     latitud: new FormControl('',[Validators.required]),
@@ -37,6 +38,7 @@ export class ReservasPage implements OnInit {
 
   ngOnInit() {
     this.usuario = JSON.parse(localStorage.getItem("usuario") || '');
+    this.viaje.controls.conductor.setValue(this.usuario.nombre);
     this.initMap();
   }
 

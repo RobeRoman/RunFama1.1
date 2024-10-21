@@ -1,64 +1,33 @@
-
 <ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-menu-button slot="start"></ion-menu-button>
   </ion-toolbar>
   
   <ion-item lines="none">
-  
-  <ion-avatar slot="start">
-  <img src="https://lumiere-a.akamaihd.net/v1/images/up_thingsyoumissed_3_c06b4cd1.png?region=0%2C0%2C1000%2C563">
-      </ion-avatar>
-  <ion-label>
-  <p>Hola, Bienvenido</p>
-  
-  </ion-label>
-  
+    <ion-avatar slot="start">
+      <img src="https://lumiere-a.akamaihd.net/v1/images/up_thingsyoumissed_3_c06b4cd1.png?region=0%2C0%2C1000%2C563">
+    </ion-avatar>
+
+    <ion-label *ngIf="usuario && usuario.nombre">    
+      <p class="bienvenido">¡Bienvenido!</p>
+      <p class="nombre-usuario">{{usuario.nombre}}</p>
+    </ion-label>
   </ion-item>
-  
 </ion-header>
-  
-<ion-content>
-  <div class="ion-padding">
 
-    <ion-row class="ion-align-items-center ion-padding-horizontal">
-      <ion-col size="6">
-        <h5>8 Results</h5>
-      </ion-col>
-      <ion-col size="6" class="ion-text-right">
-        <ion-button fill="clear" color="dark">
-          <ion-icon slot="icon-only" name="ellipsis-horizontal"></ion-icon>
-        </ion-button>
-      </ion-col>
-    </ion-row>
-
-    <ion-card>
+<ion-content fullscreen="true" scroll-y="true">
+  <div class="ion-padding" *ngFor="let viaje of viajes">
+    <ion-card class="viaje-card">
       <ion-card-header>
-        <ion-row class="ion-align-items-center">
-          <ion-col size="6">
-            <ion-badge color="warning" mode="ios">
-              <ion-icon name="star"></ion-icon>
-              4.5
-            </ion-badge>
-          </ion-col>
-
-        </ion-row>
+        <ion-card-title>{{ viaje.destino }}</ion-card-title>
+        <ion-card-subtitle>{{ viaje.estado_viaje }}</ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
-        <ion-img src="https://acroadtrip.blob.core.windows.net/catalogo-imagenes/s/RT_V_2712f0a8c23e4b7da783ba5fd03eaab2.jpg"></ion-img>
-
-        <ion-row>
-          <ion-col size="8">
-            <ion-card-title>Roberto roman</ion-card-title>
-            <ion-card-subtitle>PT-CL-23</ion-card-subtitle>
-          </ion-col>
-          <ion-col size="4" class="ion-text-right">
-            <ion-button fill="clear" color="dark" size="large" routerLink="/details">
-              <ion-icon slot="icon-only" name="chevron-forward-circle-outline"></ion-icon>
-            </ion-button>
-          </ion-col>
-        </ion-row>
+        <p>Asientos disponibles: {{ viaje.asientos_disponible }}</p>
+        <p>Precio: {{ viaje.precio }}</p>
       </ion-card-content>
+      <ion-button expand="block" class="boton-amarillo">Tomar!</ion-button>
+      <ion-button expand="block" class="boton-azul">Detalle</ion-button>
     </ion-card>
   </div>
 </ion-content>
@@ -69,6 +38,6 @@
       <ion-tab-button routerLink="/reservas">
         <ion-icon name="car"></ion-icon>
       </ion-tab-button>
-    </ion-tab-bar>
+    </ion-tab-bar>  
   </ion-tabs>
 </div>
