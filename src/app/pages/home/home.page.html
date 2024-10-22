@@ -15,6 +15,10 @@
   </ion-item>
 </ion-header>
 
+<!-- Cambiamos el id del mapa a algo único para evitar conflictos -->
+ <ion-content id="map_home"></ion-content>
+
+
 <ion-content>
   <div class="ion-padding" *ngFor="let viaje of viajes">
     <ion-card class="viaje-card">
@@ -27,7 +31,7 @@
         <p>Precio: {{ viaje.precio }}</p>
       </ion-card-content>
       <ion-button expand="block" class="boton-amarillo">Tomar!</ion-button>
-      <ion-button expand="block" class="boton-azul">Detalle</ion-button>
+      <ion-button expand="block" class="boton-azul" (click)="abrirDetalle(viaje)">Detalle</ion-button>
     </ion-card>
   </div>
 </ion-content>
