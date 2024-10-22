@@ -16,7 +16,6 @@
     <ion-card-content>
       <form [formGroup]="viaje" (ngSubmit)="registrarViaje()">
         <p>Conductor: {{usuario.nombre +' Rut:  '  +  usuario.rut}}</p>
-        <ion-input labelPlacement="stacked" label="Id" formControlName="id" readonly="true"></ion-input>
         <ion-input labelPlacement="stacked" label="Asientos disponibles" formControlName="asientos_disponible"></ion-input>
         <ion-input labelPlacement="stacked" label="Destino" formControlName="destino" readonly="true"></ion-input>
         <ion-input labelPlacement="stacked" label="Distancia M" formControlName="distancia_m" readonly="true"></ion-input>

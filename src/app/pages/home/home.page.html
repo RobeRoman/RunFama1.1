@@ -15,7 +15,7 @@
   </ion-item>
 </ion-header>
 
-<ion-content fullscreen="true" scroll-y="true">
+<ion-content>
   <div class="ion-padding" *ngFor="let viaje of viajes">
     <ion-card class="viaje-card">
       <ion-card-header>
@@ -32,12 +32,8 @@
   </div>
 </ion-content>
 
-<div *ngIf="usuarioAutenticado.tiene_auto === 'si'">
-  <ion-tabs>
-    <ion-tab-bar>
-      <ion-tab-button routerLink="/reservas">
-        <ion-icon name="car"></ion-icon>
-      </ion-tab-button>
-    </ion-tab-bar>  
-  </ion-tabs>
-</div>
+<ion-fab vertical="bottom" horizontal="end" *ngIf="usuarioAutenticado.tiene_auto === 'si'">
+  <ion-fab-button color="warning" routerLink="/reservas">
+    <ion-icon name="car" color="dark"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

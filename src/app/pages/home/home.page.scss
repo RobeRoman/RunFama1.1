@@ -1,21 +1,21 @@
-// Estilos para el contenido
 ion-content {
   background-color: #f5f5f5;
   padding: 10px;
-
+  
+  // Asegúrate de que el contenido de la tarjeta permita el scroll
   .viaje-card {
-    border: 3px solid #000000; // Borde amarillo
-    border-radius: 10px; // Bordes redondeados
-    margin-bottom: 15px;
+    border: 2px solid #000000;
+    border-radius: 10px;
+    margin-bottom: 2%;
     transition: box-shadow 0.2s ease-in-out;
-
+    
     &:hover {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); // Sombra marcada en hover
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
-
+    
     ion-card-header {
       ion-card-title {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         font-weight: bold;
       }
 
@@ -28,25 +28,22 @@ ion-content {
     ion-card-content {
       color: #555;
     }
-    
   }
 
-  // Estilos para los botones
   .boton-amarillo {
-    --background: #ffcc00; // Color amarillo
-    --color: black; // Texto en negro
-    margin-right: 10px; // Espaciado entre los botones
+    --background: #ffcc00;
+    --color: black;
+    margin-right: 10px;
   }
 
   .boton-azul {
-    --background: #007bff; // Color azul eléctrico
-    --color: white; // Texto en blanco
+    --background: #007bff;
+    --color: white;
   }
 
-  // Para mantener los botones uno al lado del otro
   ion-button {
-    width: 48%; // Hacer que los botones ocupen menos espacio para caber al lado del otro
-    display: inline-block; // Para alinearlos horizontalmente
+    width: 48%;
+    display: inline-block;
   }
-
+  
 }
