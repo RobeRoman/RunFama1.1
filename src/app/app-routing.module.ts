@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { authGuard } from './services/auth.guard';
 
 const routes: Routes = [
   {
     path: 'home',
+    canActivate: [authGuard],
     loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
   },
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {
@@ -30,15 +32,18 @@ const routes: Routes = [
   
   {
     path: 'administrar',
+    canActivate: [authGuard],
     loadChildren: () => import('./pages/administrar/administrar.module').then( m => m.AdministrarPageModule)
   },
   
   {
     path: 'perfil',
+    canActivate: [authGuard],
     loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
   },
   {
     path: 'reservas',
+    canActivate: [authGuard],
     loadChildren: () => import('./pages/reservas/reservas.module').then( m => m.ReservasPageModule)
   },
   {
