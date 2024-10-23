@@ -45,6 +45,32 @@ export class HomePage implements OnInit, AfterViewInit {
     this.viajes = await this.viajeService.getViajes();
   }
 
+  // Función para tomar el viaje
+  async tomarViaje(viaje: any) {
+    // Verificar si hay asientos disponibles
+    if (viaje.asientos_disponible > 0) {
+      // Descontar un asiento
+      viaje.asientos_disponible -= 1;
+
+      // Cambiar el estado del viaje a "tomado" si es necesario
+      if (viaje.asientos_disponible === 0) {
+        viaje.estado_viaje = 'tomado';
+      }
+
+      // Agregar los datos del usuario al array de pasajeros
+      const usuarioActual = JSON.parse(localStorage.getItem("usuario") || '{}');
+      viaje.pasajeros.push(usuarioActual);
+
+      // Actualizar el viaje en el servicio (usando id y nuevo viaje)
+      const actualizado = await this.viajeService.updateViaje(viaje.id, viaje);
+      if (actualizado) {
+        console.log('Viaje actualizado correctamente');
+      } else {
+        console.log('Error al actualizar el viaje');
+      }
+    }
+  }
+
   // Inicializa el mapa después de que la vista esté lista
   ngAfterViewInit() {
     this.initMapHome(); // Inicializamos el mapa una vez que la vista está lista
