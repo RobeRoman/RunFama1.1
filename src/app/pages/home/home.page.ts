@@ -4,6 +4,7 @@ import { ViajeService } from 'src/app/services/viaje.service';
 import { ChangeDetectorRef } from '@angular/core';
 import * as L from 'leaflet'; // Importamos Leaflet para los mapas
 import 'leaflet-routing-machine'; // Importamos la librería de rutas
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -14,13 +15,14 @@ export class HomePage implements OnInit, AfterViewInit {
   usuarioAutenticado: any;
   usuario: any;
   viajes: any[] = [];
-  private mapHome: L.Map | undefined; // Cambiar el nombre de la variable del mapa para que sea única
-  private routingControlHome: L.Routing.Control | undefined; // Control de rutas exclusivo para el HomePage
+  private mapHome: L.Map | undefined; 
+  private routingControlHome: L.Routing.Control | undefined; 
 
   constructor(
     private usuarioService: UsuarioService,
     private viajeService: ViajeService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
@@ -35,51 +37,57 @@ export class HomePage implements OnInit, AfterViewInit {
     this.obtenerViaje();
   }
 
-  // Cargar datos del usuario
   cargarDatosUsuario() {
     this.usuario = JSON.parse(localStorage.getItem("usuario") || '{}');
   }
-
-  // Obtener los viajes
+  
   async obtenerViaje() {
     this.viajes = await this.viajeService.getViajes();
   }
-
-  // Función para tomar el viaje
+  
   async tomarViaje(viaje: any) {
-    // Verificar si hay asientos disponibles
-    if (viaje.asientos_disponible > 0) {
-      // Descontar un asiento
+    
+    const usuarioActual = JSON.parse(localStorage.getItem("usuario") || '{}');
+      
+    const viajes = await this.viajeService.getViajes();
+    const yaHaTomadoUnViaje = viajes.some((v: any) =>
+      v.pasajeros.some((pasajero: any) => pasajero.rut === usuarioActual.rut)
+    );
+  
+    if (yaHaTomadoUnViaje) {
+      await this.presentAlert('Error!', 'El usuario ya ha tomado un viaje');
+      console.log('El usuario ya ha tomado un viaje y no puede tomar otro.');
+      return;
+    }
+    
+    if (viaje.asientos_disponible > 0) {  
       viaje.asientos_disponible -= 1;
-
-      // Cambiar el estado del viaje a "tomado" si es necesario
+      
       if (viaje.asientos_disponible === 0) {
         viaje.estado_viaje = 'tomado';
       }
-
-      // Agregar los datos del usuario al array de pasajeros
-      const usuarioActual = JSON.parse(localStorage.getItem("usuario") || '{}');
+      
       viaje.pasajeros.push(usuarioActual);
-
-      // Actualizar el viaje en el servicio (usando id y nuevo viaje)
+      
       const actualizado = await this.viajeService.updateViaje(viaje.id, viaje);
       if (actualizado) {
+        await this.presentAlert('Perfecto', 'Viaje tomado correctamente');
         console.log('Viaje actualizado correctamente');
       } else {
         console.log('Error al actualizar el viaje');
       }
+    } else {
+      console.log('No hay asientos disponibles.');
     }
   }
-
-  // Inicializa el mapa después de que la vista esté lista
+    
   ngAfterViewInit() {
-    this.initMapHome(); // Inicializamos el mapa una vez que la vista está lista
+    this.initMapHome(); 
   }
 
-  // Inicializa el mapa específico para la página Home
   initMapHome() {
     if (this.mapHome) {
-      return; // Si el mapa ya existe, no lo volvemos a inicializar
+      return; 
     }
 
     this.mapHome = L.map('map_home').locate({ setView: true, maxZoom: 16 });
@@ -88,25 +96,21 @@ export class HomePage implements OnInit, AfterViewInit {
       maxZoom: 19,
       attribution: '© OpenStreetMap'
     }).addTo(this.mapHome);
-
-    // Agregar un marcador fijo al mapa
+    
     const fixedMarker = L.marker([-33.59850527332617, -70.5787656165388]).addTo(this.mapHome);
     fixedMarker.bindPopup("Inicia desde este punto").openPopup();
   }
-
-  // Muestra el mapa y traza una ruta a partir de un destino seleccionado
+  
   mostrarMapaHome(latitud: number, longitud: number) {
     if (this.mapHome) {
       // Limpiar rutas previas
       if (this.routingControlHome) {
         this.mapHome.removeControl(this.routingControlHome);
       }
-
-      // Definir puntos de inicio y destino
-      const inicio = L.latLng(-33.59850527332617, -70.5787656165388); // Punto A (fijo)
-      const destino = L.latLng(latitud, longitud); // Punto B (destino)
-
-      // Crear la ruta en el mapa
+      
+      const inicio = L.latLng(-33.59850527332617, -70.5787656165388); 
+      const destino = L.latLng(latitud, longitud); 
+      
       this.routingControlHome = L.Routing.control({
         waypoints: [inicio, destino],
         routeWhileDragging: true, // Permitir ajustar la ruta arrastrando
@@ -115,8 +119,16 @@ export class HomePage implements OnInit, AfterViewInit {
     }
   }
 
-  // Método para abrir el detalle de un viaje y mostrar la ruta en el mapa
   abrirDetalle(viaje: any) {
-    this.mostrarMapaHome(viaje.latitud, viaje.longitud); // Mostrar el mapa con las coordenadas del viaje seleccionado
+    this.mostrarMapaHome(viaje.latitud, viaje.longitud); 
+  }
+
+  async presentAlert(header: string, message: string) {
+    const alert = await this.alertController.create({
+      header: header,
+      message: message,
+      buttons: ['OK'],
+    });
+    await alert.present();    
   }
 }
