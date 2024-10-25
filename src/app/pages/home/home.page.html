@@ -30,7 +30,9 @@
         <p>Precio: {{ viaje.precio }}</p>
       </ion-card-content>
       <ion-button expand="block" class="boton-amarillo" [disabled]="viaje.asientos_disponible === 0" (click)="tomarViaje(viaje)">Tomar!</ion-button>
-      <ion-button expand="block" class="boton-azul" (click)="abrirDetalle(viaje)">Detalle</ion-button>
+      <ion-button expand="block" class="boton-azul" (click)="abrirDetalle(viaje)">Ver ruta</ion-button>
+      <ion-button routerLink="/detalles-reservas/{{ viaje.id }}">Detalle</ion-button>
+
     </ion-card>
   </div>
 </ion-content>

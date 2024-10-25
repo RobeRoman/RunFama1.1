@@ -97,24 +97,25 @@ export class HomePage implements OnInit, AfterViewInit {
       attribution: '© OpenStreetMap'
     }).addTo(this.mapHome);
     
+
     const fixedMarker = L.marker([-33.59850527332617, -70.5787656165388]).addTo(this.mapHome);
     fixedMarker.bindPopup("Inicia desde este punto").openPopup();
   }
   
   mostrarMapaHome(latitud: number, longitud: number) {
     if (this.mapHome) {
-      // Limpiar rutas previas
+    
       if (this.routingControlHome) {
         this.mapHome.removeControl(this.routingControlHome);
       }
       
       const inicio = L.latLng(-33.59850527332617, -70.5787656165388); 
-      const destino = L.latLng(latitud, longitud); 
+      const destino = L.latLng(latitud, longitud);
       
       this.routingControlHome = L.Routing.control({
         waypoints: [inicio, destino],
-        routeWhileDragging: true, // Permitir ajustar la ruta arrastrando
-        fitSelectedRoutes: true,  // Ajustar el zoom a la ruta
+        routeWhileDragging: true, 
+        fitSelectedRoutes: true,
       }).addTo(this.mapHome);
     }
   }

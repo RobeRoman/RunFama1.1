@@ -47,9 +47,15 @@ const routes: Routes = [
     loadChildren: () => import('./pages/reservas/reservas.module').then( m => m.ReservasPageModule)
   },
   {
+    path: 'detalles-reservas/:id',
+    canActivate: [authGuard],
+    loadChildren: () => import('./pages/detalles-reservas/detalles-reservas.module').then( m => m.DetallesReservasPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./pages/error404/error404.module').then( m => m.Error404PageModule)
   },
+
 ];
 
 @NgModule({
