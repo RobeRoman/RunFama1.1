@@ -10,6 +10,7 @@ export class DetallesReservasPage implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    
   }
 
 }

@@ -104,17 +104,27 @@ export class HomePage implements OnInit, AfterViewInit {
   
   mostrarMapaHome(latitud: number, longitud: number) {
     if (this.mapHome) {
-    
+  
       if (this.routingControlHome) {
         this.mapHome.removeControl(this.routingControlHome);
       }
+  
+      const inicio = L.latLng(-33.59850527332617, -70.5787656165388); // Punto de inicio
+      const destino = L.latLng(latitud, longitud); // Punto de destino
+  
       
-      const inicio = L.latLng(-33.59850527332617, -70.5787656165388); 
-      const destino = L.latLng(latitud, longitud);
+      const plan = L.Routing.plan([inicio, destino], {
+        createMarker: (i, waypoint) => {
+          return L.marker(waypoint.latLng, {
+            draggable: false 
+          }).bindPopup(i === 0 ? 'Inicio' : 'Destino').openPopup();
+        }
+      });
+  
       
       this.routingControlHome = L.Routing.control({
-        waypoints: [inicio, destino],
-        routeWhileDragging: true, 
+        plan: plan,
+        routeWhileDragging: false, 
         fitSelectedRoutes: true,
       }).addTo(this.mapHome);
     }
@@ -132,4 +142,10 @@ export class HomePage implements OnInit, AfterViewInit {
     });
     await alert.present();    
   }
+  
+  haTomadoElViaje(viaje: any): boolean {
+    const usuarioActual = JSON.parse(localStorage.getItem("usuario") || '{}');
+    return viaje.pasajeros.some((pasajero: any) => pasajero.rut === usuarioActual.rut);
+  }
+
 }
