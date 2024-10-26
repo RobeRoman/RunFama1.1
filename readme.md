@@ -8,8 +8,8 @@
  - Opción de ofrecer un viaje.
  - Historial de viajes.
 
-### Nuevas caracteristicas
-  ## VERSION 2.0 DE RUNFAMA
+
+  ### Nuevas caracteristicas version 2.0 RUNFAMA
   - Mapa leaflet
   - Routing machine para ver la ruta
   - Uso de guard para mayor seguridad 
