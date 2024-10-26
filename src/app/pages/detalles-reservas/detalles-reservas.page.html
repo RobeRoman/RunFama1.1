@@ -1,13 +1,56 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Detalles de reservas</ion-title>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
+    <ion-title>Detalles de Reservas</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Detalles del Viaje</ion-card-title>
+    </ion-card-header>
 
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-icon name="person-circle-outline" slot="start"></ion-icon>
+          <ion-label><strong>Conductor:</strong></ion-label>
+          <ion-text>{{conductor || 'No asignado'}}</ion-text>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="car-outline" slot="start"></ion-icon>
+          <ion-label><strong>Asientos Disponibles:</strong></ion-label>
+          <ion-text>{{asientos_disponibles || 'Sin disponibilidad'}}</ion-text>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="location-outline" slot="start"></ion-icon>
+          <ion-label><strong>Destino:</strong></ion-label>
+          <ion-text>{{destino || 'No especificado'}}</ion-text>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="cash-outline" slot="start"></ion-icon>
+          <ion-label><strong>Precio:</strong></ion-label>
+          <ion-text>{{precio ? ('' + precio) : 'Gratuito'}}</ion-text>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="time-outline" slot="start"></ion-icon>
+          <ion-label><strong>Duración Estimada:</strong></ion-label>
+          <ion-text>{{tiempo_minutos ? (tiempo_minutos + ' minutos') : 'No disponible'}}</ion-text>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="walk-outline" slot="start"></ion-icon>
+          <ion-label><strong>Distancia:</strong></ion-label>
+          <ion-text>{{distancia_m ? (distancia_m + ' metros') : 'No disponible'}}</ion-text>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

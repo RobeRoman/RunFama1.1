@@ -36,9 +36,15 @@ export class ViajeService {
   }
 
   public async getViaje(id: string): Promise<any> {
-    let viajes: any[] = await this.storage.get("viajes") || [];
-    return viajes.find(v => v.id === id);
+    const viajes: any[] = await this.storage.get("viajes") || [];
+    console.log("Viajes recuperados en getViaje:", viajes);
+    const viajeEncontrado = viajes.find(v => v.id.toString() === id.toString());
+    if (!viajeEncontrado) {
+      console.warn(`No se encontró un viaje con el ID: ${id}`);
+    }
+    return viajeEncontrado;
   }
+  
 
   public async getViajes(): Promise<any[]> {
     let viajes: any[] = await this.storage.get("viajes") || [];
