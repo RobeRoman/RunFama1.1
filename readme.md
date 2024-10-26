@@ -8,9 +8,21 @@
  - Opción de ofrecer un viaje.
  - Historial de viajes.
 
+### Nuevas caracteristicas
+  ## VERSION 2.0 DE RUNFAMA
+  - Mapa leaflet
+  - Routing machine para ver la ruta
+  - Uso de guard para mayor seguridad 
+  - Storage y local storage
+  - Home para ver viajes 
+  - Crud de viajes(Crear, listar, modificar y eliminar viajes)
+  - Apartado de reservas según id
+
+
+
 ## Estado del Proyecto
 - **En desarrollo**: Actualmente se están implementando nuevas características y mejoras. ✔✔
-  <img src="https://statics.memondo.com/p/s1/crs/2021/12/CR_1216327_3c143e0bd5494830875dce078aebc446_memes_dolorosamente_familiares_sobre_programacion_thumb_fb.jpg?cb=723227" alt="meme progra" width="300"/>
+
 
 ## Instalación
 
@@ -46,13 +58,16 @@
  3. Crea una cuenta rellenando el formulario.
  4. Ingresa el usuario y contraseña en la zona de login.
  5. Luego de ingresar, puedes navegar libremente por la página web. 🐱‍🏍
- <img src="https://media1.tenor.com/m/ID6-beDVEN8AAAAC/goku-ya-merito.gif" alt="meme goku" width="300"/>
 
    **Podras realizar cosas como:**
    - Buscar viajes: Encuentra viajes disponibles según tu ubicación y horario. 🚘
    - Ofrecer un viaje: Registra tu vehículo y comparte tu viaje con otros. 🚗
    - Historial de viajes: Revisa tus viajes anteriores y su estado. 📝
-   
+   - Marcar punto de destino en el mapa(siendo conductor o cliente)
+   - Utilizar distintos metodos de pago
+   - Ver la ruta en el mapa
+   - Y muchas otras opciones, utiliza RUNFAMA para descubrirlas!
+
 
 ## Tecnologías Ocupadas
  - [Angular](https://angular.io/)
