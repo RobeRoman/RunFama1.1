@@ -17,7 +17,12 @@ export class DetallesReservasPage implements OnInit {
   distancia_m: number= 0;
   tiempo_minutos: number=0;
   precio: number= 0;
-
+  estado: string = ''
+  
+  capitalize(text: string): string {
+    return text ? text.charAt(0).toUpperCase() + text.slice(1).toLowerCase() : '';
+  }
+  
   constructor(private activaedRoute: ActivatedRoute, private viajeService: ViajeService) { }
   ngOnInit() {
     setTimeout(() => {
@@ -34,6 +39,7 @@ export class DetallesReservasPage implements OnInit {
         this.distancia_m = viaje.distancia_m || 0; 
         this.tiempo_minutos = viaje.tiempo_minutos || 0;
         this.precio = viaje.precio || 0;
+        this.estado = this.capitalize(viaje.estado || 'Sin estado');
       }
     });
   }

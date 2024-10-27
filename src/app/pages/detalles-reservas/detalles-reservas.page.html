@@ -28,9 +28,15 @@
         </ion-item>
 
         <ion-item>
+          <ion-icon name="checkmark" slot="start" color="warning"></ion-icon>
+          <ion-label><strong>Estado viaje:</strong></ion-label>
+          <ion-text>{{estado}}</ion-text>
+        </ion-item>
+
+        <ion-item>
           <ion-icon name="location-outline" slot="start" color="warning"></ion-icon>
           <ion-label><strong>Destino:</strong></ion-label>
-          <ion-text>{{destino || 'No especificado'}}</ion-text>
+          <ion-text class="small-text">{{destino || 'No especificado'}}</ion-text>
         </ion-item>
 
         <ion-item>
