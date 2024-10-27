@@ -38,6 +38,92 @@ ion-button {
   margin-top: 16px;
 }
 
+/* Estilos para el formulario de viaje */
+ion-card {
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 16px;
+}
+
+ion-card-header {
+  background-color: #007bff; /* Azul intenso */
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  padding: 12px 0;
+}
+
+ion-item {
+  --background: #f7f7f7;
+  border-radius: 5px;
+  margin-bottom: 8px;
+  padding: 8px;
+}
+
+ion-label {
+  font-size: 14px;
+  color: #555;
+}
+
+ion-input, ion-select {
+  font-size: 14px;
+  color: #333;
+  padding-left: 4px;
+}
+
+#submit-button {
+  --background: #007bff;
+  color: white;
+  font-weight: bold;
+  width: 100%;
+  margin-top: 16px;
+}
+
+#reset-button {
+  --background: #6c757d;
+  color: white;
+  font-weight: bold;
+  width: 100%;
+  margin-top: 8px;
+}
+
+ion-button.small-button {
+  --padding-top: 4px;
+  --padding-bottom: 4px;
+  --border-radius: 4px;
+  margin: 0 4px;
+}
+
+ion-button.small-button {
+  --border-radius: 4px;
+  --padding-start: 8px;
+  --padding-end: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+}
+
+ion-button.buscar {
+  --background: #007bff; /* Color azul */
+}
+
+ion-button.eliminar {
+  --background: #dc3545; /* Color rojo */
+}
+
+ion-item {
+  --inner-padding-end: 0; /* Elimina el padding en el lado derecho */
+}
+
+ion-buttons {
+  display: flex;
+  justify-content: flex-end; /* Alinea los botones a la derecha */
+  gap: 8px; /* Espacio entre los botones */
+}
+
+
 /* Estilos responsivos */
 @media (min-width: 768px) {
   ion-col[size-md="6"] {

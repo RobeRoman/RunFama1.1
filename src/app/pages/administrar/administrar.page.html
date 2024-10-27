@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Administrar Usuarios</ion-title>
+    <ion-title>Administrar Usuarios y Viajes</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -8,134 +8,197 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12" size-md="6">
-        <ion-card>
-          <ion-card-header>
-            <ion-card-title>Información Personal!</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <br>
-            <form [formGroup]="persona" (ngSubmit)="registrar()">
-              <ion-input formControlName="rut" placeholder="Sin punto con guion" type="text" labelPlacement="stacked" label="RUT" fill="outline"></ion-input>
-              <ion-input formControlName="nombre" type="text" labelPlacement="stacked" label="Nombre" fill="outline"></ion-input>
-              <ion-label position="stacked">Fecha de Nacimiento</ion-label><ion-input formControlName="fecha_nacimiento" type="date"  fill="outline"></ion-input>
+  <!-- Segmento para alternar entre Usuario y Viaje -->
+  <ion-segment [(ngModel)]="selectedSegment">
+    <ion-segment-button value="usuario">
+      <ion-label>Usuario</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="viaje">
+      <ion-label>Viaje</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <!-- Sección de Usuario -->
+  <div *ngIf="selectedSegment === 'usuario'">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-md="6">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Información Personal</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <form [formGroup]="persona" (ngSubmit)="registrarUsuario()">
+                <ion-input formControlName="rut" placeholder="Sin punto con guion" type="text" labelPlacement="stacked" label="RUT" fill="outline"></ion-input>
+                <ion-input formControlName="nombre" type="text" labelPlacement="stacked" label="Nombre" fill="outline"></ion-input>
+                <ion-label position="stacked">Fecha de Nacimiento</ion-label>
+                <ion-input formControlName="fecha_nacimiento" type="date" fill="outline"></ion-input>
                 <ion-note slot="end" color="danger" *ngIf="persona.controls.fecha_nacimiento.errors?.['invalidAge']">
                   La edad debe estar entre 18 y 100 años.
                 </ion-note>
-              <ion-input formControlName="correo" placeholder="@duocuc.cl" type="email" label="Correo" labelPlacement="stacked" fill="outline"></ion-input>
-              <ion-input formControlName="password" placeholder="Igual o mayor a 8 digitos" type="password" label="Password" labelPlacement="stacked" fill="outline"></ion-input>
-              
-              <ion-select formControlName="genero" label="Genero" labelPlacement="stacked" fill="outline">
-                <ion-select-option value="masculino">Masculino</ion-select-option>
-                <ion-select-option value="femenino">Femenino</ion-select-option>
-                <ion-select-option value="otro">Otro</ion-select-option>
-              </ion-select>
-              
-              <ion-select formControlName="sede" label="Sede Duoc" labelPlacement="stacked" fill="outline">
-                <ion-select-option value="alameda">Alameda</ion-select-option>
-                <ion-select-option value="antonio_varas">Antonio Varas</ion-select-option>
-                <ion-select-option value="maipu">Maipú</ion-select-option>
-                <ion-select-option value="melipilla">Melipilla</ion-select-option>
-                <ion-select-option value="padre_alonso">Padre Alonso de Ovalle</ion-select-option>
-                <ion-select-option value="plaza_oeste">Plaza Oeste</ion-select-option>
-                <ion-select-option value="plaza_vespucio">Plaza Vespucio</ion-select-option>
-                <ion-select-option value="plaza_norte">Plaza Norte</ion-select-option>
-                <ion-select-option value="puente_alto">Puente Alto</ion-select-option>
-                <ion-select-option value="san_bernardo">San Bernardo</ion-select-option>
-                <ion-select-option value="san_carlos">San Carlos de Apoquindo</ion-select-option>
-                <ion-select-option value="san_joaquin">San Joaquín</ion-select-option>
-                <ion-select-option value="valparaiso">Valparaíso</ion-select-option>
-                <ion-select-option value="vina_del_mar">Viña del Mar</ion-select-option>
-                <ion-select-option value="concepcion">Concepción</ion-select-option>
-                <ion-select-option value="arauco">Arauco</ion-select-option>
-                <ion-select-option value="villarica">Villarica</ion-select-option>
-                <ion-select-option value="puerto_montt">Puerto Montt</ion-select-option>
-              </ion-select>
-              
-              <ion-label>¿Tiene Auto?</ion-label>
-              
-              <ion-radio-group formControlName="tiene_auto">
-                <ion-item>
-                  <ion-radio slot="start" value="si"></ion-radio>
-                  <ion-label>Sí</ion-label>
-                </ion-item>
-                <ion-item>
-                  <ion-radio slot="start" value="no"></ion-radio>
-                  <ion-label>No</ion-label>
-                </ion-item>
-              </ion-radio-group>
-              <br>
-              <ion-label>Tipo de usuario</ion-label>
-              <ion-radio-group formControlName="tipouser">
-                <ion-item>
-                  <ion-radio slot="start" value="admin"></ion-radio>
-                  <ion-label>Adminastrador</ion-label>
-                </ion-item>
-                <ion-item>
-                  <ion-radio slot="start" value="usuario"></ion-radio>
-                  <ion-label>Usuario</ion-label>
-                </ion-item>
-              </ion-radio-group>
-              
-              <ion-button [disabled]="persona.invalid" type="submit" size="block" color="warning">REGISTRAR</ion-button>
-              
-              <ion-button type="reset" size="block" color="primary">Limpiar</ion-button>
-            </form>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-      <ion-col size="12" size-md="6" *ngIf="persona.controls.tiene_auto.value === 'si'">
-        <ion-card>
-          <ion-card-header>
-            <ion-card-title>Detalles del Auto</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <form [formGroup]="persona" (ngSubmit)="registrar()">
-              <ion-input formControlName="marca_auto" type="text" label="Marca Auto" labelPlacement="stacked" fill="outline"></ion-input>
-              <ion-text *ngIf="persona.controls.marca_auto.errors?.['marcaNoExiste']">
-                <p>La marca ingresada no existe en el sistema :C.</p>
-              </ion-text>
-              
-              <ion-input formControlName="patente" type="text" label="Patente" labelPlacement="stacked" fill="outline"></ion-input>
-              <ion-text color="danger" *ngIf="persona.controls.patente.errors?.['pattern']">
-                <p>La patente debe ser válida (formato: AB1234 o ABCD12).</p>
-              </ion-text>
-              <ion-input formControlName="asientos_disp" type="number" label="Asientos Disp." labelPlacement="stacked" fill="outline"></ion-input>
-            </form>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
+                <ion-input formControlName="correo" placeholder="@duocuc.cl" type="email" label="Correo" labelPlacement="stacked" fill="outline"></ion-input>
+                <ion-input formControlName="password" placeholder="Igual o mayor a 8 dígitos" type="password" label="Password" labelPlacement="stacked" fill="outline"></ion-input>
+                
+                <ion-select formControlName="genero" label="Género" labelPlacement="stacked" fill="outline">
+                  <ion-select-option value="masculino">Masculino</ion-select-option>
+                  <ion-select-option value="femenino">Femenino</ion-select-option>
+                  <ion-select-option value="otro">Otro</ion-select-option>
+                </ion-select>
+                
+                <ion-select formControlName="sede" label="Sede Duoc" labelPlacement="stacked" fill="outline">
+                  <ion-select-option value="alameda">Alameda</ion-select-option>
+                  <!-- Opciones de sede adicionales aquí -->
+                </ion-select>
+                
+                <ion-label>¿Tiene Auto?</ion-label>
+                <ion-radio-group formControlName="tiene_auto">
+                  <ion-item>
+                    <ion-radio slot="start" value="si"></ion-radio>
+                    <ion-label>Sí</ion-label>
+                  </ion-item>
+                  <ion-item>
+                    <ion-radio slot="start" value="no"></ion-radio>
+                    <ion-label>No</ion-label>
+                  </ion-item>
+                </ion-radio-group>
+                
+                <ion-label>Tipo de usuario</ion-label>
+                <ion-radio-group formControlName="tipouser">
+                  <ion-item>
+                    <ion-radio slot="start" value="admin"></ion-radio>
+                    <ion-label>Administrador</ion-label>
+                  </ion-item>
+                  <ion-item>
+                    <ion-radio slot="start" value="usuario"></ion-radio>
+                    <ion-label>Usuario</ion-label>
+                  </ion-item>
+                </ion-radio-group>
+                
+                <ion-button [disabled]="persona.invalid" type="submit" size="block" color="warning">Registrar Usuario</ion-button>
+                <ion-button type="reset" size="block" color="primary" (click)="persona.reset()">Limpiar</ion-button>
+              </form>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        
+        <!-- Lista de Usuarios -->
+        <ion-col size="12">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Lista de Usuarios</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-list>
+                <ion-item-sliding *ngFor="let usuario of usuarios">
+                  <ion-item>
+                    {{ usuario.rut }} - {{ usuario.nombre }} - Tiene auto: {{ usuario.tiene_auto }}
+                  </ion-item>
+                  <ion-item-options side="end">
+                    <ion-item-option (click)="buscar(usuario)">
+                      <ion-icon name="search"></ion-icon>
+                      Buscar
+                    </ion-item-option>
+                    <ion-item-option (click)="eliminar(usuario.rut)">
+                      <ion-icon name="trash"></ion-icon>
+                      Eliminar
+                    </ion-item-option>
+                  </ion-item-options>
+                </ion-item-sliding>
+                <ion-button [disabled]="persona.invalid" (click)="modificarUsuario()" type="submit" size="block" color="warning">Modificar</ion-button>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>    
+  </div>
 
-      <!-- Columna de derecha -->
-      <ion-col size="12">
-        <ion-card>
-          <ion-card-header>
-            <ion-card-title>Lista de Usuarios</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <ion-list>
-              <ion-item-sliding *ngFor="let usuario of usuarios">
+  <!-- Sección de Viaje -->
+  <div *ngIf="selectedSegment === 'viaje'">
+    <ion-grid>
+      <!-- Formulario de Registro de Viaje -->
+      <ion-row>
+        <ion-col size="12">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Registrar Viaje</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <form [formGroup]="viaje" (ngSubmit)="modoEdicion ? actualizarViaje() : registrarViaje()">
                 <ion-item>
-                  {{ usuario.rut }} - {{ usuario.nombre }} - Tiene auto: {{ usuario.tiene_auto }}
+                  <ion-label position="stacked">Conductor</ion-label>
+                  <ion-input formControlName="conductor" readonly></ion-input>
                 </ion-item>
-                <ion-item-options side="end">
-                  <ion-item-option (click)="buscar(usuario)">
-                    <ion-icon name="search"></ion-icon>
-                    Buscar
-                  </ion-item-option>
-                  <ion-item-option (click)="eliminar(usuario.rut)">
-                    <ion-icon name="trash"></ion-icon>
-                    Eliminar
-                  </ion-item-option>
-                </ion-item-options>
-              </ion-item-sliding>
-              <ion-button [disabled]="persona.invalid" (click)="modificar()" type="submit" size="block" color="warning">Modificar</ion-button>
-            </ion-list>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>    
+                <ion-item>
+                  <ion-label position="stacked">Destino</ion-label>
+                  <ion-input formControlName="destino"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label position="stacked">Asientos Disponibles</ion-label>
+                  <ion-input type="number" formControlName="asientos_disponible"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label position="stacked">Latitud</ion-label>
+                  <ion-input formControlName="latitud" readonly></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label position="stacked">Longitud</ion-label>
+                  <ion-input formControlName="longitud" readonly></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label position="stacked">Distancia (m)</ion-label>
+                  <ion-input formControlName="distancia_m" readonly></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label position="stacked">Tiempo (minutos)</ion-label>
+                  <ion-input formControlName="tiempo_minutos" readonly></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label position="stacked">Precio</ion-label>
+                  <ion-input formControlName="precio" readonly></ion-input>
+                </ion-item>
+                
+                <!-- Botones de Acción -->
+                <ion-button id="submit-button" type="submit" expand="block" [disabled]="viaje.invalid">
+                  {{ modoEdicion ? 'Actualizar Viaje' : 'Registrar Viaje' }}
+                </ion-button>
+                <ion-button id="reset-button" type="button" expand="block" (click)="viaje.reset()">Limpiar</ion-button>
+              </form>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+  
+      <!-- Lista de Viajes -->
+      <ion-row>
+        <ion-col size="12">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Lista de Viajes</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-list>
+                <ion-item *ngFor="let viaje of viajes">
+                  <ion-label>
+                    <strong>{{ viaje.conductor }}</strong><br>
+                    Asientos: {{ viaje.asientos_disponible }}
+                  </ion-label>
+                  <ion-buttons slot="end">
+                    <ion-button color="primary" class="small-button buscar" (click)="seleccionarViaje(viaje)">
+                      <ion-icon name="search"></ion-icon>
+                      Buscar
+                    </ion-button>
+                    <ion-button color="danger" class="small-button eliminar" (click)="eliminarViaje(viaje.id)">
+                      <ion-icon name="trash"></ion-icon>
+                      Eliminar
+                    </ion-button>
+                  </ion-buttons>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>      
+    </ion-grid>
+  </div>
 </ion-content>
