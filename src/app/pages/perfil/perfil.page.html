@@ -12,19 +12,46 @@
     <ion-avatar>
       <img [src]="usuario.foto_perfil" alt="Foto de perfil" class="profile-img" *ngIf="usuario.foto_perfil">
     </ion-avatar>
+
     <ion-list>
       <ion-item>
         <ion-label position="stacked">Nombre</ion-label>
-        <ion-input [value]="usuario.nombre" readonly></ion-input>
+        <ion-input [(ngModel)]="usuario.nombre" [readonly]="!modoEdicion"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Correo Electrónico</ion-label>
-        <ion-input [value]="usuario.correo" readonly></ion-input>
+        <ion-input [(ngModel)]="usuario.correo" readonly></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">RUT</ion-label>
-        <ion-input [value]="usuario.rut" readonly></ion-input>
+        <ion-input [(ngModel)]="usuario.rut" readonly></ion-input> 
       </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Fecha Nacimiento</ion-label>
+        <ion-input [(ngModel)]="usuario.fecha_nacimiento" [readonly]="!modoEdicion"></ion-input> 
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="stacked">Sede</ion-label>
+        <p>{{usuario.sede}}</p>
+      </ion-item>
+
     </ion-list>
+
+    <!-- Botones de acción -->
+    <ion-button expand="full" color="warning" *ngIf="!modoEdicion" (click)="habilitarEdicion()">
+      Editar Perfil
+    </ion-button>
+    
+    <div *ngIf="modoEdicion" class="action-buttons">
+      <ion-button color="success" (click)="guardarCambios()">
+        <ion-icon name="checkmark-circle"></ion-icon>
+        Guardar Cambios
+      </ion-button>
+      <ion-button color="medium" (click)="cancelarEdicion()">
+        <ion-icon name="close-circle"></ion-icon>
+        Cancelar
+      </ion-button>
+    </div>
   </div>
 </ion-content>

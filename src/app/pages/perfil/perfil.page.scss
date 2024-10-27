@@ -1,14 +1,63 @@
-perfil-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 16px;
-  }
-  
-  ion-avatar {
-    margin: 16px;
-  }
-  
-  ion-list {
-    width: 100%;
-  }
+/* Fondo del contenido */
+ion-content {
+  --background: #052afc; /* Fondo claro y suave */
+}
+
+/* Contenedor del perfil */
+.perfil-container {
+  background-color: #ffffff; /* Fondo blanco para el perfil */
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: 24px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+ion-avatar {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 16px;
+  border: 2px solid #007bff;
+}
+
+.profile-img {
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+}
+
+ion-item {
+  --background: #f9f9f9;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+ion-label {
+  font-size: 14px;
+  color: #555;
+}
+
+ion-input {
+  font-size: 16px;
+  color: #333;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 16px;
+}
+
+ion-button {
+  --border-radius: 8px;
+  font-weight: bold;
+  width: 48%; /* Para que los botones "Guardar Cambios" y "Cancelar" ocupen el 48% de ancho */
+}
+
+ion-button {
+  margin-top: 16px;
+}

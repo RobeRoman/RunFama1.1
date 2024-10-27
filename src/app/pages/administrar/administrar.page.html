@@ -47,8 +47,25 @@
                 
                 <ion-select formControlName="sede" label="Sede Duoc" labelPlacement="stacked" fill="outline">
                   <ion-select-option value="alameda">Alameda</ion-select-option>
-                  <!-- Opciones de sede adicionales aquí -->
+                  <ion-select-option value="antonio_varas">Antonio Varas</ion-select-option>
+                  <ion-select-option value="maipu">Maipú</ion-select-option>
+                  <ion-select-option value="melipilla">Melipilla</ion-select-option>
+                  <ion-select-option value="padre_alonso">Padre Alonso de Ovalle</ion-select-option>
+                  <ion-select-option value="plaza_oeste">Plaza Oeste</ion-select-option>
+                  <ion-select-option value="plaza_vespucio">Plaza Vespucio</ion-select-option>
+                  <ion-select-option value="plaza_norte">Plaza Norte</ion-select-option>
+                  <ion-select-option value="puente_alto">Puente Alto</ion-select-option>
+                  <ion-select-option value="san_bernardo">San Bernardo</ion-select-option>
+                  <ion-select-option value="san_carlos">San Carlos de Apoquindo</ion-select-option>
+                  <ion-select-option value="san_joaquin">San Joaquín</ion-select-option>
+                  <ion-select-option value="valparaiso">Valparaíso</ion-select-option>
+                  <ion-select-option value="vina_del_mar">Viña del Mar</ion-select-option>
+                  <ion-select-option value="concepcion">Concepción</ion-select-option>
+                  <ion-select-option value="arauco">Arauco</ion-select-option>
+                  <ion-select-option value="villarica">Villarica</ion-select-option>
+                  <ion-select-option value="puerto_montt">Puerto Montt</ion-select-option>
                 </ion-select>
+                
                 
                 <ion-label>¿Tiene Auto?</ion-label>
                 <ion-radio-group formControlName="tiene_auto">
@@ -131,7 +148,7 @@
                 </ion-item>
                 <ion-item>
                   <ion-label position="stacked">Destino</ion-label>
-                  <ion-input formControlName="destino"></ion-input>
+                  <ion-input formControlName="destino" readonly></ion-input>
                 </ion-item>
                 <ion-item>
                   <ion-label position="stacked">Asientos Disponibles</ion-label>
@@ -153,9 +170,10 @@
                   <ion-label position="stacked">Tiempo (minutos)</ion-label>
                   <ion-input formControlName="tiempo_minutos" readonly></ion-input>
                 </ion-item>
+                
                 <ion-item>
                   <ion-label position="stacked">Precio</ion-label>
-                  <ion-input formControlName="precio" readonly></ion-input>
+                  <ion-input formControlName="precio" ></ion-input>
                 </ion-item>
                 
                 <!-- Botones de Acción -->

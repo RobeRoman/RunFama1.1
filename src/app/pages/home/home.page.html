@@ -5,14 +5,15 @@
   
   <ion-item lines="none">
     <ion-avatar slot="start">
-      <img src="https://lumiere-a.akamaihd.net/v1/images/up_thingsyoumissed_3_c06b4cd1.png?region=0%2C0%2C1000%2C563">
+      <img [src]="usuario.foto_perfil || 'https://cdn.icon-icons.com/icons2/2030/PNG/512/user_icon_124042.png'" alt="Foto de perfil">
     </ion-avatar>
-
+  
     <ion-label *ngIf="usuario && usuario.nombre">    
       <p class="bienvenido">¡Bienvenido!</p>
       <p class="nombre-usuario">{{usuario.nombre}}</p>
     </ion-label>
   </ion-item>
+  
 </ion-header>
 
 <!-- Cambiamos el id del mapa a algo único para evitar conflictos -->

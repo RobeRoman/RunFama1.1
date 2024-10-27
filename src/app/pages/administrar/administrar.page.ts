@@ -59,7 +59,7 @@ export class AdministrarPage implements OnInit {
     longitud: new FormControl('', [Validators.required]),
     distancia_m: new FormControl('', [Validators.required]),
     tiempo_minutos: new FormControl(),
-    precio: new FormControl(),
+    precio: new FormControl('', [Validators.required, this.validarPrecioPositivo()]),
     estado: new FormControl('pendiente'),
     pasajeros: new FormControl([])
   });
@@ -76,26 +76,35 @@ export class AdministrarPage implements OnInit {
   async ngOnInit() {
     this.usuario = JSON.parse(localStorage.getItem("usuario") || '');
     this.usuarios = await this.usuarioService.getUsuarios();
-    this.viajes = await this.viajeService.getViajes(); // Cargar lista de viajes al iniciar
+    this.viajes = await this.viajeService.getViajes(); 
 
-    // Configuración de validación para campos del usuario
+    
     this.persona.get('tiene_auto')?.valueChanges.subscribe(value => {
       if (value === 'si') {
-        // Si tiene auto, se añaden los validadores a los campos relacionados con el auto
+        
         this.persona.get('marca_auto')?.setValidators([Validators.required, this.validarMarcaAuto.bind(this)]);
         this.persona.get('patente')?.setValidators([Validators.required, Validators.pattern(/^[A-Z]{2}[0-9]{4}$|^[A-Z]{4}[0-9]{2}$/)]); // Patente de Chile
         this.persona.get('asientos_disp')?.setValidators([Validators.required, this.validarAsientos]);
       } else {
-        // Si no tiene auto, se eliminan los validadores de los campos relacionados con el auto
+        
         this.persona.get('marca_auto')?.clearValidators();
         this.persona.get('patente')?.clearValidators();
         this.persona.get('asientos_disp')?.clearValidators();
       }
-      // Actualizamos la validez de los campos
+      
       this.persona.get('marca_auto')?.updateValueAndValidity();
       this.persona.get('patente')?.updateValueAndValidity();
       this.persona.get('asientos_disp')?.updateValueAndValidity();
     });
+    
+    if (this.usuario.tiene_auto === 'si') {
+      this.viaje.controls.asientos_disponible.setValidators([
+        Validators.required,
+        Validators.min(1),
+        Validators.max(this.usuario.asientos_disp), 
+        this.validarAsientosViaje() 
+      ]);
+    }
   }
 
   // CRUD de Usuario
@@ -205,10 +214,8 @@ export class AdministrarPage implements OnInit {
     await alert.present();    
   }
 
-  // Inicializar mapa para la sección de Viaje
 
 
-  // Validadores personalizados
   anosvalidar(minAge: number, maxAge: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       const birthDate = new Date(control.value);
@@ -230,6 +237,25 @@ export class AdministrarPage implements OnInit {
       return { marcaNoExiste: true };
     }
     return null;
+  }
+
+  validarPrecioPositivo(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const precio = control.value;
+      return precio > 0 ? null : { precioInvalido: true };
+    };
+  }
+
+
+  validarAsientosViaje(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const asientosViaje = control.value;
+      const asientosAuto = this.usuario?.asientos_disp;
+      if (asientosViaje > asientosAuto) {
+        return { asientosExcedidos: true };
+      }
+      return null;
+    };
   }
   
   validarAsientos(control: AbstractControl) {
