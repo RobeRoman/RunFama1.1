@@ -199,7 +199,8 @@ export class AdministrarPage implements OnInit {
     const viajeEliminado = await this.viajeService.deleteViaje(id);
     if (viajeEliminado) {
       await this.presentAlert('Bien', 'Viaje eliminado con éxito');
-      this.viajes = await this.viajeService.getViajes(); // Actualizar lista de viajes
+      this.viajes = await this.viajeService.getViajes(); 
+      this.viaje.reset();
     } else {
       await this.presentAlert('Error', 'No se pudo eliminar el viaje');
     }
