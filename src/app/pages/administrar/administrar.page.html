@@ -133,12 +133,12 @@
   <!-- Sección de Viaje -->
   <div *ngIf="selectedSegment === 'viaje'">
     <ion-grid>
-      <!-- Formulario de Registro de Viaje -->
+      <!-- Formulario de Registro/Actualización de Viaje -->
       <ion-row>
         <ion-col size="12">
           <ion-card>
             <ion-card-header>
-              <ion-card-title>Registrar Viaje</ion-card-title>
+              <ion-card-title>{{ modoEdicion ? 'Actualizar Viaje' : 'Registrar Viaje' }}</ion-card-title>
             </ion-card-header>
             <ion-card-content>
               <form [formGroup]="viaje" (ngSubmit)="modoEdicion ? actualizarViaje() : registrarViaje()">
@@ -148,7 +148,7 @@
                 </ion-item>
                 <ion-item>
                   <ion-label position="stacked">Destino</ion-label>
-                  <ion-input formControlName="destino" readonly></ion-input>
+                  <ion-input formControlName="destino"></ion-input>
                 </ion-item>
                 <ion-item>
                   <ion-label position="stacked">Asientos Disponibles</ion-label>
@@ -170,23 +170,32 @@
                   <ion-label position="stacked">Tiempo (minutos)</ion-label>
                   <ion-input formControlName="tiempo_minutos" readonly></ion-input>
                 </ion-item>
-                
                 <ion-item>
                   <ion-label position="stacked">Precio</ion-label>
-                  <ion-input formControlName="precio" ></ion-input>
+                  <ion-input formControlName="precio" type="number"></ion-input>
                 </ion-item>
-                
+
                 <!-- Botones de Acción -->
-                <ion-button id="submit-button" type="submit" expand="block" [disabled]="viaje.invalid">
+                <ion-button
+                  id="submit-button"
+                  type="submit"
+                  expand="block"
+                  [disabled]="viaje.invalid">
                   {{ modoEdicion ? 'Actualizar Viaje' : 'Registrar Viaje' }}
                 </ion-button>
-                <ion-button id="reset-button" type="button" expand="block" (click)="viaje.reset()">Limpiar</ion-button>
+                <ion-button
+                  id="reset-button"
+                  type="button"
+                  expand="block"
+                  (click)="viaje.reset(); modoEdicion = false;">
+                  Limpiar
+                </ion-button>
               </form>
             </ion-card-content>
           </ion-card>
         </ion-col>
       </ion-row>
-  
+
       <!-- Lista de Viajes -->
       <ion-row>
         <ion-col size="12">
@@ -202,11 +211,11 @@
                     Asientos: {{ viaje.asientos_disponible }}
                   </ion-label>
                   <ion-buttons slot="end">
-                    <ion-button color="primary" class="small-button buscar" (click)="seleccionarViaje(viaje)">
+                    <ion-button color="primary" (click)="seleccionarViaje(viaje)">
                       <ion-icon name="search"></ion-icon>
-                      Buscar
+                      Seleccionar
                     </ion-button>
-                    <ion-button color="danger" class="small-button eliminar" (click)="eliminarViaje(viaje.id)">
+                    <ion-button color="danger" (click)="eliminarViaje(viaje.id)">
                       <ion-icon name="trash"></ion-icon>
                       Eliminar
                     </ion-button>
@@ -216,7 +225,7 @@
             </ion-card-content>
           </ion-card>
         </ion-col>
-      </ion-row>      
+      </ion-row>
     </ion-grid>
   </div>
 </ion-content>

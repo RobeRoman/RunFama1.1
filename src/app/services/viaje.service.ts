@@ -18,7 +18,6 @@ export class ViajeService {
     await this.storage.create();
   }
 
-  // Cargar los viajes al iniciar el servicio y emitirlos al BehaviorSubject
   private async cargarViajes() {
     let viajes: any[] = await this.storage.get("viajes") || [];
     this.viajesSubject.next(viajes); 
@@ -26,7 +25,7 @@ export class ViajeService {
 
   public async createViaje(viaje: any): Promise<boolean> {
     let viajes: any[] = await this.storage.get("viajes") || [];
-    if (viajes.find(v=>v.id==viaje.id) != undefined) {
+    if (viajes.find(v => v.id == viaje.id) != undefined) {
       return false;
     }
     viajes.push(viaje);
@@ -45,7 +44,6 @@ export class ViajeService {
     return viajeEncontrado;
   }
   
-
   public async getViajes(): Promise<any[]> {
     let viajes: any[] = await this.storage.get("viajes") || [];
     return viajes;
@@ -59,7 +57,7 @@ export class ViajeService {
     }
     viajes[indice] = nuevoViaje;
     await this.storage.set("viajes", viajes);
-    this.viajesSubject.next(viajes); // Emitir los viajes actualizados
+    this.viajesSubject.next(viajes); 
     return true;
   }
 
@@ -71,16 +69,54 @@ export class ViajeService {
     }
     viajes.splice(indice, 1);
     await this.storage.set("viajes", viajes);
-    this.viajesSubject.next(viajes); // Emitir los viajes después de la eliminación
+    this.viajesSubject.next(viajes); 
     return true;
   }
 
   public async getNextId(): Promise<number> {
     let viajes: any[] = await this.storage.get("viajes") || [];
     if (viajes.length === 0) {
-      return 1;  // Si no hay viajes, comienza desde 1
+      return 1;  
     }
     let maxId = Math.max(...viajes.map(v => v.id));
     return maxId + 1;
   }
+
+  // Método para guardar el viaje en el historial
+  public async guardarEnHistorial(viaje: any): Promise<boolean> {
+    let historial: any[] = await this.storage.get("historial") || [];
+
+    // Guardamos solo la información relevante del viaje que quieres en el historial
+    const viajeHistorial = {
+        id: viaje.id,
+        conductor: viaje.conductor,
+        asientos_disponibles: viaje.asientos_disponibles,
+        destino: viaje.destino,
+        latitud: viaje.latitud,
+        longitud: viaje.longitud,
+        distancia_m: viaje.distancia_m,
+        tiempo_minutos: viaje.tiempo_minutos,
+        precio: viaje.precio,
+        estado: viaje.estado,
+        // Puedes añadir otros campos que necesites
+    };
+
+    historial.push(viajeHistorial); // Añadir el viaje al historial
+
+    // Guardamos el historial actualizado en el almacenamiento
+    await this.storage.set("historial", historial);
+    return true; // Retorna verdadero si se guarda correctamente
+}
+
+  // Método para obtener el historial de viajes
+  public async getHistorial(): Promise<any[]> {
+    let historial: any[] = await this.storage.get("historial") || [];
+    return historial;
+  }
+
+
+  public async limpiarHistorial(): Promise<boolean> {
+    await this.storage.set("historial", []); // Establecer el historial como un array vacío
+    return true; // Retorna verdadero si se limpia correctamente
+}
 }

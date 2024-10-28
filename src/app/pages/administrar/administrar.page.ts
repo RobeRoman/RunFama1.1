@@ -182,18 +182,27 @@ export class AdministrarPage implements OnInit {
 
   async actualizarViaje() {
     if (this.viaje.valid) {
-      const id = this.viaje.controls.id.value;
-      const viajeActualizado = await this.viajeService.updateViaje(id, this.viaje.value);
+      const id = this.viaje.controls.id.value; // Verifica que el ID esté presente
+      console.log("ID del viaje a actualizar:", id);
+  
+      const viajeData = this.viaje.value;
+      const viajeActualizado = await this.viajeService.updateViaje(id, viajeData);
+  
       if (viajeActualizado) {
         await this.presentAlert('Bien', 'Viaje actualizado con éxito');
-        this.viajes = await this.viajeService.getViajes(); // Actualizar lista de viajes
-        this.modoEdicion = false;
-        this.viaje.reset();
+        this.viajes = await this.viajeService.getViajes(); // Refresca la lista de viajes
+        this.modoEdicion = false; // Sale del modo edición
+        this.viaje.reset(); // Limpia el formulario
       } else {
         await this.presentAlert('Error', 'No se pudo actualizar el viaje');
+        console.error("Error al actualizar el viaje en el servicio");
       }
+    } else {
+      await this.presentAlert('Error', 'Formulario inválido, por favor revisa los campos.');
+      console.warn("Formulario de viaje inválido");
     }
   }
+  
 
   async eliminarViaje(id: string) {
     const viajeEliminado = await this.viajeService.deleteViaje(id);

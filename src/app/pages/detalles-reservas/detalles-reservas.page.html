@@ -1,56 +1,91 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar>
+    <ion-title>viajes e historial</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Detalles de Reservas</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Detalles del Viaje</ion-card-title>
-    </ion-card-header>
+<ion-content>
+  <ion-segment [(ngModel)]="selectedSegment">
+    <ion-segment-button value="viaje">
+      <ion-label>Viaje</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="historial">
+      <ion-label>Historial</ion-label>
+    </ion-segment-button>
+  </ion-segment>
 
-    <ion-card-content>
-      <ion-list>
-        <ion-item>
-          <ion-icon name="person-circle-outline" slot="start" color="warning"></ion-icon>
-          <ion-label><strong>Conductor:</strong></ion-label>
-          <ion-text>{{conductor || 'No asignado'}}</ion-text>
-        </ion-item>
+  <!-- Sección de Usuario -->
+  <div *ngIf="selectedSegment === 'viaje'">
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>Detalles de Reservas</ion-title>
+    </ion-toolbar>
 
-        <ion-item>
-          <ion-icon name="checkmark" slot="start" color="warning"></ion-icon>
-          <ion-label><strong>Estado viaje:</strong></ion-label>
-          <ion-text>{{estado}}</ion-text>
-        </ion-item>
+    <ion-card class="ion-padding">
+      <ion-card-header>
+        <ion-card-title>Detalles del Viaje</ion-card-title>
+      </ion-card-header>
 
-        <ion-item>
-          <ion-icon name="location-outline" slot="start" color="warning"></ion-icon>
-          <ion-label><strong>Destino:</strong></ion-label>
-          <ion-text class="small-text">{{destino || 'No especificado'}}</ion-text>
-        </ion-item>
+      <ion-card-content>
+        <ion-list>
+          <ion-item>
+            <ion-icon name="person-circle-outline" slot="start" color="warning"></ion-icon>
+            <ion-label><strong>Conductor:</strong></ion-label>
+            <ion-text>{{conductor || 'No asignado'}}</ion-text>
+          </ion-item>
 
-        <ion-item>
-          <ion-icon name="cash-outline" slot="start" color="warning"></ion-icon>
-          <ion-label><strong>Precio:</strong></ion-label>
-          <ion-text>{{precio ? ('' + precio) : 'Gratuito'}}</ion-text>
-        </ion-item>
+          <ion-item>
+            <ion-icon name="checkmark" slot="start" color="warning"></ion-icon>
+            <ion-label><strong>Estado viaje:</strong></ion-label>
+            <ion-text>{{estado}}</ion-text>
+          </ion-item>
 
-        <ion-item>
-          <ion-icon name="time-outline" slot="start" color="warning"></ion-icon>
-          <ion-label><strong>Duración Estimada:</strong></ion-label>
-          <ion-text>{{tiempo_minutos ? (tiempo_minutos + ' minutos') : 'No disponible'}}</ion-text>
-        </ion-item>
+          <ion-item>
+            <ion-icon name="location-outline" slot="start" color="warning"></ion-icon>
+            <ion-label><strong>Destino:</strong></ion-label>
+            <ion-text class="small-text">{{destino || 'No especificado'}}</ion-text>
+          </ion-item>
 
-        <ion-item>
-          <ion-icon name="walk-outline" slot="start" color="warning"></ion-icon>
-          <ion-label><strong>Distancia:</strong></ion-label>
-          <ion-text>{{distancia_m ? (distancia_m + ' metros') : 'No disponible'}}</ion-text>
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
-</ion-content>
+          <ion-item>
+            <ion-icon name="cash-outline" slot="start" color="warning"></ion-icon>
+            <ion-label><strong>Precio:</strong></ion-label>
+            <ion-text>{{precio ? ('' + precio) : 'Gratuito'}}</ion-text>
+          </ion-item>
+
+          <ion-item>
+            <ion-icon name="time-outline" slot="start" color="warning"></ion-icon>
+            <ion-label><strong>Duración Estimada:</strong></ion-label>
+            <ion-text>{{tiempo_minutos ? (tiempo_minutos + ' minutos') : 'No disponible'}}</ion-text>
+          </ion-item>
+
+          <ion-item>
+            <ion-icon name="walk-outline" slot="start" color="warning"></ion-icon>
+            <ion-label><strong>Distancia:</strong></ion-label>
+            <ion-text>{{distancia_m ? (distancia_m + ' metros') : 'No disponible'}}</ion-text>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+      <ion-button expand="block" (click)="finalizarViaje()">Finalizar Viaje</ion-button>
+    </ion-card>
+  </div>
+
+  <!-- Sección de Historial -->
+  <div *ngIf="selectedSegment === 'historial'">
+    <h2>Historial de Viajes</h2>
+    <ul>
+      <li *ngFor="let viaje of historial">
+        <strong>Conductor:</strong> {{ viaje.conductor }}<br>
+        <strong>Destino:</strong> {{ viaje.destino }}<br>
+        <strong>Asientos Disponibles:</strong> {{ viaje.asientos_disponibles }}<br>
+        <strong>Precio:</strong> {{ viaje.precio }}<br>
+        <strong>Estado:</strong> {{ viaje.estado }}<br>
+        <hr>
+      </li>
+    </ul>
+    <ion-button expand="block" (click)="limpiarHistorial()">Limpiar Historial</ion-button>
+  </div>
