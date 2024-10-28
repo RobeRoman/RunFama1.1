@@ -97,6 +97,27 @@
             </ion-card-content>
           </ion-card>
         </ion-col>
+        <ion-col size="12" size-md="6" *ngIf="persona.controls.tiene_auto.value === 'si'">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Detalles del Auto</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <form [formGroup]="persona">
+                <ion-input formControlName="marca_auto" type="text" label="Marca Auto" labelPlacement="stacked" fill="outline"></ion-input>
+                <ion-text color="danger" *ngIf="persona.controls.marca_auto.errors?.['marcaNoExiste']">
+                  <p>La marca ingresada no existe en el sistema :C.</p>
+                </ion-text>
+  
+                <ion-input formControlName="patente" type="text" label="Patente" labelPlacement="stacked" fill="outline"></ion-input>
+                <ion-text color="danger" *ngIf="persona.controls.patente.errors?.['pattern']">
+                  <p>La patente debe ser válida (formato: AB1234 o ABCD12).</p>
+                </ion-text>
+                <ion-input formControlName="asientos_disp" type="number" label="Asientos Disp." labelPlacement="stacked" fill="outline"></ion-input>
+              </form>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
         
         <!-- Lista de Usuarios -->
         <ion-col size="12">
@@ -209,6 +230,7 @@
                   <ion-label>
                     <strong>{{ viaje.conductor }}</strong><br>
                     Asientos: {{ viaje.asientos_disponible }}
+                    Precio: {{ viaje.precio}}
                   </ion-label>
                   <ion-buttons slot="end">
                     <ion-button color="primary" (click)="seleccionarViaje(viaje)">
