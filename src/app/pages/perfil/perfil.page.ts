@@ -21,13 +21,14 @@ export class PerfilPage implements OnInit {
 
   ngOnInit() {
     this.cargarUsuario();
+    
   }
 
   cargarUsuario() {
     const usuarioAutenticado = this.usuarioService.getUsuarioAutenticado();
     if (usuarioAutenticado) {
-      this.usuario = { ...usuarioAutenticado }; 
-      this.usuario.fecha_nacimiento = this.formatearFecha(this.usuario.fecha_nacimiento); // Formatear fecha
+      this.usuario = { ...usuarioAutenticado };
+
     }
   }
 
@@ -40,28 +41,21 @@ export class PerfilPage implements OnInit {
     this.cargarUsuario(); // Restaura los valores originales
   }
 
-  formatearFecha(fecha: string): string {
-    const [year, month, day] = fecha.split('-');
-    return `${day}/${month}/${year}`;
-  }
-
-  calcularEdad(fecha: string): number {
-    const [day, month, year] = fecha.split('/');
-    const fechaNacimiento = new Date(`${year}-${month}-${day}`);
-    const hoy = new Date();
-    let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
-    const mes = hoy.getMonth() - fechaNacimiento.getMonth();
-
-    if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
-      edad--;
+  // Método para cargar una foto desde un archivo
+  cargarFotoPerfil(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.usuario.foto_perfil = reader.result as string; // Guarda la imagen en Base64
+      };
+      reader.readAsDataURL(file); // Convierte la imagen a Base64
     }
-
-    return edad;
   }
 
   async guardarCambios() {
     // Convertir fecha a formato ISO antes de guardar
-    this.usuario.fecha_nacimiento = this.formatoISO(this.usuario.fecha_nacimiento);
+  
 
     const edad = this.calcularEdad(this.usuario.fecha_nacimiento);
     if (edad < 18) {
@@ -81,10 +75,22 @@ export class PerfilPage implements OnInit {
     }
   }
 
-  formatoISO(fecha: string): string {
+
+
+  calcularEdad(fecha: string): number {
     const [day, month, year] = fecha.split('/');
-    return `${year}-${month}-${day}`;
+    const fechaNacimiento = new Date(`${year}-${month}-${day}`);
+    const hoy = new Date();
+    let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+    const mes = hoy.getMonth() - fechaNacimiento.getMonth();
+
+    if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
+      edad--;
+    }
+
+    return edad;
   }
+
 
   async presentAlert(header: string, message: string) {
     const alert = await this.alertController.create({

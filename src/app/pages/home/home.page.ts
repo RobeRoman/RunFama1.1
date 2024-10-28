@@ -21,7 +21,7 @@ export class HomePage implements OnInit, AfterViewInit {
   constructor(
     private usuarioService: UsuarioService,
     private viajeService: ViajeService,
-    private cdr: ChangeDetectorRef,
+    private d: ChangeDetectorRef,
     private alertController: AlertController
   ) {}
 
@@ -31,7 +31,7 @@ export class HomePage implements OnInit, AfterViewInit {
 
     this.viajeService.viajes$.subscribe((viajes) => {
       this.viajes = viajes;
-      this.cdr.detectChanges(); 
+      this.d.detectChanges(); 
     });
 
     this.obtenerViaje();

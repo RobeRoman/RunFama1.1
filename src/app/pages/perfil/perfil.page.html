@@ -13,6 +13,11 @@
       <img [src]="usuario.foto_perfil" alt="Foto de perfil" class="profile-img" *ngIf="usuario.foto_perfil">
     </ion-avatar>
 
+    <!-- Campo de selección de archivo solo visible en modo edición -->
+    <div *ngIf="modoEdicion">
+      <input type="file" (change)="cargarFotoPerfil($event)" accept="image/*" />
+    </div>
+
     <ion-list>
       <ion-item>
         <ion-label position="stacked">Nombre</ion-label>
@@ -30,19 +35,18 @@
         <ion-label position="stacked">Fecha Nacimiento</ion-label>
         <ion-input [(ngModel)]="usuario.fecha_nacimiento" [readonly]="!modoEdicion"></ion-input> 
       </ion-item>
-      
       <ion-item>
         <ion-label position="stacked">Sede</ion-label>
         <p>{{usuario.sede}}</p>
       </ion-item>
-
     </ion-list>
 
     <!-- Botones de acción -->
     <ion-button expand="full" color="warning" *ngIf="!modoEdicion" (click)="habilitarEdicion()">
       Editar Perfil
     </ion-button>
-    
+
+    <!-- Botones de guardar/cancelar solo visibles en modo edición -->
     <div *ngIf="modoEdicion" class="action-buttons">
       <ion-button color="success" (click)="guardarCambios()">
         <ion-icon name="checkmark-circle"></ion-icon>
