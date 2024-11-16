@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators, ValidatorFn} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { FireService } from 'src/app/services/fire.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
@@ -16,7 +17,7 @@ export class RegistroPage implements OnInit {
   
   // Declara las propiedades email y password (si las necesitas en el futuro)
   
-  constructor(private alertController: AlertController, private router: Router, private usuarioService: UsuarioService) 
+  constructor(private alertController: AlertController, private router: Router, private usuarioService: UsuarioService, private fireService: FireService) 
   { }
 
   // Lista de marcas de autos
@@ -118,9 +119,7 @@ export class RegistroPage implements OnInit {
 
   async registrar() {
     if (this.persona.valid) {
-      const usuario = this.persona.value;
-      const registrado = this.usuarioService.createUsuario(usuario);
-      if (await registrado) {
+      if (await this.usuarioService.createUsuario(this.persona.value) && await this.fireService.crearUsuario(this.persona.value)) {
         await this.presentAlert('Perfecto!', 'Registrado correctamente');
         this.router.navigate(['/login']);
         this.persona.reset();
