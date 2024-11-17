@@ -6,6 +6,7 @@ import { ViajeService } from 'src/app/services/viaje.service';
 import * as L from 'leaflet';
 import * as G from 'leaflet-control-geocoder';
 import 'leaflet-routing-machine';
+import { FireService } from 'src/app/services/fire.service';
 
 @Component({
   selector: 'app-administrar',
@@ -70,13 +71,15 @@ export class AdministrarPage implements OnInit {
   constructor(
     private alertController: AlertController,
     private usuarioService: UsuarioService,
-    private viajeService: ViajeService
+    private viajeService: ViajeService,
+    private fireService: FireService
   ) {}
 
   async ngOnInit() {
     this.usuario = JSON.parse(localStorage.getItem("usuario") || '');
-    this.usuarios = await this.usuarioService.getUsuarios();
+    //this.usuarios = await this.usuarioService.getUsuarios();
     this.viajes = await this.viajeService.getViajes(); 
+    this.cargarUsuariosFire();
 
     
     this.persona.get('tiene_auto')?.valueChanges.subscribe(value => {
@@ -108,8 +111,14 @@ export class AdministrarPage implements OnInit {
   }
 
   // CRUD de Usuario
+  cargarUsuariosFire(){
+    this.fireService.getUsuarios().subscribe(data=>{
+      this.usuarios=data;
+    })
+  }
+
   async registrarUsuario() {
-    if (await this.usuarioService.createUsuario(this.persona.value)) {
+    if (await this.usuarioService.createUsuario(this.persona.value) && await this.fireService.crearUsuario(this.persona.value)) {
       await this.presentAlert('Perfecto!', 'Registrado correctamente');
       this.persona.reset();
       this.usuarios = await this.usuarioService.getUsuarios();
@@ -123,9 +132,8 @@ export class AdministrarPage implements OnInit {
   }
 
   async eliminar(rut: string) {
-    if (await this.usuarioService.deleteUsuario(rut)) {
-      this.usuarios = await this.usuarioService.getUsuarios();
-    }
+    this.fireService.deleteUsuario(rut)
+    await this.presentAlert('Perfecto', 'Usuario eliminado');
   }
 
   async modificarUsuario() {
@@ -146,7 +154,7 @@ export class AdministrarPage implements OnInit {
     this.persona.get('patente')?.updateValueAndValidity();
     this.persona.get('asientos_disp')?.updateValueAndValidity();
   
-    if (await this.usuarioService.updateUsuario(rut_modificar, this.persona.value)) {
+    if (await this.fireService.updateUsuario(this.persona.value).then) {
       this.presentAlert('Perfecto!', 'Modificado correctamente');
       this.persona.reset();
     } else {
