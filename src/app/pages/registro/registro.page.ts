@@ -119,7 +119,7 @@ export class RegistroPage implements OnInit {
 
   async registrar() {
     if (this.persona.valid) {
-      if (await this.usuarioService.createUsuario(this.persona.value) && await this.fireService.crearUsuario(this.persona.value)) {
+      if (await this.fireService.crearUsuario(this.persona.value)) {
         await this.presentAlert('Perfecto!', 'Registrado correctamente');
         this.router.navigate(['/login']);
         this.persona.reset();

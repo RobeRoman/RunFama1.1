@@ -3,7 +3,9 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { UsuarioService } from '../../services/usuario.service';
 import { MenuController } from '@ionic/angular';
-
+import { FireService } from 'src/app/services/fire.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { getAuth, signInWithEmailAndPassword, user } from '@angular/fire/auth';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -20,26 +22,21 @@ export class LoginPage implements OnInit {
     private alertController: AlertController,
     private router: Router,
     private usuarioService: UsuarioService,
-    private menuCtrl: MenuController
+    private menuCtrl: MenuController,
+    private fireService: FireService,
+    private fireAuth: AngularFireAuth
   ) { }
 
   ngOnInit() {
     this.menuCtrl.enable(false);
    }
 
-  async login() {
-    // Verificar si está bloqueado
-    if (this.lockTime > 0) {
-      await this.presentAlert('Bloqueado', `Debes esperar ${this.lockTime} segundos antes de intentar nuevamente.`);
-      return;
-    }
-
+   async login() {
     console.log('Email:', this.email);
     console.log('Password:', this.password);
 
     // Simulando la autenticación
     const authenticated = await this.usuarioService.authenticate(this.email, this.password);
-    
     if (authenticated) {
       console.log('Autenticado');
       this.failedAttempts = 0; // Reiniciar intentos fallidos
@@ -48,12 +45,10 @@ export class LoginPage implements OnInit {
     } else {
       console.log('Autenticación fallida');
       this.failedAttempts++;
-      
       if (this.failedAttempts >= 3) {
         this.lockTime = 15; // Bloquear por 15 segundos
         this.startLockTimer();
       }
-      
       await this.presentAlert('Error', 'El correo o la contraseña no son válidos');
     }
   }

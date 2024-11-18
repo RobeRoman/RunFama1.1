@@ -121,7 +121,6 @@ export class AdministrarPage implements OnInit {
     if (await this.usuarioService.createUsuario(this.persona.value) && await this.fireService.crearUsuario(this.persona.value)) {
       await this.presentAlert('Perfecto!', 'Registrado correctamente');
       this.persona.reset();
-      this.usuarios = await this.usuarioService.getUsuarios();
     } else {
       await this.presentAlert('Error!', 'El usuario no se pudo registrar');
     }
