@@ -13,6 +13,7 @@
       <ion-card-title>Información del viaje</ion-card-title>
     </ion-card-header>
     <br>
+    <div id="map_html"></div>
     <ion-card-content>
       <form [formGroup]="viaje" (ngSubmit)="registrarViaje()">
         <p>Conductor: {{usuario.nombre +' Rut:  '  +  usuario.rut}}</p>
@@ -27,6 +28,6 @@
       </form>
     </ion-card-content>
     <!-- Mapa -->
-    <div id="map_html"></div>
+    
   </ion-card>
 </ion-content>

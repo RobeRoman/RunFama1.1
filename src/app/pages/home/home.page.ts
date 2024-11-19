@@ -5,6 +5,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import * as L from 'leaflet'; // Importamos Leaflet para los mapas
 import 'leaflet-routing-machine'; // Importamos la librería de rutas
 import { AlertController } from '@ionic/angular';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,8 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit, AfterViewInit {
+  
+  dolar: number = 0;
   usuarioAutenticado: any;
   usuario: any;
   viajes: any[] = [];
@@ -22,7 +25,8 @@ export class HomePage implements OnInit, AfterViewInit {
     private usuarioService: UsuarioService,
     private viajeService: ViajeService,
     private d: ChangeDetectorRef,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private api: ApiService
   ) {}
 
   ngOnInit() {
@@ -35,6 +39,8 @@ export class HomePage implements OnInit, AfterViewInit {
     });
 
     this.obtenerViaje();
+    this.consumitWheather();
+    this.consumirAPIplata();
   }
 
   cargarDatosUsuario() {
@@ -148,4 +154,16 @@ export class HomePage implements OnInit, AfterViewInit {
     return viaje.pasajeros.some((pasajero: any) => pasajero.rut === usuarioActual.rut);
   }
 
+  consumitWheather(){
+    this.api.getDatosWeather().subscribe((data:any)=>{
+      console.log(data);
+    });
+  }
+
+  consumirAPIplata(){
+    this.api.getDatos().subscribe((data:any) => {
+      this.dolar = data.dolar.valor;  // Aquí obtienes el valor del dólar
+      console.log(this.dolar);
+    });
+  }
 }

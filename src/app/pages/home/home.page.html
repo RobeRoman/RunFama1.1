@@ -29,6 +29,8 @@
       <ion-card-content>
         <p>Asientos disponibles: {{ viaje.asientos_disponible }}</p>
         <p>Precio: {{ viaje.precio }}</p>
+        <p>Precio Dolar: {{dolar}} * {{ viaje.precio }}</p>
+        
       </ion-card-content>
       <ion-button expand="block" class="boton-amarillo" [disabled]="viaje.asientos_disponible === 0" (click)="tomarViaje(viaje)">Tomar!</ion-button>
       <ion-button expand="block" class="boton-azul" (click)="abrirDetalle(viaje)">Ver ruta</ion-button>
