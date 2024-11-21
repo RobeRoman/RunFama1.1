@@ -13,7 +13,7 @@
         </ion-item>
       </ion-list>
 
-      <ion-list *ngIf="usuarioService.getUsuarioAutenticado()?.tipouser === 'admin'">
+      <ion-list *ngIf="(getUsuarioAutenticado()?.tipouser === 'admin')">
         <ion-item lines="full" (click)="administrar()">
           <ion-icon slot="start" name="key" color="dark"></ion-icon>Administrar
         </ion-item>

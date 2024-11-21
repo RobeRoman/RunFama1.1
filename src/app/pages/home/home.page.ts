@@ -15,8 +15,8 @@ import { ApiService } from 'src/app/services/api.service';
 export class HomePage implements OnInit, AfterViewInit {
   
   dolar: number = 0;
-  usuarioAutenticado: any;
-  usuario: any;
+  usuarioAutenticado: any = {};
+  usuario: any = {};
   viajes: any[] = [];
   private mapHome: L.Map | undefined; 
   private routingControlHome: L.Routing.Control | undefined; 
@@ -30,16 +30,24 @@ export class HomePage implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
-    this.usuarioAutenticado = this.usuarioService.getUsuarioAutenticado();  
+    
+  const usuarioAutenticado = localStorage.getItem('usuarioAutenticado');
+  
+ 
+  if (usuarioAutenticado) {
+    this.usuarioAutenticado = JSON.parse(usuarioAutenticado);
     this.cargarDatosUsuario(); 
+  } else {
+    console.error('No se encontró usuario autenticado en localStorage');
 
+  }
     this.viajeService.viajes$.subscribe((viajes) => {
       this.viajes = viajes;
       this.d.detectChanges(); 
     });
 
     this.obtenerViaje();
-    this.consumitWheather();
+    //this.consumitWheather();
     this.consumirAPIplata();
   }
 

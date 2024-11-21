@@ -32,26 +32,44 @@ export class LoginPage implements OnInit {
    }
 
    async login() {
-    console.log('Email:', this.email);
-    console.log('Password:', this.password);
-
-    // Simulando la autenticación
-    const authenticated = await this.usuarioService.authenticate(this.email, this.password);
-    if (authenticated) {
-      console.log('Autenticado');
-      this.failedAttempts = 0; // Reiniciar intentos fallidos
-      await this.router.navigate(['/home']);
-      this.menuCtrl.enable(true);
-    } else {
-      console.log('Autenticación fallida');
-      this.failedAttempts++;
-      if (this.failedAttempts >= 3) {
-        this.lockTime = 15; // Bloquear por 15 segundos
-        this.startLockTimer();
-      }
-      await this.presentAlert('Error', 'El correo o la contraseña no son válidos');
-    }
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, this.email, this.password)
+      .then((userCredential) => {
+        // Autenticación exitosa
+        const user = userCredential.user;
+        const uid = user.uid; // Obtener el UID del usuario
+        console.log('Usuario autenticado con UID:', uid);
+  
+        // Usar el servicio FireService para obtener los datos del usuario
+        this.fireService.getUsuarioByUID(uid)
+          .then((userData) => {
+            if (userData) {
+              console.log('Datos del usuario:', userData);
+    
+              // Guardar el objeto del usuario en el localStorage
+              localStorage.setItem('usuario', JSON.stringify(userData));
+    
+              // Redirigir al usuario a la página principal
+              this.router.navigate(['/home']);
+              this.menuCtrl.enable(true);
+            } else {
+              console.error('El documento del usuario no existe en la base de datos.');
+              
+            }
+          })
+          .catch((error) => {
+            console.error('Error al obtener los datos del usuario:', error);
+           
+          });
+      })
+      .catch((error) => {
+        console.error('Error durante el inicio de sesión:', error);
+        console.error('Código de error:', error.code);
+        console.error('Mensaje del error:', error.message);
+        
+      });
   }
+  
 
   async presentAlert(header: string, message: string) {
     const alert = await this.alertController.create({
