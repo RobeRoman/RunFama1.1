@@ -46,11 +46,37 @@ ion-content {
     display: inline-block;
   }
 
-  #map_home {
-    height: 400px;
-    width: 100%;
-    border-radius: 20px;
-  }
+}
+#map_home {
+  height: 400px;
+  width: 100%;
+  border-radius: 20px;
+}
+
+#card-temperatura {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Sombra más sutil */
+  margin: 10px; /* Margen reducido */
+  padding: 10px; /* Padding más pequeño */
   
 }
+
+#card-temperatura ion-card-header {
+  margin-bottom: 8px; /* Menos separación entre elementos */
+  text-align: center;
+}
+
+#card-temperatura ion-card-title {
+  font-size: 1.5em; /* Tamaño más pequeño */
+  font-weight: bold;
+  color: #004080; /* Azul oscuro */
+}
+
+#card-temperatura ion-card-subtitle {
+  font-size: 1.2em; /* Subtítulo más compacto */
+  color: #333; /* Gris oscuro */
+  font-weight: bold;
+}
+
 

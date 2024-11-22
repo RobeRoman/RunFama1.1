@@ -16,10 +16,13 @@
   
 </ion-header>
 
-<!-- Cambiamos el id del mapa a algo único para evitar conflictos -->
+<ion-card id="card-temperatura" color="warning">
+  <ion-card-header>
+    <ion-card-title>Temperatura de DuocUc Puente Alto</ion-card-title>
+    <ion-card-subtitle>{{temperatura}}°C</ion-card-subtitle>
+  </ion-card-header>
+</ion-card>
  <ion-content id="map_home"></ion-content>
-
-
 <ion-content>
   <div class="ion-padding" *ngFor="let viaje of viajes">
     <ion-card class="viaje-card">

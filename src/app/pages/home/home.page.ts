@@ -13,7 +13,7 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit, AfterViewInit {
-  
+  temperatura: number = 0;
   dolar: number = 0;
   usuarioAutenticado: any = {};
   usuario: any = {};
@@ -47,7 +47,7 @@ export class HomePage implements OnInit, AfterViewInit {
     });
 
     this.obtenerViaje();
-    //this.consumitWheather();
+    this.consumitWheather();
     this.consumirAPIplata();
   }
 
@@ -165,6 +165,8 @@ export class HomePage implements OnInit, AfterViewInit {
   consumitWheather(){
     this.api.getDatosWeather().subscribe((data:any)=>{
       console.log(data);
+      this.temperatura = data.properties.timeseries[0]?.data.instant.details.air_temperature;
+      console.log(this.temperatura);
     });
   }
 
