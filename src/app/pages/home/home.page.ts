@@ -32,15 +32,14 @@ export class HomePage implements OnInit, AfterViewInit {
   ngOnInit() {
     
   const usuarioAutenticado = localStorage.getItem('usuarioAutenticado');
-  
- 
+  console.log("Valor recuperado de localStorage:", usuarioAutenticado);
   if (usuarioAutenticado) {
     this.usuarioAutenticado = JSON.parse(usuarioAutenticado);
     this.cargarDatosUsuario(); 
   } else {
     console.error('No se encontró usuario autenticado en localStorage');
-
   }
+  
     this.viajeService.viajes$.subscribe((viajes) => {
       this.viajes = viajes;
       this.d.detectChanges(); 

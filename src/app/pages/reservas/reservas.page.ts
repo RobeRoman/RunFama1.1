@@ -107,7 +107,7 @@ export class ReservasPage implements OnInit {
         }).on('routesfound', (e) => {
           this.viaje.controls.distancia_m.setValue(e.routes[0].summary.totalDistance);
           this.viaje.controls.tiempo_minutos.setValue(Math.round(e.routes[0].summary.totalTime / 60));
-          this.viaje.controls.precio.setValue(new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(Math.round(e.routes[0].summary.totalDistance / 1000) * 500));
+          this.viaje.controls.precio.setValue((Math.round(e.routes[0].summary.totalDistance / 1000) * 500));
         }).addTo(this.map);
       }
     });
