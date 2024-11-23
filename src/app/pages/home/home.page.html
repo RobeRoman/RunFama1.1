@@ -13,7 +13,6 @@
       <p class="nombre-usuario">{{usuario.nombre}}</p>
     </ion-label>
   </ion-item>
-  
 </ion-header>
 
 <ion-card id="card-temperatura" color="warning">
@@ -22,7 +21,9 @@
     <ion-card-subtitle>{{temperatura}}°C</ion-card-subtitle>
   </ion-card-header>
 </ion-card>
- <ion-content id="map_home"></ion-content>
+
+<ion-content id="map_home"></ion-content>
+
 <ion-content>
   <div class="ion-padding" *ngFor="let viaje of viajes">
     <ion-card class="viaje-card">
@@ -31,8 +32,10 @@
       </ion-card-header>
       <ion-card-content>
         <p>Asientos disponibles: {{ viaje.asientos_disponible }}</p>
-        <p>Precio: {{ viaje.precio }}</p>
+        <p>Precio: {{ viaje.precio }} CLP</p>
         
+        <!-- Aquí añadimos el precio en dólares -->
+        <p>Precio en Dólares: {{ calcularPrecioEnDolares(viaje.precio) | number:'1.2-2' }} USD</p>
       </ion-card-content>
       <ion-button expand="block" class="boton-amarillo" [disabled]="viaje.asientos_disponible === 0" (click)="tomarViaje(viaje)">Tomar!</ion-button>
       <ion-button expand="block" class="boton-azul" (click)="abrirDetalle(viaje)">Ver ruta</ion-button>

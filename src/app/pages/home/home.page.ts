@@ -30,15 +30,14 @@ export class HomePage implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
-    
-  const usuarioAutenticado = localStorage.getItem('usuarioAutenticado');
-  console.log("Valor recuperado de localStorage:", usuarioAutenticado);
-  if (usuarioAutenticado) {
-    this.usuarioAutenticado = JSON.parse(usuarioAutenticado);
-    this.cargarDatosUsuario(); 
-  } else {
-    console.error('No se encontró usuario autenticado en localStorage');
-  }
+    const usuarioAutenticado = localStorage.getItem('usuarioAutenticado');
+    console.log("Valor recuperado de localStorage:", usuarioAutenticado);
+    if (usuarioAutenticado) {
+      this.usuarioAutenticado = JSON.parse(usuarioAutenticado);
+      this.cargarDatosUsuario(); 
+    } else {
+      console.error('No se encontró usuario autenticado en localStorage');
+    }
   
     this.viajeService.viajes$.subscribe((viajes) => {
       this.viajes = viajes;
@@ -59,9 +58,7 @@ export class HomePage implements OnInit, AfterViewInit {
   }
   
   async tomarViaje(viaje: any) {
-    
     const usuarioActual = JSON.parse(localStorage.getItem("usuario") || '{}');
-      
     const viajes = await this.viajeService.getViajes();
     const yaHaTomadoUnViaje = viajes.some((v: any) =>
       v.pasajeros.some((pasajero: any) => pasajero.rut === usuarioActual.rut)
@@ -110,14 +107,12 @@ export class HomePage implements OnInit, AfterViewInit {
       attribution: '© OpenStreetMap'
     }).addTo(this.mapHome);
     
-
     const fixedMarker = L.marker([-33.59850527332617, -70.5787656165388]).addTo(this.mapHome);
     fixedMarker.bindPopup("Inicia desde este punto").openPopup();
   }
   
   mostrarMapaHome(latitud: number, longitud: number) {
     if (this.mapHome) {
-  
       if (this.routingControlHome) {
         this.mapHome.removeControl(this.routingControlHome);
       }
@@ -125,7 +120,6 @@ export class HomePage implements OnInit, AfterViewInit {
       const inicio = L.latLng(-33.59850527332617, -70.5787656165388); // Punto de inicio
       const destino = L.latLng(latitud, longitud); // Punto de destino
   
-      
       const plan = L.Routing.plan([inicio, destino], {
         createMarker: (i, waypoint) => {
           return L.marker(waypoint.latLng, {
@@ -134,7 +128,6 @@ export class HomePage implements OnInit, AfterViewInit {
         }
       });
   
-      
       this.routingControlHome = L.Routing.control({
         plan: plan,
         routeWhileDragging: false, 
@@ -161,18 +154,25 @@ export class HomePage implements OnInit, AfterViewInit {
     return viaje.pasajeros.some((pasajero: any) => pasajero.rut === usuarioActual.rut);
   }
 
-  consumitWheather(){
-    this.api.getDatosWeather().subscribe((data:any)=>{
-      console.log(data);
+  consumitWheather() {
+    this.api.getDatosWeather().subscribe((data: any) => {
       this.temperatura = data.properties.timeseries[0]?.data.instant.details.air_temperature;
       console.log(this.temperatura);
     });
   }
 
-  consumirAPIplata(){
-    this.api.getDatos().subscribe((data:any) => {
-      this.dolar = data.dolar.valor;  // Aquí obtienes el valor del dólar
-      console.log(this.dolar);
+  consumirAPIplata() {
+    this.api.getDatos().subscribe((data: any) => {
+      this.dolar = data.dolar.valor;  // Aquí se obtiene el valor del dólar
+      console.log("Valor del dólar:", this.dolar);
     });
+  }
+
+  public calcularPrecioEnDolares(precio: number): number {
+    // Verificamos que el valor del dólar esté disponible y sea mayor que 0
+    if (this.dolar > 0) {
+      return precio / this.dolar;  // Convertimos el precio CLP a USD
+    }
+    return 0;  // Si no tenemos el valor del dólar, retornamos 0
   }
 }
