@@ -39,7 +39,24 @@
         <ion-label position="stacked">Sede</ion-label>
         <p>{{usuario.sede}}</p>
       </ion-item>
-    </ion-list>
+    </ion-list>    
+    <qrcode 
+    [qrdata]="'RUT: ' + usuario.rut + ' | Nombre: ' + usuario.nombre + ' | Email: ' + usuario.correo"
+    [allowEmptyString]="true"
+    [alt]="'A custom alt attribute'"
+    [ariaLabel]="'QR Code image with the following content...'"
+    [cssClass]="'center'"
+    [colorDark]="'#000000ff'"
+    [colorLight]="'#ffffffff'"
+    [elementType]="'img'"
+    [errorCorrectionLevel]="'L'"
+    [margin]="10"
+    [scale]="4"
+    [title]="'A custom title attribute'"
+    [width]="300"
+  >
+  </qrcode>
+  
 
     <!-- Botones de acción -->
     <ion-button expand="full" color="warning" *ngIf="!modoEdicion" (click)="habilitarEdicion()">
