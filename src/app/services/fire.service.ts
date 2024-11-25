@@ -57,4 +57,66 @@ export class FireService {
         return null; // Maneja errores retornando null
       });
   }
+
+  async crearViaje(viaje: any) {
+    if (!viaje.id) {
+      console.error("El ID del viaje es requerido.");
+      return false;
+    }
+  
+    const docRef = this.fireStore.collection('viajes').doc(viaje.id.toString()); // Asegurarse de convertir a string
+    const docActual = await docRef.get().toPromise();
+  
+    if(docActual && docActual.exists) {
+      console.log('El viaje ya existe');
+      return false;
+    }
+  
+    // Si no existe el viaje, lo creamos
+    await docRef.set({ ...viaje });
+    return true;
+  }
+
+  getViajes(){
+    return this.fireStore.collection('viajes').valueChanges();
+  }
+
+  getViaje(id: number){
+    return this.fireStore.collection('viajes').doc(id.toString()).valueChanges();
+  }
+
+  updateViaje(viaje: any){
+    return this.fireStore.collection('viaje').doc(viaje.id).update(viaje);
+  }
+
+  deleteViaje(id: string){
+    return this.fireStore.collection('viajes').doc(id).delete();
+  }
+
+  public async getNextId(): Promise<number> {
+    // Obtener todos los documentos de la colección 'viajes'
+    const viajesRef = this.fireStore.collection('viajes');
+    const snapshot = await viajesRef.get().toPromise();
+  
+    // Verificar si el snapshot es válido y no está vacío
+    if (!snapshot || snapshot.empty) {
+      return 1; // Si no hay viajes, comienza desde 1
+    }
+  
+    let maxId = 0;
+  
+    snapshot.forEach(doc => {
+      const viajeData = doc.data() as { id?: number }; // Aseguramos que 'viajeData' tiene la propiedad 'id' como número opcional
+  
+      // Verificar si 'id' es un número
+      const id = viajeData?.id;
+  
+      if (typeof id === 'number') {
+        maxId = Math.max(maxId, id); // Encontrar el ID más alto
+      }
+    });
+  
+    // Retornar el siguiente ID incrementado
+    return maxId + 1;
+  }
 }

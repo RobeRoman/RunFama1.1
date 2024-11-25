@@ -6,6 +6,7 @@ import * as L from 'leaflet'; // Importamos Leaflet para los mapas
 import 'leaflet-routing-machine'; // Importamos la librería de rutas
 import { AlertController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api.service';
+import { FireService } from 'src/app/services/fire.service';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +27,8 @@ export class HomePage implements OnInit, AfterViewInit {
     private viajeService: ViajeService,
     private d: ChangeDetectorRef,
     private alertController: AlertController,
-    private api: ApiService
+    private api: ApiService,
+    private fireService: FireService
   ) {}
 
   ngOnInit() {
@@ -39,12 +41,10 @@ export class HomePage implements OnInit, AfterViewInit {
       console.error('No se encontró usuario autenticado en localStorage');
     }
   
-    this.viajeService.viajes$.subscribe((viajes) => {
-      this.viajes = viajes;
-      this.d.detectChanges(); 
-    });
 
-    this.obtenerViaje();
+
+    //this.obtenerViaje();
+    this.cargarViajes();
     this.consumitWheather();
     this.consumirAPIplata();
   }
@@ -52,11 +52,16 @@ export class HomePage implements OnInit, AfterViewInit {
   cargarDatosUsuario() {
     this.usuario = JSON.parse(localStorage.getItem("usuario") || '{}');
   }
-  
-  async obtenerViaje() {
-    this.viajes = await this.viajeService.getViajes();
+  /*
+  async obtenerViaje() {this.viajes = await this.viajeService.getViajes();}
+  */
+  cargarViajes(){
+    this.fireService.getViajes().subscribe(data=>{
+      this.viajes = data
+    });
   }
-  
+
+
   async tomarViaje(viaje: any) {
     const usuarioActual = JSON.parse(localStorage.getItem("usuario") || '{}');
     const viajes = await this.viajeService.getViajes();

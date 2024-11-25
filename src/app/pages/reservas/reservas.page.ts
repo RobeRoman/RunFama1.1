@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import * as L from 'leaflet';
 import * as G from 'leaflet-control-geocoder';
 import 'leaflet-routing-machine';
+import { FireService } from 'src/app/services/fire.service';
 
 @Component({
   selector: 'app-reservas',
@@ -34,7 +35,11 @@ export class ReservasPage implements OnInit {
     pasajeros: new FormControl([])
   });
 
-  constructor(private router: Router, private alertController: AlertController, private usuarioService: UsuarioService, private viajeService: ViajeService) {}
+  constructor(private router: Router, 
+              private alertController: AlertController, 
+              private usuarioService: UsuarioService, 
+              private viajeService: ViajeService,
+              private fireService: FireService) {}
 
   ngOnInit() {
     this.usuario = JSON.parse(localStorage.getItem("usuario") || '');
@@ -115,21 +120,20 @@ export class ReservasPage implements OnInit {
 
   async registrarViaje() {
     if (this.viaje.valid) {
-      const nextId = await this.viajeService.getNextId();
+      const nextId = await this.fireService.getNextId();
       this.viaje.controls.id.setValue(nextId);
   
       const viaje = this.viaje.value;
-      const registroV = await this.viajeService.createViaje(viaje);
-  
-      if (registroV) {
-        await this.presentAlert('Bien', 'Viaje registrado con éxito');
-        this.router.navigate(['/home']);
+      
+      const registroViaje = await this.fireService.crearViaje(viaje);
+      if (registroViaje) {
+        await this.presentAlert('Bien', 'El viaje ha sido registrado con éxito!');
         this.viaje.reset();
+        console.log('Viaje registrado');
       } else {
-        await this.presentAlert('Error', 'No se pudo registrar el viaje');
+        console.log('Formulario inválido');
+        await this.presentAlert('Error', 'El Formulario del registro es inválido, complete los campos');
       }
-    } else {
-      await this.presentAlert('Error', 'Formulario inválido, por favor revisa los campos.');
     }
   }
 
