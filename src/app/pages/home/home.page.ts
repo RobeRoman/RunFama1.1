@@ -63,38 +63,49 @@ export class HomePage implements OnInit, AfterViewInit {
 
 
   async tomarViaje(viaje: any) {
+    // Recuperamos el usuario autenticado
     const usuarioActual = JSON.parse(localStorage.getItem("usuario") || '{}');
-    const viajes = await this.viajeService.getViajes();
-    const yaHaTomadoUnViaje = viajes.some((v: any) =>
-      v.pasajeros.some((pasajero: any) => pasajero.rut === usuarioActual.rut)
-    );
   
-    if (yaHaTomadoUnViaje) {
-      await this.presentAlert('Error!', 'El usuario ya ha tomado un viaje');
-      console.log('El usuario ya ha tomado un viaje y no puede tomar otro.');
-      return;
-    }
-    
-    if (viaje.asientos_disponible > 0) {  
-      viaje.asientos_disponible -= 1;
-      
-      if (viaje.asientos_disponible === 0) {
-        viaje.estado_viaje = 'tomado';
+    // Obtenemos los viajes actuales de Firestore para verificar si el usuario ya tomó uno
+    this.fireService.getViajes().subscribe(async (viajes) => {
+      // Verificamos si el usuario ya ha tomado un viaje
+      const yaHaTomadoUnViaje = viajes.some((v: any) =>
+        v.pasajeros.some((pasajero: any) => pasajero.rut === usuarioActual.rut)
+      );
+  
+      if (yaHaTomadoUnViaje) {
+        // Si el usuario ya ha tomado un viaje, mostramos un mensaje de error
+        await this.presentAlert('Error!', 'El usuario ya ha tomado un viaje');
+        console.log('El usuario ya ha tomado un viaje y no puede tomar otro.');
+        return;
       }
-      
-      viaje.pasajeros.push(usuarioActual);
-      
-      const actualizado = await this.viajeService.updateViaje(viaje.id, viaje);
-      if (actualizado) {
-        await this.presentAlert('Perfecto', 'Viaje tomado correctamente');
-        console.log('Viaje actualizado correctamente');
-      } else {
-        console.log('Error al actualizar el viaje');
-      }
-    } else {
-      console.log('No hay asientos disponibles.');
-    }
+  
+      // Verificamos si hay asientos disponibles en el viaje
+      if (viaje.asientos_disponible > 0) {
+        // Reducimos la cantidad de asientos disponibles
+        viaje.asientos_disponible -= 1;
+  
+        // Si ya no hay asientos disponibles, cambiamos el estado del viaje
+        if (viaje.asientos_disponible === 0) {
+          viaje.estado_viaje = 'tomado';
+        }
+  
+        // Añadimos al usuario como pasajero del viaje
+        viaje.pasajeros.push(usuarioActual);
+  
+        try {
+          // Actualizamos el viaje en Firestore
+          await this.fireService.updateViaje(viaje);
+          // Mostramos un mensaje de éxito si la actualización fue exitosa
+          await this.presentAlert('Perfecto', 'Viaje tomado correctamente');
+          console.log('Viaje actualizado correctamente');
+        } catch (error) {                
+          await this.presentAlert('Error!', 'Hubo un error al tomar el viaje');
+        }
+      } 
+    });
   }
+  
     
   ngAfterViewInit() {
     this.initMapHome(); 
