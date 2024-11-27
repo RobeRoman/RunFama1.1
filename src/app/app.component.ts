@@ -27,6 +27,7 @@ export class AppComponent {
   // Método para salir y limpiar la sesión
   salir() {
     localStorage.removeItem('usuario'); // Elimina el usuario del localStorage
+    localStorage.removeItem('usuarioAutenticado'); // Elimina el usuario del localStorage
     this.menu.close();
     this.router.navigate(['/login']);
     this.menu.enable(false); // Deshabilita el menú si es necesario

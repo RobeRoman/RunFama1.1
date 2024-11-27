@@ -36,25 +36,22 @@ export class HomePage implements OnInit, AfterViewInit {
     console.log("Valor recuperado de localStorage:", usuarioAutenticado);
     if (usuarioAutenticado) {
       this.usuarioAutenticado = JSON.parse(usuarioAutenticado);
-      this.cargarDatosUsuario(); 
+      //this.cargarDatosUsuario(); 
     } else {
       console.error('No se encontró usuario autenticado en localStorage');
     }
-  
-
 
     //this.obtenerViaje();
     this.cargarViajes();
     this.consumitWheather();
     this.consumirAPIplata();
+    this.cargarDatosUsuario(); 
   }
 
   cargarDatosUsuario() {
     this.usuario = JSON.parse(localStorage.getItem("usuario") || '{}');
   }
-  /*
-  async obtenerViaje() {this.viajes = await this.viajeService.getViajes();}
-  */
+  
   cargarViajes(){
     this.fireService.getViajes().subscribe(data=>{
       this.viajes = data
@@ -64,7 +61,7 @@ export class HomePage implements OnInit, AfterViewInit {
 
   async tomarViaje(viaje: any) {
     // Recuperamos el usuario autenticado
-    const usuarioActual = JSON.parse(localStorage.getItem("usuario") || '{}');
+    const usuarioActual = JSON.parse(localStorage.getItem("usuario") || '{}' );
   
     // Obtenemos los viajes actuales de Firestore para verificar si el usuario ya tomó uno
     this.fireService.getViajes().subscribe(async (viajes) => {
