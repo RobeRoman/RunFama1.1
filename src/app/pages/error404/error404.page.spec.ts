@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+/*import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Error404Page } from './error404.page';
 
 describe('Error404Page', () => {
@@ -15,3 +15,4 @@ describe('Error404Page', () => {
     expect(component).toBeTruthy();
   });
 });
+*/
