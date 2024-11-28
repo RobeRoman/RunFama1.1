@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ViajeService } from 'src/app/services/viaje.service';
 import { AlertController } from '@ionic/angular';
+import { FireService } from 'src/app/services/fire.service';  // Ensure this import is correct
 
 @Component({
   selector: 'app-detalles-reservas',
@@ -27,6 +28,7 @@ export class DetallesReservasPage implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private viajeService: ViajeService,
+    private fireService: FireService, // Inject FireService here
     private alertController: AlertController // Inject the AlertController
   ) {}
 
@@ -38,18 +40,21 @@ export class DetallesReservasPage implements OnInit {
 
   private async cargarDetalles() {
     this.id = this.activatedRoute.snapshot.paramMap.get("id") || '0';
-    this.viajeService.getViaje(this.id).then((viaje: any) => {
+  
+    // Fetch the viaje details using FireService
+    this.fireService.getViaje(Number(this.id)).subscribe((viaje: any) => {
+      console.log(viaje); // Check what the response contains
       if (viaje) {
-        this.conductor = viaje.conductor || '';
+        this.conductor = viaje.conductor || 'No asignado';
         this.asientos_disponibles = Number(viaje.asientos_disponibles) || 0;
         this.destino = viaje.destino || 'No especificado';
         this.latitud = viaje.latitud || 0;
         this.longitud = viaje.longitud || 0;
         this.distancia_m = viaje.distancia_m || 0;
         this.tiempo_minutos = viaje.tiempo_minutos || 0;
-        this.precio = viaje.precio;
+        this.precio = viaje.precio || 'Gratuito';
         this.estado = this.capitalize(viaje.estado || 'Sin estado');
-        this.viaje = viaje; // Save the viaje object for later use
+        this.viaje = viaje;
       }
     });
   }

@@ -7,6 +7,7 @@ import 'leaflet-routing-machine'; // Importamos la librería de rutas
 import { AlertController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api.service';
 import { FireService } from 'src/app/services/fire.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -60,49 +61,59 @@ export class HomePage implements OnInit, AfterViewInit {
 
 
   async tomarViaje(viaje: any) {
-    // Recuperamos el usuario autenticado
-    const usuarioActual = JSON.parse(localStorage.getItem("usuario") || '{}' );
+    try {
+      console.log("Iniciando el método tomarViaje");
   
-    // Obtenemos los viajes actuales de Firestore para verificar si el usuario ya tomó uno
-    this.fireService.getViajes().subscribe(async (viajes) => {
+      // Recuperamos el usuario autenticado
+      const usuarioActual = JSON.parse(localStorage.getItem("usuario") || '{}');
+      console.log("Usuario actual recuperado del localStorage:", usuarioActual);
+  
+      // Obtenemos los viajes actuales de Firestore de forma sincronizada
+      const viajes = await firstValueFrom(this.fireService.getViajes());
+      console.log('Viajes actuales recuperados de Firestore:', viajes);
+  
       // Verificamos si el usuario ya ha tomado un viaje
       const yaHaTomadoUnViaje = viajes.some((v: any) =>
         v.pasajeros.some((pasajero: any) => pasajero.rut === usuarioActual.rut)
       );
+      console.log('¿El usuario ya ha tomado un viaje?:', yaHaTomadoUnViaje);
   
       if (yaHaTomadoUnViaje) {
-        // Si el usuario ya ha tomado un viaje, mostramos un mensaje de error
-        await this.presentAlert('Error!', 'El usuario ya ha tomado un viaje');
-        console.log('El usuario ya ha tomado un viaje y no puede tomar otro.');
-        return;
+        await this.presentAlert("Error!", "El usuario ya ha tomado un viaje");
+        console.log("El usuario ya ha tomado un viaje y no puede tomar otro.");
+        return; // Detenemos el flujo
       }
   
-      // Verificamos si hay asientos disponibles en el viaje
+      // Verificamos si hay asientos disponibles
+      console.log("Asientos disponibles en el viaje:", viaje.asientos_disponible);
       if (viaje.asientos_disponible > 0) {
-        // Reducimos la cantidad de asientos disponibles
         viaje.asientos_disponible -= 1;
+        console.log("Asientos disponibles después de la reducción:", viaje.asientos_disponible);
   
-        // Si ya no hay asientos disponibles, cambiamos el estado del viaje
         if (viaje.asientos_disponible === 0) {
-          viaje.estado_viaje = 'tomado';
+          viaje.estado_viaje = "tomado";
         }
   
-        // Añadimos al usuario como pasajero del viaje
         viaje.pasajeros.push(usuarioActual);
   
-        try {
-          // Actualizamos el viaje en Firestore
-          await this.fireService.updateViaje(viaje);
-          // Mostramos un mensaje de éxito si la actualización fue exitosa
-          await this.presentAlert('Perfecto', 'Viaje tomado correctamente');
-          console.log('Viaje actualizado correctamente');
-        } catch (error) {                
-          await this.presentAlert('Error!', 'Hubo un error al tomar el viaje');
-        }
-      } 
-    });
-  }
+        console.log("Datos del viaje que se intentan actualizar:", viaje);
   
+        try {
+          await this.fireService.updateViaje(viaje); // Actualizamos el viaje
+          await this.presentAlert("Perfecto", "Viaje tomado correctamente");
+          console.log("Viaje actualizado correctamente");
+        } catch (error) {
+          console.error("Error al actualizar el viaje:", error);
+          await this.presentAlert("Error!", "Hubo un error al tomar el viaje");
+        }
+      } else {
+        console.log("No hay asientos disponibles para este viaje.");
+        await this.presentAlert("Error!", "No hay asientos disponibles");
+      }
+    } catch (error) {
+      console.error("Error general en el método tomarViaje:", error);
+    }
+  }
     
   ngAfterViewInit() {
     this.initMapHome(); 
