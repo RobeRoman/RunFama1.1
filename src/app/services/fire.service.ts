@@ -91,7 +91,8 @@ export class FireService {
   }  
 
   deleteViaje(id: string){
-    return this.fireStore.collection('viajes').doc(id).delete();
+    const idAsString = id.toString();
+    return this.fireStore.collection('viajes').doc(idAsString).delete();
   }
 
   public async getNextId(): Promise<number> {

@@ -80,6 +80,7 @@ export class AdministrarPage implements OnInit {
     //this.usuarios = await this.usuarioService.getUsuarios();
     this.viajes = await this.viajeService.getViajes(); 
     this.cargarUsuariosFire();
+    this.cargarViajes();
 
     
     this.persona.get('tiene_auto')?.valueChanges.subscribe(value => {
@@ -193,9 +194,9 @@ export class AdministrarPage implements OnInit {
       console.log("ID del viaje a actualizar:", id);
   
       const viajeData = this.viaje.value;
-      const viajeActualizado = await this.viajeService.updateViaje(id, viajeData);
+      //const viajeActualizado = await this.viajeService.updateViaje(id, viajeData);
   
-      if (viajeActualizado) {
+      if (await this.fireService.updateViaje(viajeData).then) {
         await this.presentAlert('Bien', 'Viaje actualizado con éxito');
         this.viajes = await this.viajeService.getViajes(); // Refresca la lista de viajes
         this.modoEdicion = false; // Sale del modo edición
@@ -212,14 +213,8 @@ export class AdministrarPage implements OnInit {
   
 
   async eliminarViaje(id: string) {
-    const viajeEliminado = await this.viajeService.deleteViaje(id);
-    if (viajeEliminado) {
-      await this.presentAlert('Bien', 'Viaje eliminado con éxito');
-      this.viajes = await this.viajeService.getViajes(); 
-      this.viaje.reset();
-    } else {
-      await this.presentAlert('Error', 'No se pudo eliminar el viaje');
-    }
+    this.fireService.deleteViaje(id);
+    await this.presentAlert('Perfecto', 'Viaje eliminado!');
   }
 
   async presentAlert(header: string, message: string) {
@@ -281,5 +276,11 @@ export class AdministrarPage implements OnInit {
       return { asientosInvalidos: true };
     }
     return null;
+  }
+
+  cargarViajes(){
+    this.fireService.getViajes().subscribe(data=>{
+      this.viajes = data
+    });
   }
 }
