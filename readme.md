@@ -18,6 +18,13 @@
   - Crud de viajes(Crear, listar, modificar y eliminar viajes)
   - Apartado de reservas según id
 
+  ### Nuevas caracteristicas version 2.1 RUNFAMA
+  - Integracion de una base de datos Firebase
+  - Intregracion de Qr
+  - Crud de viajes y usuarios con base de datos
+  - Pruebas unitarias (20)
+  - Intregracion de un Hosting
+  - Consumo de 2 apis (Mindicador y met.no)
 
 
 ## Estado del Proyecto
