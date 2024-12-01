@@ -121,4 +121,8 @@ export class FireService {
     // Retornar el siguiente ID incrementado
     return maxId + 1;
   }
+
+  recuperar(email: string){
+    return this.fireAuth.sendPasswordResetEmail(email);
+  }
 }

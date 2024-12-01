@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
+import { FireService } from 'src/app/services/fire.service';
 
 @Component({
   selector: 'app-recuperar',
@@ -15,31 +17,23 @@ export class RecuperarPage implements OnInit {
   constructor(
     private alertController: AlertController,
     private router: Router,
-    private storage: Storage // Inyectar Storage de Ionic
+    private fireService: FireService,
+    private auth: AngularFireAuth
   ) { }
 
   async ngOnInit() {
     // Inicializar el storage
-    await this.storage.create();
   }
 
-  async validarcorreo() {
-    if (this.email === '') {
-      await this.presentAlert('Error', 'Correo vacío');
-    } else {
-      // Obtener usuarios desde Ionic Storage
-      const usuarios = await this.storage.get('usuarios') || [];
-      const correoValido = usuarios.some((user: any) => user.correo === this.email);
-      
-      if (correoValido) {
-        await this.presentAlert('Bien', 'Ingrese código de verificación y cambie contraseñas');
-        this.router.navigate(['/cambiarclave']);
-      } else {
-        await this.presentAlert('Error', 'El correo no es válido');
-      }
-    }
+  sendLinkReset(){
+    this.fireService.recuperar(this.email).then(()=>{
+      console.log('Enviando');
+    }).catch(()=>{
+      console.log('Error');
+    })
   }
-  
+
+
   async presentAlert(header: string, message: string) {
     const alert = await this.alertController.create({
       header: header,
